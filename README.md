@@ -1,5 +1,5 @@
 # Answerpedia Application
-Answerpedia is a platform for users to ask questions and view answers for any subjects related to coding and mathematics. 
+Answerpedia is a platform for users to ask questions and view answers of any subjects related to coding and mathematics. 
 
 ## Project contributors: 
 1. Giao Ngo 
