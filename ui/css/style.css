@@ -24,6 +24,7 @@ header nav {
     display: flex;
 }
 header nav ul {
+    width:100%;
     align-self: center;
     display: flex;
     padding-right:20px;
