@@ -1,3 +1,15 @@
+:root {
+    --pink-grey:#f3eeee; 
+    --light-pink:#fcf1f1;
+    --darker-pink:#E7D0D0;
+    --green:#285430;
+    --grey:#DFDEE0;
+    --font-heading-large:1.8em;
+    --font-heading-medium:1.5em;
+    --margin-large:50px;
+    --margin-medium:20px;
+    --padding-small:16px;
+} 
 /* layout for index.html----------------------------------------------------------*/
 .navSearchBar {
     background-color: var(--white);
@@ -28,10 +40,88 @@
 
 #feed {
     display:flex; 
+    margin-top: var(--margin-large);
 }
+
 #feed nav,#feed aside {
     flex:1;
 }
 #feed .allQuestions {
     flex:5;
+    background-color: var(--darker-pink);
+    margin:0 var(--margin-large);
+
 }
+#feed nav {
+    background-color:var(--pink-grey)
+}
+#feed ul {
+    list-style-type: none;
+    height:100%;
+    padding:0;
+    margin-top:var(--margin-large);
+    text-align: center;
+}
+#feed ul li {
+    margin-bottom: var(--margin-large);
+}
+#feed ul li a{
+    text-decoration: none;
+    color:var(--black); 
+    font-weight: 800;
+    font-size:var(--font-heading-medium);
+}
+
+.allQuestions h2 {
+    text-align: center;
+    font-size: var(--font-heading-large);
+}
+.allQuestions button {
+    float:right;
+    background-color: var(--green);
+    color:var(--white);
+    border: none;
+    padding:var(--padding-small);
+    cursor:pointer;
+    box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
+}
+.allQuestions button:active{
+    transform: scale(0.95);
+}
+.question {
+    background-color: var(--light-pink);
+    clear: right;
+    margin-bottom: var(--margin-medium);
+    display: flex;
+}
+.question > p {
+    flex-basis: 150px;
+    padding:var(--padding-small)
+}
+.question div {
+    flex:1;
+}
+
+#feed aside {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+#feed aside h2 {
+    font-size:var(--font-heading-medium);
+}
+.legendaryContainer {
+    background-color: var(--grey);
+    flex:3;
+}
+
+.legendaryQuestion a{
+    text-decoration: none;
+    color:var(--black);
+    cursor: pointer;
+}
+.topTag {
+    background-color: var(--grey);
+    flex:2;
+}
+
