@@ -43,7 +43,7 @@
     resize: none;
 }
 
-#mediaUpload #questionMedia::-webkit-file-upload-button {
+.mediaUpload input[type="file"]::-webkit-file-upload-button {
     flex:1;
     border: none;
     margin-top: var(--margin-small);
@@ -53,7 +53,7 @@
     border-radius: 10px;
     cursor: pointer;
 }
-#mediaUpload #questionMedia::-webkit-file-upload-button:active{
+.mediaUpload input[type="file"]::-webkit-file-upload-button:active{
     transform: scale(0.95);
 }
 #questionForm input[type="submit"] {
