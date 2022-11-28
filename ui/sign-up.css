@@ -1,8 +1,7 @@
-#logInTitle {
+#signUpTitle {
     text-align: center;
 }
-
-#logInForm{
+#signUpForm {
     margin: auto;
     margin-top: 2%;
     width: 600px;  
@@ -12,9 +11,9 @@
     box-shadow: 3px 5px 20px  #a39d9d;
     font-size: 20px;
     font-weight: bold;
-}   
+}
 
-#email, #password {
+#email, #password, #username {
     width: 100%;  
     height: 40px;  
     border: none;  
@@ -22,7 +21,15 @@
     padding-left: 8px;
 }
 
-#logIn {
+#line {
+    border: 0.5px solid black;
+}
+
+#quickLogIn {
+    font-weight: 100;
+}
+
+#signUp {
     width: 100%;  
     height: 40px;  
     border: none;  
@@ -30,36 +37,7 @@
     font-weight: bold;
 }
 
-#rememberMe{  
-    left: 50%;
-    color: white;  
-    font-size: 17px;  
-    width: fit-content;
-}  
-
-#forgotPassword{  
-    right: 50%;
-    opacity: 0.4;
-} 
-
-#line {
-    border: 0.5px solid black;
-}
-
- 
-#forgotPassword:hover, #signUp a:hover {
-    opacity: 1;
-}
-
-#quickSignUp {
-    font-weight: 100;
-}
-
-#signUp a {
-    opacity: 0.4;
-}
-
-#logInOptions {
+#signUpOptions {
     text-align: center;
     display: block;
 }
