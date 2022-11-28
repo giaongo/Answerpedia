@@ -19,7 +19,6 @@
 .about-section {
     height: 500px;
     position: relative;
-    /* opacity: 0.5 2s; */
 }
 
 .about-section img {
@@ -33,15 +32,39 @@
     color: white
 }
 
+.work-section {
+    text-align: center;
+}
+
+.work-section h2 {
+    font-size: 1.5rem;
+}
+#ourwork {
+    width: fit-content;
+    height: 300px;
+    background-color: antiquewhite;
+    text-align: justify;
+    padding: 5px;
+    font-weight: 300;
+    font-size: 1.5rem;
+    word-wrap: break-word;
+}
+
+
 .team-section {
     text-align: center;
+}
+
+.team-section h2 {
+    font-size: 1.5rem;
 }
 #container {
     padding: 0 16px;
 }
 
 #title {
-    color: grey;
+    color: rgb(41, 39, 39);
+    font-weight: bold;
 }
 
 #button {
