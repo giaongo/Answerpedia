@@ -1,0 +1,25 @@
+#logInTitle {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#logInForm{
+    margin: auto;
+    margin-top: 10%;
+    padding: 10px;
+    background-color: beige;
+    box-shadow: 3px 5px 20px  #888888;
+    width: 35vw;
+    height: 35vh;
+    font-size: 2em;
+    font-family: I;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}   
+#logInButton {
+    margin-top: 5%;
+    text-align: center;
+}
