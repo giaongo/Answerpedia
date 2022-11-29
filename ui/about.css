@@ -41,7 +41,7 @@
 }
 #ourwork {
     width: fit-content;
-    height: 300px;
+    height: fit-content;
     background-color: antiquewhite;
     text-align: justify;
     padding: 5px;
