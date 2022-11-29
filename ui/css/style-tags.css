@@ -2,7 +2,8 @@
 #savedQuestionContainer,
 #tagContainer {
     width:70%;
-    margin: 0 auto;
+    height:100%;
+    margin: var(--margin-large) auto 0;
 }
 
 .tagCard {
@@ -33,7 +34,7 @@
 .questionCard {
     background-color: var(--macroon);
     display: flex;
-    margin-top: var(--margin-large);
+    margin-bottom: var(--margin-large);
 }
 .questionCard h2 {
     flex-basis: 200px;
