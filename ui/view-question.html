@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Question</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-view-question.css">
     <script src="https://kit.fontawesome.com/3e403a213d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,12 +18,16 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main id="viewContainer">
         <section id="questionContainer">
-            <h1 id="questionTitleDisplay">My code does not work at all</h1>
-            <p id="questionDateDisplay">asked on 24/11/2022</p>
+            <h1>My code does not work at all</h1>
+            <figure class="profileContainer">
+                <img class="profileImg" src="http://placekitten.com/g/200/300" alt="profile_image">
+                <p class="username">Giao Ngo</p>
+            </figure>
+            <p>asked on 24/11/2022</p>
             <button>Ask question</button>
-            <p id="questionContentDisplay">
+            <p class="questionContentDisplay">     
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, deleniti laboriosam quisquam 
             sapiente labore animi tenetur! Exercitationem optio maiores sunt officiis, sit maxime, 
             cumque voluptas blanditiis vero illum minus facilis.Fugit officiis voluptatibus mollitia, 
@@ -40,42 +46,49 @@
             <div class="imgGallery">
                 <!-- The img will be dynamically added in js file -->
                 <div class="mainView">
-                    <img src="http://placekitten.com/200/300" width="400" height="400" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2022/11/23/18/06/colorful-7612604__480.png" alt="">
                 </div>
                 <div class="sideView">
-                    <img src="http://placekitten.com/g/200/300" width="200" height="200" alt="">
-                    <img src="http://placekitten.com/g/200/300" width="200" height="200" alt="">
-                    <img src="http://placekitten.com/200/300" width="200" height="200" alt="">
-                    <img src="http://placekitten.com/200/300" width="200" height="200" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2017/08/10/08/47/laptop-2620118__480.jpg" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2016/03/02/07/36/abstract-1231889__480.jpg" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2012/10/29/15/36/ball-63527__480.jpg" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2014/10/05/19/02/binary-code-475664__480.jpg" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/19/22/52/coding-1841550__480.jpg" alt="">
+                    <img src="https://cdn.pixabay.com/photo/2022/11/17/14/00/astrology-7598174__480.png"  alt="">
+                    <img src="https://cdn.pixabay.com/photo/2022/11/14/20/14/anchor-7592445__480.jpg"  alt="">
+                    <img src="https://cdn.pixabay.com/photo/2022/11/12/09/25/mountains-7586568__480.jpg"  alt="">
                 </div>
             </div>
             <div id="tagDisplay">
-                <span class="tagBox">
+                <div class="tagBox">
                     Javascript
-                </span>
-                <span class="tagBox">
-                    Python
-                </span>
-                <span class="tagBox">
-                    Kotlin
-                </span>
-                <span class="tagBox">
-                    Java
-                </span>
-            </div>
-            <div id="voteDisplay">
-                <div id="voteIcon">
-                    <i class="fa-regular fa-thumbs-up"></i>
-                    <i class="fa-regular fa-thumbs-down"></i>
                 </div>
-                <p id="voteNumber">100k</p>
+                <div class="tagBox">
+                    Python
+                </div>
+                <div class="tagBox">
+                    Kotlin
+                </div>
+                <div class="tagBox">
+                    Java
+                </div>
             </div>
-            <hr>
+            <div class="voteDisplay">
+                <button class="thumpsUp"><i class="fa-regular fa-thumbs-up"></i></button>
+                <button class="thumpsDown"><i class="fa-regular fa-thumbs-down"></i></button>
+                <p class="voteNumber">100k</p>
+            </div>
         </section>
+
+        <hr>
 
         <div class="answerContainer">
             <div class="answerBox">
-                <img class="profileImg" src="http://placekitten.com/g/200/300"  width="50" height="50" alt="profile_image">
+                <figure class="profileContainer">
+                    <img class="profileImg" src="https://cdn.pixabay.com/photo/2022/04/16/01/36/woman-7135489_1280.jpg" alt="profile_image">
+                    <p class="username">Elena Soini</p>
+                </figure>
+                <p class="answerDate">Posted on 24/11/2022</p>
                 <p class="answerContent">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in
                      a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
                      Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked 
@@ -83,20 +96,34 @@
                      and going through the cites of the word in classical literature, discovered the 
                      undoubtable source.</p>
                 <div class="imgCollection">
-                    <img class="answerImg" src="http://placekitten.com/g/200/300" width="400" height="400" alt="" >
+                    <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
+                    <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
+                    <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
+                    <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
+                    <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
                 </div>     
-                <p class="answerDate">Posted on 24/11/2022</p>
+
+                <div class="voteDisplay">
+                    <button><i class="fa-regular fa-thumbs-up"></i></button>
+                    <button><i class="fa-regular fa-thumbs-down"></i></button>
+                    <p class="voteNumber">100k</p>
+                </div>
             </div>
+            
         </div>
-        <form>
-            <label for="questionContent">Explain your problem</label><br>
-            <textarea id="questionContent" name="question_content"></textarea><br>
+        <form id="addAnswerForm">
+            <label for="answerContent">Your answer</label><br>
+            <textarea id="answerContent" name="answer_content"></textarea><br>
             <div class="mediaUpload">
                 <label for="answerMedia">Select a media file:</label>
                 <input type="file" id="answerMedia" name="media" multiple>
             </div>
+            <input type="submit">
         </form>
-
     </main>
+    <footer>
+        <h2>Answerpedia</h2>
+        <p>Author: Giao Ngo, Tai Nguyen, Anish Maharjan</p>
+    </footer>
 </body>
 </html>

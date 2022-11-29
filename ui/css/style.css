@@ -6,6 +6,18 @@
     --black:#242423;
     --white:#ffffff;
     --red:#ff172d;
+    --pink-grey:#f3eeee; 
+    --light-pink:#fcf1f1;
+    --darker-pink:#E7D0D0;
+    --green:#285430;
+    --grey:#DFDEE0;
+    --dark-grey:#2d2e2d;
+    --font-heading-large:1.8em;
+    --font-heading-medium:1.5em;
+    --margin-large:50px;
+    --margin-medium:20px;
+    --margin-small:10px;
+    --padding-small:16px;
 }
 body {
     margin: 0;
@@ -38,4 +50,23 @@ header nav ul li {
 header nav ul li a {
     text-decoration: none;
     color:var(--white);
+}
+
+/* global styling for button */
+button:active {
+    transform: scale(0.95);
+}
+/* global styling for mediaUpload class */
+.mediaUpload input[type="file"]::-webkit-file-upload-button {
+    flex:1;
+    border: none;
+    margin-top: var(--margin-small);
+    background-color: var(--dark-grey);
+    color: var(--white);
+    padding:10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.mediaUpload input[type="file"]::-webkit-file-upload-button:active{
+    transform: scale(0.95);
 }

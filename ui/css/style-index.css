@@ -85,9 +85,7 @@
     cursor:pointer;
     box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
 }
-.allQuestions button:active{
-    transform: scale(0.95);
-}
+
 .question {
     background-color: var(--light-pink);
     clear: right;
