@@ -8,6 +8,10 @@
     font-size: 2em;
     margin: 0;
 }
+#questionContainer button a {
+    color:var(--white);
+    text-decoration: none;
+}
 .profileContainer{
     margin: var(--margin-small) var(--margin-small) var(--margin-small) 0;
     display:flex;

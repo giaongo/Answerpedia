@@ -53,11 +53,11 @@
 
 }
 #feed nav {
-    background-color:var(--pink-grey)
+    background-color:var(--pink-grey);
+    height:100%;
 }
 #feed ul {
     list-style-type: none;
-    height:100%;
     padding:0;
     margin-top:var(--margin-large);
     text-align: center;
@@ -79,11 +79,15 @@
 .allQuestions button {
     float:right;
     background-color: var(--green);
-    color:var(--white);
+
     border: none;
     padding:var(--padding-small);
     cursor:pointer;
     box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
+}
+.allQuestions button a {
+    color:var(--white);
+    text-decoration: none;
 }
 
 .question {
@@ -91,6 +95,7 @@
     clear: right;
     margin-bottom: var(--margin-medium);
     display: flex;
+    cursor: pointer;
 }
 .question > p {
     flex-basis: 150px;
