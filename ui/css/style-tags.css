@@ -1,7 +1,10 @@
+#questionByTagContainer,
+#savedQuestionContainer,
 #tagContainer {
     width:70%;
     margin: 0 auto;
 }
+
 .tagCard {
     background-color: var(--light-pink);
     display: flex;
@@ -23,11 +26,8 @@
     color:var(--white);
     font-weight: bold;
 }
-#questionByTagContainer {
-    width:70%;
-    margin: 0 auto;
-}
-#questionByTagContainer h1{
+
+#questionByTagContainer h1, #savedQuestionContainer h1{
     text-align: center;
 }
 .questionCard {

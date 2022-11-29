@@ -8,7 +8,7 @@
     font-size: 2em;
     margin: 0;
 }
-#questionContainer button a {
+#questionContainer button #ask{
     color:var(--white);
     text-decoration: none;
 }
@@ -88,7 +88,22 @@
 .voteDisplay p {
     text-align: center;
 }
-
+.questionModify {
+    margin: var(--margin-medium) 0;
+}
+.questionModify button {
+    padding: 1em;
+    font-weight: bold;
+    font-size: 1em;
+}
+#modify {
+    background-color: var(--yellow);
+    margin-right: var(--margin-medium);
+}
+#delete {
+    background-color: var(--purple);
+    color:var(--white)
+}
 .answerContainer {
     position: relative;
     width:70%;

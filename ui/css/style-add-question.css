@@ -1,35 +1,47 @@
-#questionForm {
+#questionForm,
+#modifyQuestionContainer {
     width:50%;
     margin: 0 auto;
+    font-size: 20px;
 }
-#questionForm h1 {
+#questionForm h1,
+#modifyQuestionContainer h1 {
     text-align: center;
+    font-size: 2em;
 }
 
 #questionForm form input[type="text"],
-#questionForm form textarea{
+#questionForm form textarea,
+#modifyQuestionContainer form input[type="text"],
+#modifyQuestionContainer form textarea{
     border: none;
     margin-top:var(--margin-small);
 }
-#questionForm form > div{
+
+#questionForm form > div,
+#modifyQuestionContainer form > div{
     background-color: var(--grey);
     margin-bottom: var(--margin-medium);
     padding: var(--padding-small);
 }
-#questionForm form div > input {
+#questionForm form div > input,
+#modifyQuestionContainer form div > input {
     width:100%;
 }
-#questionForm form div:nth-of-type(2n+1) input[type="text"] {
-    height: 30px;
+#questionForm form div:nth-of-type(2n+1) input[type="text"],
+#editTitle {
+    height: 50px;
 }
-#questionContent {
+#questionContent,
+#editContent {
     height:300px;
     width: 100%;
     padding: var(--padding-small);
     resize: none;
 }
 
-#questionForm input[type="submit"] {
+#questionForm input[type="submit"],
+#modifyQuestionContainer input[type="submit"] {
     float:right;
     background-color: var(--grey);
     border: none;
