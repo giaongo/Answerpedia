@@ -1,0 +1,48 @@
+#tagContainer {
+    width:70%;
+    margin: 0 auto;
+}
+.tagCard {
+    background-color: var(--light-pink);
+    display: flex;
+    margin-top: var(--margin-large);
+} 
+.tagCard h2 {
+    flex-basis: 200px;
+    text-align: center;
+}
+.tagContent {
+    background-color: var(--grey);
+    flex:1;
+    padding:1.5em;
+}
+.tagContent button {
+    background-color: var(--purple);
+    border: none;
+    padding:1em;
+    color:var(--white);
+    font-weight: bold;
+}
+#questionByTagContainer {
+    width:70%;
+    margin: 0 auto;
+}
+#questionByTagContainer h1{
+    text-align: center;
+}
+.questionCard {
+    background-color: var(--macroon);
+    display: flex;
+    margin-top: var(--margin-large);
+}
+.questionCard h2 {
+    flex-basis: 200px;
+    text-align: center;
+    height:100%;
+    color: var(--white);
+}
+.questionCard section {
+    background-color: var(--grey);
+    flex:1;
+    padding:1.5em;
+}
