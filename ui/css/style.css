@@ -455,3 +455,344 @@ button:active {
     margin-bottom: var(--margin-medium);
     box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
 }
+
+/* Styling for login.html------------------------------------------------------------------------ */
+#log-in-title {
+    text-align: center;
+}
+
+#log-in-form{
+    margin: auto;
+    margin-top: 2%;
+    width: 600px;  
+    background: rgb(233, 183, 183);  
+    padding: 20px 40px;  
+    border-radius: 20px; 
+    box-shadow: 3px 5px 20px  #a39d9d;
+    font-size: 20px;
+    font-weight: bold;
+}   
+
+#email, #password {
+    width: 100%;  
+    height: 40px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;
+}
+
+#log-in {
+    width: 100%;  
+    height: 40px;  
+    border: none;  
+    border-radius: 17px;  
+    font-weight: bold;
+}
+
+#log-in:hover {
+    cursor: pointer;
+    background-color: #a39d9d;
+}
+
+#remember-me{  
+    left: 50%;
+    color: white;  
+    font-size: 17px;  
+    width: fit-content;
+}  
+
+#forgot-password{  
+    right: 50%;
+    opacity: 0.4;
+} 
+
+#line {
+    border: 0.5px solid black;
+}
+
+ 
+#forgot-password:hover, #sign-up a:hover {
+    opacity: 1;
+}
+
+#quick-sign-up {
+    font-weight: 100;
+}
+
+#sign-up a {
+    opacity: 0.4;
+}
+
+#log-in-options {
+    text-align: center;
+    display: block;
+}
+
+/* Styling for profile.html----------------------------------------------------------------------- */
+#profile-pic {
+    margin: 0 20%;
+    text-align: center;
+}
+
+#profile-pic img {
+  border-radius: 50%;
+  margin: 5px;
+  padding: 5px;
+} 
+
+#wrap {
+  margin: auto;
+  width: 60vw;  
+  height: 30vw;
+  padding: 40px;  
+  background-color: white;
+}
+
+#profile-info {
+    float: right;
+    padding: 15px;
+    background-color: rgb(241, 141, 74);
+    height: 100%;
+    width: 70%;
+    border-radius: 20px;
+    order:1
+}
+
+#profile-info label {
+    font-weight: bold;
+}
+
+#user-bio {
+    width: 100%;
+    height: 15vh;
+}
+
+#left-nav-bar {
+    background-color: #111;
+    width: 25%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+#left-nav-bar a {
+    padding: 8px 8px 8px 32px;
+    font-size: 1.5em;
+    color: white;
+    display: block;
+    text-decoration: none;
+}
+
+#left-nav-bar a:hover {
+    cursor: pointer;
+    color: #f1f1f1; 
+}
+
+/* Styling for sign-up.html----------------------------------------------------------------------- */
+#sign-up-title {
+    text-align: center;
+}
+#sign-up-form {
+    margin: auto;
+    margin-top: 2%;
+    width: 600px;  
+    background: rgb(233, 183, 183);  
+    padding: 20px 40px;  
+    border-radius: 20px; 
+    box-shadow: 3px 5px 20px  #a39d9d;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#email, #password, #username {
+    width: 100%;  
+    height: 40px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;
+}
+
+#line {
+    border: 0.5px solid black;
+}
+
+#quick-log-in {
+    font-weight: 100;
+}
+
+#sign-up {
+    width: 100%;  
+    height: 40px;  
+    border: none;  
+    border-radius: 17px;  
+    font-weight: bold;
+}
+
+#sign-up:hover {
+    cursor: pointer;
+    background-color: #a39d9d;
+}
+
+#sign-up-options {
+    text-align: center;
+    display: block;
+}
+
+/* Styling for about.html------------------------------------------------------------------------- */
+.column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+.card {
+    box-shadow: 3px 5px 20px  #3d3d3d;
+    margin: 8px;
+    padding-bottom: 10px;
+    text-align: justify;
+}
+
+.card h2, .title {
+    text-align: center;
+}
+
+.about-section {
+    height: 500px;
+    position: relative;
+    background-image: url("../image/coding_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.about-section h2 {
+    position: absolute;
+    top: 35%;
+    left: 16px;
+    color: white
+}
+
+.work-section {
+    text-align: center;
+}
+
+.work-section h2 {
+    font-size: 1.5rem;
+}
+#ourwork {
+    width: fit-content;
+    height: fit-content;
+    background-color: antiquewhite;
+    text-align: justify;
+    padding: 5px;
+    font-weight: 300;
+    font-size: 1.5rem;
+    word-wrap: break-word;
+}
+
+
+.team-section {
+    text-align: center;
+}
+
+.team-section h2 {
+    font-size: 1.5rem;
+}
+
+.container {
+    padding: 0 16px;
+}
+
+.title {
+    color: rgb(41, 39, 39);
+    font-weight: bold;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+.card img {
+    width: 100%;
+    height: 300px;
+}
+
+/* Styling for modify-profile.html--------------------------------------------------------------- */
+#modify-profile-title {
+    text-align: center;
+}
+
+#modify-profile-container {
+    margin: auto;
+    margin-top: 2%;
+    width: 600px;  
+    background: rgb(233, 183, 183);  
+    padding: 20px 40px;  
+    border-radius: 20px; 
+    box-shadow: 3px 5px 20px  #a39d9d;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#modify-profile-img {
+    padding: 10px;
+    text-align: center;
+}
+
+#modify-profile-img img {
+    padding-bottom: 20px;
+    border-radius: 70%;
+}
+
+#modify-profile-img button {
+    display: inline-block;
+    width: 40%;
+    height: 30px;
+    border: none;  
+    border-radius: 17px;  
+    font-weight: bold;
+}
+
+#modify-profile-info input {
+    width: 100%;  
+    height: 40px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;
+    line-height: 2;
+}
+
+#modify-profile-info {
+    line-height: 2;
+}
+
+#modify-profile-info #about-me-text {
+    height: 100px;
+}
+
+#modify-profile-buttons {
+    line-height: 50px;
+} 
+#modify-profile-buttons button {
+    width: 100%;
+    height: 40px;  
+    border: none;  
+    border-radius: 17px;  
+    font-weight: bold;
+}
+
+#modify-profile-buttons button:hover, #modify-profile-img button:hover  {
+    cursor: pointer;
+    background-color: #a39d9d;
+}
