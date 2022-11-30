@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/ui/css/style.css">
+    <link rel="stylesheet" href="/ui/profile.css">
+    <title>profile</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="image/app_logo.png" alt="logo" width="100" height="100"></a>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li class="navSearchBar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text">
+                </li>
+                <li class="navLogIn"><a href="login.html">Login</a></li>
+                <li class="navSignUp"><a href="sign-up.html">Sign up</a></li>
+                <li class="navEditProfile"> <a href="modify-profile.html">Edit profile</a></li>
+                <li class="navLogOut"><a href="login.html">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="profile-pic">
+            <img src="http://placekitten.com/200/250" alt="profilePicture">
+        </div>
+        <br>
+        <br>
+        <div id="wrap">
+            <div id="profile-info">
+                <div id="username">
+                    <label for="username">Username</label>
+                    <p>fetch username to here</p>
+                </div>
+                <div id="email">
+                    <label for="email">Email</label>
+                    <p>fetch email to here</p>
+                </div>
+                <div id="bio">
+                    <label for="bio">User bio</label>
+                    <br>
+                    <input type="text" id="user-bio">
+                </div>
+            </div>
+            <div id="left-nav-bar">
+                <a href="#">Questions</a>
+                <br>
+                <a href="#">Answers</a>
+                <br>
+                <a href="#">Tags</a>
+            </div> 
+        </div>
+        
+    </main>
+    <footer>
+        <h2>Answerpedia</h2>
+        <p>Author: Giao Ngo, Tai Nguyen, Anish Maharjan</p>
+    </footer>
+</body>
+</html>

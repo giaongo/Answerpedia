@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/ui/css/style.css">
+    <link rel="stylesheet" href="/ui/modify-profile.css">
+    <title>Modify Profile</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="image/app_logo.png" alt="logo" width="100" height="100"></a>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li class="navSearchBar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text">
+                </li>
+                <li class="navLogIn"><a href="login.html">Login</a></li>
+                <li class="navSignUp"><a href="sign-up.html">Sign up</a></li>
+                <li class="navLogOut"><a href="login.html">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="modify-profile-title">
+            <h1>Edit your profile</h1>
+        </div>
+        <div id="modify-profile-container">
+            <div id="modify-profile-img">
+                <img src="https://placedog.net/500" alt="placedog">
+                <br>
+                <button id="change-picture" type="submit">Change picture</button>
+                <button id="remove-picture" type="submit">Remove picture</button>
+            </div>
+            <div id="modify-profile-info">
+                <div id="display-name">
+                    <label for="display-name">Display username</label>
+                    <br>
+                    <input type="text" id="display-name-text">
+                </div>
+                <div id="email">
+                    <label for="email">Email</label>
+                    <br>
+                    <input type="text" id="email-text">
+                </div>
+                <div id="password">
+                    <label for="password">Password</label>
+                    <br>
+                    <input type="text" id="password-text">
+                </div>
+                <div id="confirm-password">
+                    <label for="confirm-password">Confirm Password</label>
+                    <br>
+                    <input type="text" id="confirm-password-text">
+                </div>
+                <div id="about me">
+                    <label for="about-me">About me</label>
+                    <br>
+                    <input type="text" id="about-me-text">
+                </div>
+            </div>
+            <br>
+            <div id="modify-profile-buttons">
+                <button id="save-profile" type="submit">Save Profile</button> 
+                <button id="cancel" type="reset">Cancel</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
