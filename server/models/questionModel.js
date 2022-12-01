@@ -12,12 +12,9 @@ const createQuestion = async(res,questionData) => {
         const [questionRows] = await promisePool.query(questionQuery,[question_title,question_content,date,user_id]);
         if(questionRows.affectedRows > 0) {
             const question_id = questionRows.insertId;
-            console.log("Added data to question table successfully");
             const tagRows = await addTagToQuestionTag(question_id,question_tag);
             if(tagRows.affectedRows > 0) {
-                console.log("Added data to tag table successfully");
                 const mediaRows = await addMediaToQuestionMedia(question_id,media);
-                console.log("added data to media table successfully");
                 return mediaRows;
             }
         }
@@ -45,11 +42,44 @@ const getAllQuestions = async(res) => {
         const [rows] = await promisePool.query(questionQuery);
         return rows;
     } catch(error) {
-        console.log("error",error.message);s
+        console.log("error",error.message);
         res.status(500).send(error.message);
     }
 }
+
+const updateQuestionById = async(res,updatedQuestion) => {
+    const {id, question_title, question_content, user_id} = updatedQuestion;
+    console.log("Question content is", question_content);
+    const userIsAdmin = await isAdmin(user_id);
+    console.log("user is admin", userIsAdmin);
+    try {
+        if(userIsAdmin) {
+            const editQuery = "UPDATE question SET question_title= ?, question_content= ? WHERE id = ?";
+            const [rows] = await promisePool.query(editQuery,[question_title, question_content,id]);
+            return rows;
+        } else {
+            const editQuery = "UPDATE question SET question_title = ?, question_content = ? WHERE id = ? AND user_id = ?";
+            const [rows] = await promisePool.query(editQuery,[question_title, question_content,id, user_id]);
+            return rows;
+        }
+    } catch(error) {
+        console.log("error",error.message);
+        res.status(500).send(error.message);
+    }
+} 
+
+const isAdmin = async(user_id) => {
+    try {
+        const userQuery = "SELECT id FROM user WHERE user.user_type_id = 1";
+        const [rows] = await promisePool.query(userQuery);
+        return rows.some(row => row.id === user_id);
+    } catch(error) {
+        console.log("error",error.message);
+    }
+}
+
 module.exports = {
     createQuestion,
-    getAllQuestions
+    getAllQuestions,
+    updateQuestionById
 }

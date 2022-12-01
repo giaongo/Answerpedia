@@ -11,4 +11,6 @@ router.route("/")
     )
     .get(questionController.getQuestions)
 
+router.route("/:question_id")
+    .put(questionController.modifyQuestionById)
 module.exports = router;
