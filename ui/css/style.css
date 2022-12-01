@@ -107,7 +107,7 @@ button:active {
 }
 
 #feed {
-    background-color: var(--light-grey);
+    /* background-color: var(--light-grey); */
     display:flex; 
     padding-top: var(--padding-large);
 }
@@ -115,14 +115,17 @@ button:active {
 #feed .allQuestionsContainer {
     flex:5;
     margin:0 var(--margin-large);
-    background-color: var(w);
+    /* margin: 2%; */
+    width: 60%;
+    background-color: var(--light-grey);
+    border-radius: 10px;
 }
 #feed nav {
     margin-left: 20%;
-    width: 10%;
-    /* background-color:var(--pink-grey); */
-    background-color: var(--white);
+    width: fit-content;
+    background-color: var(--light-grey);
     height:100%;
+    border-radius: 10px;
 }
 #feed ul {
     list-style-type: none;
@@ -137,12 +140,7 @@ button:active {
     text-decoration: none;
     color:var(--black); 
     font-weight: 800;
-    font-size:var(--font-heading-medium);
-}
-
-.allQuestionsContainer {
-    margin: 2%;
-    width: 60%;
+    font-size:var(--font-heading-medium);  
 }
 
 .topAskedQuestions h2 {
@@ -153,6 +151,7 @@ button:active {
     float:right;
     background-color: var(--light-blue);
     border: none;
+    margin-right: 5%;
     padding:var(--padding-small);
     cursor:pointer;
     box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
@@ -174,12 +173,11 @@ button:active {
 }
 
 .question {
-    background-color: var(--white);
     clear: right;
-    margin-bottom: var(--margin-medium);
     display: flex;
     cursor: pointer;
-
+    border-bottom: 0.5px solid black;
+    /* border-top: 0.5px solid black; */
 }
 .question > p {
     flex-basis: 150px;
@@ -196,12 +194,14 @@ button:active {
     margin-right: 20%;
     width: 10%;
     background-color: var(--white);
+    height: 100%;
+    background-color: var(--light-grey);
+    border-radius: 10px;
 }
 #feed aside h2 {
     font-size:var(--font-heading-medium);
 }
 .legendaryContainer {
-    background-color: var(--white);
     flex:3;
 }
 
@@ -211,8 +211,23 @@ button:active {
     cursor: pointer;
 }
 .topTags {
-    background-color: var(--white);
     flex:2;
+}
+
+/*Responsive css for index.html*/
+@media screen and (max-width: 1000px) {
+    #feed aside {
+        display: none;
+    }
+    #feed nav {
+        margin-left: 0;
+    }
+
+    #feed .allQuestionsContainer {
+        margin-right: 0;
+        width: fit-content;
+    }
+
 }
 
 /* Styling for add-question.html, modify-question.html--------------------------------------------*/
