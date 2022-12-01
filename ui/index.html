@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Answerpedia Feed</title>
+    <title>News Feed</title>
     <link href="css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3e403a213d.js" crossorigin="anonymous"></script>
 </head>
@@ -30,55 +30,58 @@
                 <li><a href="tags.html">Tags</a></li>
             </ul>
         </nav>
-        <article class="allQuestions">
-            <h2>Top Asked Questions</h2>
-            <button><a href="add-question.html">Ask question</a></button>
-            <!-- The below articles will be made dynamically in js file based on the fetch data from
-            backend -->
-            <article class="question">
-                <p>Interaction number</p>
-                <div>
-                    <h3>Question Title</h3>
-                    <p>Tags</p>
+        <div class="allQuestionsContainer">
+            <article class="topAskedQuestions">
+                <h2>Top Asked Questions</h2>
+                <button><a href="add-question.html">Ask question</a></button>
+                <!-- The below articles will be made dynamically in js file based on the fetch data from
+                backend -->
+                <div class="questionContainer">
+                    <!-- <article class="question">
+                        <p>Interaction number</p>
+                        <div>
+                            <h3>Question Title</h3>
+                            <p>Tags</p>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <p>Interaction number</p>
+                        <div>
+                            <h3>Question Title</h3>
+                            <p>Tags</p>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <p>Interaction number</p>
+                        <div>
+                            <h3>Question Title</h3>
+                            <p>Tags</p>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <p>Interaction number</p>
+                        <div>
+                            <h3>Question Title</h3>
+                            <p>Tags</p>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <p>Interaction number</p>
+                        <div>
+                            <h3>Question Title</h3>
+                            <p>Tags</p>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <p>Interaction number</p>
+                        <div>
+                            <h3>Question Title</h3>
+                            <p>Tags</p>
+                        </div>
+                    </article> -->
                 </div>
             </article>
-            <article class="question">
-                <p>Interaction number</p>
-                <div>
-                    <h3>Question Title</h3>
-                    <p>Tags</p>
-                </div>
-            </article>
-            <article class="question">
-                <p>Interaction number</p>
-                <div>
-                    <h3>Question Title</h3>
-                    <p>Tags</p>
-                </div>
-            </article>
-            <article class="question">
-                <p>Interaction number</p>
-                <div>
-                    <h3>Question Title</h3>
-                    <p>Tags</p>
-                </div>
-            </article>
-            <article class="question">
-                <p>Interaction number</p>
-                <div>
-                    <h3>Question Title</h3>
-                    <p>Tags</p>
-                </div>
-            </article>
-            <article class="question">
-                <p>Interaction number</p>
-                <div>
-                    <h3>Question Title</h3>
-                    <p>Tags</p>
-                </div>
-            </article>
-            
-        </article>
+        </div>
         <aside>
             <h2>Legendary Questions </h2>
             <div class="legendaryContainer">
@@ -91,5 +94,6 @@
             </div>
         </aside>
     </main>
+    <script src="/ui/js/index.js"></script>
 </body>
 </html>

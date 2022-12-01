@@ -9,6 +9,8 @@
     --pink-grey:#f3eeee; 
     --light-pink:#fcf1f1;
     --darker-pink:#E7D0D0;
+    --light-blue: rgb(2, 130, 250);
+    --blue: #0427ee;
     --green:#285430;
     --grey:#DFDEE0;
     --dark-grey:#2d2e2d;
@@ -101,13 +103,22 @@ button:active {
     margin-left: auto;
 }
 
+
 #feed {
     display:flex; 
     margin-top: var(--margin-large);
+    /* justify-content: center; */
 }
 
-#feed nav,#feed aside {
+#feed nav {
+    margin-left: 10%;
+    flex: 1;
+}
+
+#feed aside {
     flex:1;
+    margin-right: 10%;
+
 }
 #feed .allQuestions {
     flex:5;
@@ -135,20 +146,36 @@ button:active {
     font-size:var(--font-heading-medium);
 }
 
-.allQuestions h2 {
+.allQuestionsContainer {
+    margin: 2%;
+    width: 60%;
+}
+
+.topAskedQuestions h2 {
     text-align: center;
     font-size: var(--font-heading-large);
 }
-.allQuestions button {
+.topAskedQuestions button {
     float:right;
-    background-color: var(--green);
-
+    background-color: var(--light-blue);
     border: none;
     padding:var(--padding-small);
     cursor:pointer;
     box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
+    margin-bottom: 5%;
 }
-.allQuestions button a {
+
+.topAskedQuestions button:hover {
+    background-color: var(--blue);
+    /* transition: 0.5s; */
+    color: var(--white);
+}
+
+.topAskedQuestions button:active {
+    box-shadow: 0 5px var(--blue);
+    transform: translateY(1px);
+}
+.topAskedQuestions button a {
     color:var(--white);
     text-decoration: none;
 }
