@@ -1,4 +1,5 @@
 "use strict";
+const { curryRight } = require("lodash");
 const pool = require("../database/database");
 const promisePool = pool.promise();
 const {deleteAnswerByQuestionId} = require("./answerModel");
@@ -33,18 +34,6 @@ const addMediaToQuestionMedia = async(question_id,media) => {
     const mediaQuery = "INSERT INTO question_media(media,question_id) VALUES ?";
     const [mediaRows] = await promisePool.query(mediaQuery,[media.map(element => [element,question_id])]);
     return mediaRows;
-}
-
-// Function to fetch all distinct questions
-const getAllQuestions = async(res) => {
-    try {
-        const questionQuery = "SELECT id,question_title,question_content,date,votes,user_id,tag,media FROM question q LEFT JOIN question_tag qt ON q.id = qt.question_id LEFT JOIN question_media qm ON q.id = qm.question_id GROUP BY q.id";
-        const [rows] = await promisePool.query(questionQuery);
-        return rows;
-    } catch(error) {
-        console.log("error",error.message);
-        res.status(500).send(error.message);
-    }
 }
 
 // This function is to update question by question_id
@@ -149,7 +138,65 @@ const isAdmin = async(user_id) => {
         console.log("error",error.message);
     }
 }
+// Test-----------------------------------------------------------------------------
+// Code reference https://stackoverflow.com/questions/68955426/how-to-merge-multiple-array-objects-with-the-same-key
+// https://bobbyhadz.com/blog/javascript-remove-duplicates-from-array-of-objects
+const filterUnique = (arr) => {
+    const uniqueIds = [];
+    const unique = arr.filter(element => {
+        const isDuplicated = uniqueIds.includes(element.answer_id);
+        if(!isDuplicated) {
+            uniqueIds.push(element.answer_id);
+            return true;
+        }
+        return false;
+    })
+    return unique;
+}
 
+const getAllQuestions = async() => {
+    try {
+        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id INNER JOIN answer a ON q.id = a.question_id INNER JOIN user u1 ON a.user_id = u1.id INNER JOIN answer_media am ON a.id = am.answer_id";
+        const [rows] = await promisePool.query(questionQuery);
+        const output = Object.values(rows.reduce((acc,cur) => {
+            acc[cur.id] = acc[cur.id] || {
+                id: cur.id, 
+                question_title: cur.question_title,
+                question_content:cur.question_content,
+                question_date:cur.question_date,
+                question_votes:cur.question_votes,
+                question_user:cur.question_user,
+                question_user_picture:cur.question_user_picture,
+                question_tag: [], 
+                question_media: [],
+                answer: []
+            };
+
+            acc[cur.id].question_tag.push(cur.question_tag);
+            acc[cur.id].question_tag = [...new Set(acc[cur.id].question_tag)];
+            acc[cur.id].question_media.push(cur.question_media);
+            acc[cur.id].question_media = [...new Set(acc[cur.id].question_media)];
+            acc[cur.id].answer.push({
+                answer_id:cur.answer_id,
+                answer_content:cur.answer_content,
+                answer_date:cur.answer_date,
+                answer_votes:cur.answer_votes,
+                answer_user:cur.answer_user,
+                answer_user_picture:cur.answer_user_picture
+            })
+            acc[cur.id].answer.forEach(element => {
+                element.ans
+            })
+            return acc;
+        },{}));
+        output.forEach (element => {
+            element.answer = filterUnique(element.answer);
+         })
+        return output;
+    } catch(error) {
+        console.log("error",error.message);
+    }
+}
 module.exports = {
     createQuestion,
     getAllQuestions,
