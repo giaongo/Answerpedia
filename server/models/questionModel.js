@@ -5,7 +5,6 @@ const promisePool = pool.promise();
 // This function will add data to question, question_tag and question_media tables
 const createQuestion = async(res,questionData) => {
     const {question_title, question_content,date,user_id,question_tag,media} = questionData;
-    console.log("question tag",question_tag);
     console.log();
     try {
         const questionQuery = "INSERT INTO question(question_title,question_content,date,user_id) VALUES(?,?,?,?)";
@@ -62,7 +61,66 @@ const updateQuestionById = async(res,updatedQuestion) => {
             const [rows] = await promisePool.query(editQuery,[question_title, question_content,id, user_id]);
             return rows;
         }
+        return roe
     } catch(error) {
+        console.log("error",error.message);
+        res.status(500).send(error.message);
+    }
+} 
+
+// Function to delete question from table if user is admin or owner of the requested question
+const deleteQuestionById = async(res,questionId, userId) => {
+    try{
+        const userIsAdmin = await isAdmin(userId);
+        const userIsOwnerOfQuestion = await isOwnerOfQuestion(questionId,userId);
+        if(userIsAdmin || userIsOwnerOfQuestion) {
+            const result = deleteQuestionFromTables(questionId);
+            return result;
+        }
+    } catch(error) {
+        console.log("error",error.message);
+        res.status(500).send(error.message);
+    }
+}
+
+// Function to delete question from question, question_media and question_tag table
+const deleteQuestionFromTables = async(questionId) => {
+    const deleteFromQuestionMedia = "DELETE FROM question_media WHERE question_id = ?";
+    const [questionMediaRows] = await promisePool.query(deleteFromQuestionMedia,[questionId]);
+    if(questionMediaRows.affectedRows > 0) {
+        const deleteFromQuestionTag =  "DELETE FROM question_tag WHERE question_id = ?";
+        const [questionTagRows] = await promisePool.query(deleteFromQuestionTag,[questionId]);
+        if(questionTagRows.affectedRows > 0) {
+            const deleteFromQuestion = "DELETE FROM question WHERE id = ?";
+            const [questionRows] = await promisePool.query(deleteFromQuestion,[questionId]);
+            return questionRows;
+        }
+    }
+}
+
+const isOwnerOfQuestion = async(question_id,user_id) =>  {
+    try {
+        const query = "SELECT user_id from question WHERE id = ?";
+        const [rows] = await promisePool.query(query,[question_id]);
+        return rows[0].user_id === user_id ;
+    } catch(error) {
+        console.log("error",error.message);
+    }
+}
+
+// Function to fetch only media from either question_media or answer_media table by id
+const getMediaById = async(res,id,type) => {
+    try {
+        if(type === "question") {
+            const query = "SELECT media FROM question_media WHERE question_id = ?";
+            const [rows] = await promisePool.query(query,[id]);
+            return rows;
+        } else if(type === "answer") {
+            const query = "SELECT media FROM answer_media WHERE answer_id = ?";
+            const [rows] = await promisePool.query(query,[id]);
+            return rows;
+        }
+    } catch (error) {
         console.log("error",error.message);
         res.status(500).send(error.message);
     }
@@ -81,5 +139,7 @@ const isAdmin = async(user_id) => {
 module.exports = {
     createQuestion,
     getAllQuestions,
-    updateQuestionById
+    updateQuestionById,
+    deleteQuestionById,
+    getMediaById
 }

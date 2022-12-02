@@ -1,5 +1,6 @@
 "use strict";
-const {createQuestion,getAllQuestions, updateQuestionById} = require("../models/questionModel");
+const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById} = require("../models/questionModel");
+const {unlink}  = require("node:fs");
 
 const addQuestion = async(req,res) => {
     // TODO : Assume user_id = 1 is test user, will replace with req.user.id
@@ -12,7 +13,6 @@ const addQuestion = async(req,res) => {
         question.question_tag = question.question_tag.split(",");
         question.user_id = user_id;
         question.media = req.files.map(file => file.filename);
-        console.log("Media file should be",question.media);
         const result = await createQuestion(res,question);
         if(result && result.affectedRows > 0) {
             res.status(201).json({message: "Question is added successfully"});
@@ -43,8 +43,35 @@ const modifyQuestionById = async(req,res) => {
     }
 }
 
+const removeQuestionById = async(req,res) => {
+    // TODO: Assume user_id is a test user, will replace with actual req.user.id
+    const user_id = 2;
+    const question_id = req.params.question_id;
+    const filenames = await getMediaById(res,question_id,"question");
+    const result =  await deleteQuestionById(res,question_id,user_id);
+    if(result && result.affectedRows > 0) {
+        res.status(201).json({message: "Question is deleted successfully"})
+    } else {
+        res.status(400).json({message:"Question deletion failed"})
+    }
+    if(filenames) {
+        filenames.forEach(filename => {
+            const uploadLinkToDelete = "../server/uploads/" + filename.media;
+            unlink(uploadLinkToDelete,(err) => {
+                if(err) {
+                    console.log("error is",err);
+                    throw err;
+                }
+            })
+        })
+    } else {
+        res(400).json({message:"No filename to delete"});
+    }
+}
+
 module.exports = {
     addQuestion,
     getQuestions,
-    modifyQuestionById
+    modifyQuestionById,
+    removeQuestionById
 }

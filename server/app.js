@@ -12,4 +12,4 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use("/question",questionRouter);
 
-app.listen(port,() => console.log(`App listening on port ${port}!`));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
