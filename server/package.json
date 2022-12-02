@@ -2,11 +2,7 @@
   "name": "answerpedia",
   "version": "1.0.0",
   "scripts": {
-<<<<<<< HEAD
     "start": "nodemon app.js"
-=======
-    "start": "nodemon app.js"   
->>>>>>> question-merge
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
