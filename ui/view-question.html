@@ -44,7 +44,7 @@
             <p>Here is the issue</p>
             <div class="imgGallery">
                 <!-- The img will be dynamically added in js file -->
-                <div class="mainView">
+                <!-- <div class="mainView">
                     <img src="https://cdn.pixabay.com/photo/2022/11/23/18/06/colorful-7612604__480.png" alt="">
                 </div>
                 <div class="sideView">
@@ -57,47 +57,50 @@
                     <img src="https://cdn.pixabay.com/photo/2022/11/14/20/14/anchor-7592445__480.jpg"  alt="">
                     <img src="https://cdn.pixabay.com/photo/2022/11/12/09/25/mountains-7586568__480.jpg"  alt="">
                 </div>
-            </div>
-            <div id="tagDisplay">
-                <div class="tagBox">
-                    Javascript
+                <div id="tagDisplay">
+                    <div class="tagBox">
+                        Javascript
+                    </div>
+                    <div class="tagBox">
+                        Python
+                    </div>
+                    <div class="tagBox">
+                        Kotlin
+                    </div>
+                    <div class="tagBox">
+                        Java
+                    </div>
                 </div>
-                <div class="tagBox">
-                    Python
+                <div class="voteDisplay">
+                    <button class="thumbsUp"><i class="fa-regular fa-thumbs-up"></i></button>
+                    <button class="thumbsDown"><i class="fa-regular fa-thumbs-down"></i></button>
+                    <p class="voteNumber">100k</p>
                 </div>
-                <div class="tagBox">
-                    Kotlin
-                </div>
-                <div class="tagBox">
-                    Java
-                </div>
-            </div>
-            <div class="voteDisplay">
-                <button class="thumpsUp"><i class="fa-regular fa-thumbs-up"></i></button>
-                <button class="thumpsDown"><i class="fa-regular fa-thumbs-down"></i></button>
-                <p class="voteNumber">100k</p>
-            </div>
-            <div class="questionModify"> 
-                <button id="modify">Modify Question</button>
-                <button id="delete">Delete Question</button>
+                <div class="questionModify"> 
+                    <button id="modify">Modify Question</button>
+                    <button id="delete">Delete Question</button>
+                </div> -->
             </div>
         </section>
 
         <hr>
 
         <div class="answerContainer">
-            <div class="answerBox">
+            <!-- <div class="answerBox">
                 <figure class="profileContainer">
                     <img class="profileImg" src="https://cdn.pixabay.com/photo/2022/04/16/01/36/woman-7135489_1280.jpg" alt="profile_image">
                     <p class="username">Elena Soini</p>
                 </figure>
-                <p class="answerDate">Posted on 24/11/2022</p>
-                <p class="answerContent">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in
+                <div class="answerInfo">
+                    <p class="answerDate">Posted on 24/11/2022</p>
+                    <p class="answerContent">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in
                      a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
                      Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked 
                      up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, 
                      and going through the cites of the word in classical literature, discovered the 
                      undoubtable source.</p>
+                </div>
+                
                 <div class="imgCollection">
                     <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
                     <img class="answerImg" src="https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_640.jpg" alt="" >
@@ -111,9 +114,8 @@
                     <button><i class="fa-regular fa-thumbs-down"></i></button>
                     <p class="voteNumber">100k</p>
                 </div>
-            </div>
-            
-        </div>
+            </div>-->
+        </div> 
         <form id="addAnswerForm">
             <label for="answerContent">Your answer</label><br>
             <textarea id="answerContent" name="answer_content"></textarea><br>
@@ -124,5 +126,6 @@
             <input type="submit">
         </form>
     </main>
+    <script src="/ui/js/view-question.js"></script>
 </body>
 </html>
