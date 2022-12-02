@@ -21,8 +21,9 @@
         <div id="sign-up-title">
             <h1>Sign up</h1>
         </div>
-        <div id="sign-up-form">
-            <form action="/">
+        <div id="sign-up-form-div">
+            <! -- action needed to be added for redirecting to route in backend part -->
+            <form action="http://localhost:4000/auth/register" method="post" id="sign-up-form">
                 <!-- <label for="username">Username</label> -->
                 <br>
                 <input type="text" id="username" name="username" required="required" placeholder="Your username">

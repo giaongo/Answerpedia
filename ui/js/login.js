@@ -1,5 +1,6 @@
 'use strict';
-const url = 'http://127.0.0.1:5500/ui'; //Change when uploading to server
+// changed the url to localhost, sorry about that  
+const url = 'localhost:4000'; //Change when uploading to server
 
 const serializeJson = require("./serialize");
 
@@ -18,14 +19,18 @@ logInForm.addEventListener('submit', async (event) => {
         },
         body: JSON.stringify(data),
     };
+    
 
-    const response = await fetch(url + '/login/html', fetchOptions);
+    const response = await fetch(url + '/auth/login', fetchOptions);
     const json = await response.json();
     console.log('login response', json);
     if (!json.user) {
         alert(json.message);
     } else {
         //TODO: add save token code block here
+        sessionStorage.setItem('token', json.token);
+    sessionStorage.setItem('user', JSON.stringify(json.user));
+    location.href = 'index.html';
     }
 });
 

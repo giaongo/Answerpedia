@@ -1,5 +1,6 @@
 'use strict'
-const url = 'http://127.0.0.1:5500/ui';
+// changed the url to localhost, sorry about that  
+const url = 'localhost:4000';
 
 // const serializeJson = require("./serialize");
 
@@ -12,15 +13,15 @@ const signUpForm = document.querySelector('#sign-up-form');
 //submit register form
 signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const data = serializeJson(signUpForm);
+    const data = new FormData(signUpForm);
     const fetchOptions = {
         method: 'POST',
         headers: {
             'Content-Type':'application/json',
         },
-        body: JSON.stringify(data),
+        body: data,
     };
-    const response = await fetch(url + '/signup.html', fetchOptions);
+    const response = await fetch(url + '/auth/register', fetchOptions);
     const json = await response.json();
     alert(json.message);
 })
