@@ -4,3 +4,4 @@ server/uploads/*
 server/thumbnails/*
 !server/thumbnails/.gitkeep
 .env
+.DS_Store
