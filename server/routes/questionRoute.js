@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const questionController = require("../controllers/questionController");
+const answerController = require("../controllers/answerController");
 
 const upload = multer({dest:"uploads/"});
 router.route("/")
@@ -14,4 +15,11 @@ router.route("/")
 router.route("/:question_id")
     .put(questionController.modifyQuestionById)
     .delete(questionController.removeQuestionById)
+
+router.route("/:question_id/answer")
+    .post(
+        upload.array("media",10),
+        answerController.addAnswer
+    )
+
 module.exports = router;

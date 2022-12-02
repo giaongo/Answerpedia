@@ -5,7 +5,6 @@ const promisePool = pool.promise();
 // This function will add data to question, question_tag and question_media tables
 const createQuestion = async(res,questionData) => {
     const {question_title, question_content,date,user_id,question_tag,media} = questionData;
-    console.log();
     try {
         const questionQuery = "INSERT INTO question(question_title,question_content,date,user_id) VALUES(?,?,?,?)";
         const [questionRows] = await promisePool.query(questionQuery,[question_title,question_content,date,user_id]);
