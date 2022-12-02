@@ -2,6 +2,7 @@
 const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById} = require("../models/questionModel");
 const {unlink}  = require("node:fs");
 
+
 const addQuestion = async(req,res) => {
     // TODO : Assume user_id = 1 is test user, will replace with req.user.id
     const user_id = 10;
@@ -45,17 +46,25 @@ const modifyQuestionById = async(req,res) => {
 
 const removeQuestionById = async(req,res) => {
     // TODO: Assume user_id is a test user, will replace with actual req.user.id
-    const user_id = 2;
+    const user_id = 1;
     const question_id = req.params.question_id;
-    const filenames = await getMediaById(res,question_id,"question");
-    const result =  await deleteQuestionById(res,question_id,user_id);
-    if(result && result.affectedRows > 0) {
+    const questionMedia = await getMediaById(res,question_id,"question");
+    const answerMedia = await getMediaById(res,question_id,"answer");
+    const deleteQuestionResult =  await deleteQuestionById(res,question_id,user_id);
+    console.log("delete question result",deleteQuestionResult);
+    if(deleteQuestionResult && deleteQuestionResult.affectedRows > 0) {
+        await removeMediaFromUploads(questionMedia, answerMedia)
         res.status(201).json({message: "Question is deleted successfully"})
     } else {
         res.status(400).json({message:"Question deletion failed"})
     }
-    if(filenames) {
-        filenames.forEach(filename => {
+}
+
+const removeMediaFromUploads = async(questionMedia, answerMedia) => {
+    if(questionMedia.length > 0 || answerMedia.length > 0) {
+        questionMedia
+        .concat(answerMedia)
+        .forEach(filename => {
             const uploadLinkToDelete = "../server/uploads/" + filename.media;
             unlink(uploadLinkToDelete,(err) => {
                 if(err) {
@@ -64,9 +73,7 @@ const removeQuestionById = async(req,res) => {
                 }
             })
         })
-    } else {
-        res(400).json({message:"No filename to delete"});
-    }
+    } 
 }
 
 module.exports = {
