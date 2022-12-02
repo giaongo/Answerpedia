@@ -344,6 +344,7 @@ button:active {
     margin: 0 auto;
     position:relative;
     margin-top: var(--margin-large);
+    background-color: lavender;
 }
 #questionContainer h1 {
     font-size: 2em;
@@ -502,8 +503,7 @@ button:active {
 
 #log-in-form{
     margin: auto;
-    margin-top: 2%;
-    width: 600px;  
+    width: 60%;  
     background: rgb(233, 183, 183);  
     padding: 20px 40px;  
     border-radius: 20px; 
@@ -512,6 +512,9 @@ button:active {
     font-weight: bold;
 }   
 
+#log-in-form input, button{
+    margin-top: 5%;
+}
 #email, #password {
     width: 100%;  
     height: 40px;  
@@ -542,7 +545,7 @@ button:active {
 
 #forgot-password{  
     right: 50%;
-    opacity: 0.4;
+    opacity: 0.7;
 } 
 
 #line {
@@ -559,12 +562,16 @@ button:active {
 }
 
 #sign-up a {
-    opacity: 0.4;
+    opacity: 0.7;
 }
 
 #log-in-options {
     text-align: center;
     display: block;
+}
+
+#log-in-options .icons i{
+    transition: 0s;
 }
 
 /* Styling for profile.html----------------------------------------------------------------------- */
@@ -633,13 +640,17 @@ button:active {
 #sign-up-form {
     margin: auto;
     margin-top: 2%;
-    width: 600px;  
+    width: 60%;  
     background: rgb(233, 183, 183);  
     padding: 20px 40px;  
     border-radius: 20px; 
     box-shadow: 3px 5px 20px  #a39d9d;
     font-size: 20px;
     font-weight: bold;
+}
+
+#sign-up-form input, button {
+    margin-top: 5%;
 }
 
 #email, #password, #username {
@@ -652,6 +663,7 @@ button:active {
 
 #line {
     border: 0.5px solid black;
+    margin-top: 5%;
 }
 
 #quick-log-in {
@@ -676,6 +688,10 @@ button:active {
     display: block;
 }
 
+#sign-up-options .icons i {
+    transition: 0s;
+}
+
 /* Styling for about.html------------------------------------------------------------------------- */
 .column {
     float: left;
@@ -689,9 +705,15 @@ button:active {
     margin: 8px;
     padding-bottom: 10px;
     text-align: justify;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.card h2, .title {
+.card img {
+    width: 100%;
+    height: 300px;
+}
+
+.card h2, .title{
     text-align: center;
 }
 
@@ -746,15 +768,14 @@ button:active {
     font-weight: bold;
 }
 
-.button {
+.container button {
   border: none;
   outline: 0;
-  display: inline-block;
   padding: 8px;
   color: white;
   background-color: #000;
-  text-align: center;
   cursor: pointer;
+  transition: 0.2s;
   width: 100%;
 }
 
@@ -762,9 +783,50 @@ button:active {
     background-color: #555;
 }
 
-.card img {
-    width: 100%;
-    height: 300px;
+.icons {
+    width: 150px;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.icons i {
+    margin-top: 15px;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.icons i:hover {
+    background-color: #555;
+}
+
+
+@media screen  and (max-width: 1000px){ 
+    .column {
+        width: 100%;
+        height: 33.3%;
+    }
+
+    .card {
+        padding-bottom: 0;
+        display: flex;
+    }
+
+    .card img {
+        width: 200px;
+        margin-bottom: 0;
+        flex: 1;
+    }
+
+    .card .container {
+        flex: 2;
+        text-align: left;
+    }
+    
+    
 }
 
 /* Styling for modify-profile.html--------------------------------------------------------------- */
