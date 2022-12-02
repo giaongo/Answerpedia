@@ -6,9 +6,12 @@
     --black:#242423;
     --white:#ffffff;
     --red:#ff172d;
+    --light-grey: #c5c3c3af;
     --pink-grey:#f3eeee; 
     --light-pink:#fcf1f1;
     --darker-pink:#E7D0D0;
+    --light-blue: rgb(2, 130, 250);
+    --blue: #0427ee;
     --green:#285430;
     --grey:#DFDEE0;
     --dark-grey:#2d2e2d;
@@ -21,6 +24,7 @@
     --margin-medium:20px;
     --margin-small:10px;
     --padding-small:16px;
+    --padding-large:50px;
 }
 body {
     margin: 0;
@@ -74,6 +78,7 @@ button:active {
 }
 
 /* Styling for index.html------------------------------------------------------------------ */
+
 .navSearchBar {
     background-color: var(--white);
 }
@@ -102,22 +107,25 @@ button:active {
 }
 
 #feed {
+    /* background-color: var(--light-grey); */
     display:flex; 
-    margin-top: var(--margin-large);
+    padding-top: var(--padding-large);
 }
 
-#feed nav,#feed aside {
-    flex:1;
-}
-#feed .allQuestions {
+#feed .allQuestionsContainer {
     flex:5;
-    background-color: var(--darker-pink);
     margin:0 var(--margin-large);
-
+    /* margin: 2%; */
+    width: 60%;
+    background-color: var(--light-grey);
+    border-radius: 10px;
 }
 #feed nav {
-    background-color:var(--pink-grey);
+    margin-left: 20%;
+    width: fit-content;
+    background-color: var(--light-grey);
     height:100%;
+    border-radius: 10px;
 }
 #feed ul {
     list-style-type: none;
@@ -132,33 +140,44 @@ button:active {
     text-decoration: none;
     color:var(--black); 
     font-weight: 800;
-    font-size:var(--font-heading-medium);
+    font-size:var(--font-heading-medium);  
 }
 
-.allQuestions h2 {
+.topAskedQuestions h2 {
     text-align: center;
     font-size: var(--font-heading-large);
 }
-.allQuestions button {
+.topAskedQuestions button {
     float:right;
-    background-color: var(--green);
-
+    background-color: var(--light-blue);
     border: none;
+    margin-right: 5%;
     padding:var(--padding-small);
     cursor:pointer;
     box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
+    margin-bottom: 5%;
 }
-.allQuestions button a {
+
+.topAskedQuestions button:hover {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.topAskedQuestions button:active {
+    box-shadow: 0 5px var(--blue);
+    transform: translateY(1px);
+}
+.topAskedQuestions button a {
     color:var(--white);
     text-decoration: none;
 }
 
 .question {
-    background-color: var(--light-pink);
     clear: right;
-    margin-bottom: var(--margin-medium);
     display: flex;
     cursor: pointer;
+    border-bottom: 0.5px solid black;
+    /* border-top: 0.5px solid black; */
 }
 .question > p {
     flex-basis: 150px;
@@ -172,12 +191,17 @@ button:active {
     text-align: center;
     display: flex;
     flex-direction: column;
+    margin-right: 20%;
+    width: 10%;
+    background-color: var(--white);
+    height: 100%;
+    background-color: var(--light-grey);
+    border-radius: 10px;
 }
 #feed aside h2 {
     font-size:var(--font-heading-medium);
 }
 .legendaryContainer {
-    background-color: var(--grey);
     flex:3;
 }
 
@@ -186,9 +210,24 @@ button:active {
     color:var(--black);
     cursor: pointer;
 }
-.topTag {
-    background-color: var(--grey);
+.topTags {
     flex:2;
+}
+
+/*Responsive css for index.html*/
+@media screen and (max-width: 1000px) {
+    #feed aside {
+        display: none;
+    }
+    #feed nav {
+        margin-left: 0;
+    }
+
+    #feed .allQuestionsContainer {
+        margin-right: 0;
+        width: fit-content;
+    }
+
 }
 
 /* Styling for add-question.html, modify-question.html--------------------------------------------*/
