@@ -18,24 +18,25 @@
     </header>
     <main id="questionForm">
         <h1>Ask a question?</h1>
-        <form>
+        <form action="http://localhost:4000/question" method="post" enctype="multipart/form-data" 
+        id="addQuestionForm">
             <div id="titleUpload">
                 <label for="questionTitle">Title</label>
-                <input type="text" id="questionTitle" name="question_title">
+                <input required type="text" id="questionTitle" name="question_title">
             </div>
             <div id="problemUpload">
                 <label for="questionContent">Explain your problem</label><br>
-                <textarea id="questionContent" name="question_content"></textarea><br>
+                <textarea required id="questionContent" name="question_content"></textarea><br>
                 <div class="mediaUpload">
                     <label for="questionMedia">Select a media file:</label>
-                    <input type="file" id="questionMedia" name="media" multiple>
+                    <input required type="file" id="questionMedia" name="media" multiple>
                 </div>
             </div>
             <div id="tagUpload">
                 <label for="questionTags">Tags (separate by comma)</label>
-                <input type="text" id="questionTags" name="question_tag">
+                <input required type="text" id="questionTags" name="question_tag">
             </div>
-            <input type="submit">
+            <input type="submit" id="submitNewQuestion">
         </form>
     </main>
 </body>

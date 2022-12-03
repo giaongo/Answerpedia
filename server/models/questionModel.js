@@ -219,7 +219,6 @@ const getQuestionById = async(res,questionId) => {
                     return ansAcc;
                 }
             },{}))
-            console.log("answer output is", answerOutput);
             acc[cur.id].answer = answerOutput;
             return acc;
         },{}));
