@@ -1,5 +1,4 @@
 "use strict";
-const { curryRight } = require("lodash");
 const pool = require("../database/database");
 const promisePool = pool.promise();
 const {deleteAnswerByQuestionId} = require("./answerModel");
@@ -138,23 +137,16 @@ const isAdmin = async(user_id) => {
         console.log("error",error.message);
     }
 }
-// Test-----------------------------------------------------------------------------
-// Code reference https://stackoverflow.com/questions/68955426/how-to-merge-multiple-array-objects-with-the-same-key
-// https://bobbyhadz.com/blog/javascript-remove-duplicates-from-array-of-objects
-const filterUnique = (arr) => {
-    const uniqueIds = [];
-    const unique = arr.filter(element => {
-        const isDuplicated = uniqueIds.includes(element.answer_id);
-        if(!isDuplicated) {
-            uniqueIds.push(element.answer_id);
-            return true;
-        }
-        return false;
-    })
-    return unique;
-}
 
-const getAllQuestions = async() => {
+/* This function inner joins question tables, question's constrained tables, answer tables and 
+answer's constrained tables to return the most important data that client needs to know. The data from 
+database query is then formatted by outer reduce JS feature for question part and inner reduce for answer's parts belonging
+to that particular question. 
+Learning source:
+1. https://stackoverflow.com/questions/68955426/how-to-merge-multiple-array-objects-with-the-same-key
+2. https://bobbyhadz.com/blog/javascript-remove-duplicates-from-array-of-objects
+*/
+const getAllQuestions = async(res) => {
     try {
         const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id INNER JOIN answer a ON q.id = a.question_id INNER JOIN user u1 ON a.user_id = u1.id INNER JOIN answer_media am ON a.id = am.answer_id";
         const [rows] = await promisePool.query(questionQuery);
@@ -169,34 +161,42 @@ const getAllQuestions = async() => {
                 question_user_picture:cur.question_user_picture,
                 question_tag: [], 
                 question_media: [],
-                answer: []
             };
 
             acc[cur.id].question_tag.push(cur.question_tag);
             acc[cur.id].question_tag = [...new Set(acc[cur.id].question_tag)];
             acc[cur.id].question_media.push(cur.question_media);
             acc[cur.id].question_media = [...new Set(acc[cur.id].question_media)];
-            acc[cur.id].answer.push({
-                answer_id:cur.answer_id,
-                answer_content:cur.answer_content,
-                answer_date:cur.answer_date,
-                answer_votes:cur.answer_votes,
-                answer_user:cur.answer_user,
-                answer_user_picture:cur.answer_user_picture
-            })
-            acc[cur.id].answer.forEach(element => {
-                element.ans
-            })
+
+            const answerOutput = Object.values(rows.reduce((ansAcc,ansCur) => {
+                if(ansCur.id === acc[cur.id].id) {
+                    ansAcc[ansCur.answer_id] = ansAcc[ansCur.answer_id] || {
+                        answer_id:ansCur.answer_id,
+                        answer_content:ansCur.answer_content,
+                        answer_date:ansCur.answer_date,
+                        answer_votes:ansCur.answer_votes,
+                        answer_user:ansCur.answer_user,
+                        answer_user_picture:ansCur.answer_user_picture,
+                        answer_media:[]
+                    }
+                    ansAcc[ansCur.answer_id].answer_media.push(ansCur.answer_media);
+                    ansAcc[ansCur.answer_id].answer_media = [...new Set(ansAcc[ansCur.answer_id].answer_media)];
+                    return ansAcc;
+                } else {
+                    return ansAcc;
+                }
+            },{}))
+            console.log("answer output is", answerOutput);
+            acc[cur.id].answer = answerOutput;
             return acc;
         },{}));
-        output.forEach (element => {
-            element.answer = filterUnique(element.answer);
-         })
         return output;
     } catch(error) {
         console.log("error",error.message);
+        res.status(500).send(error.message);
     }
 }
+
 module.exports = {
     createQuestion,
     getAllQuestions,

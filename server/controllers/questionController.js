@@ -24,7 +24,7 @@ const addQuestion = async(req,res) => {
 }
 
 const getQuestions = async(req,res) => {
-    const questions = await getAllQuestions();
+    const questions = await getAllQuestions(res);
     if(questions) {
         res.status(201).json(questions);
     }
