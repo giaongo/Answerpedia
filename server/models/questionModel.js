@@ -148,9 +148,41 @@ Learning source:
 */
 const getAllQuestions = async(res) => {
     try {
-        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id LEFT JOIN answer a ON q.id = a.question_id LEFT JOIN user u1 ON a.user_id = u1.id LEFT JOIN answer_media am ON a.id = am.answer_id";
+        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id ORDER BY q.id";
         const [rows] = await promisePool.query(questionQuery);
         const output = Object.values(rows.reduce((acc,cur) => {
+            // in first loop acc is {}, cur is the first object in rows
+            acc[cur.id] = acc[cur.id] || {
+                id: cur.id, 
+                question_title: cur.question_title,
+                question_content:cur.question_content,
+                question_date:cur.question_date,
+                question_votes:cur.question_votes,
+                question_user:cur.question_user,
+                question_user_picture:cur.question_user_picture,
+                question_tag: [], 
+            };
+            // push the next value of cur to acc object and set the array data to be distinct set
+            acc[cur.id].question_tag.push(cur.question_tag);
+            acc[cur.id].question_tag = [...new Set(acc[cur.id].question_tag)];
+            return acc;
+        },{}));
+        
+        return output;
+
+    } catch(error) {
+        console.log("error",error.message);
+        res.status(500).send(error.message);
+    }
+}
+
+const getQuestionById = async(res,questionId) => {
+    try {
+        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id LEFT JOIN answer a ON q.id = a.question_id LEFT JOIN user u1 ON a.user_id = u1.id LEFT JOIN answer_media am ON a.id = am.answer_id where q.id = ?";
+
+        const [rows] = await promisePool.query(questionQuery,[questionId]);
+        const output = Object.values(rows.reduce((acc,cur) => {
+
             acc[cur.id] = acc[cur.id] || {
                 id: cur.id, 
                 question_title: cur.question_title,
@@ -168,6 +200,7 @@ const getAllQuestions = async(res) => {
             acc[cur.id].question_media.push(cur.question_media);
             acc[cur.id].question_media = [...new Set(acc[cur.id].question_media)];
 
+            // for each outer reduce, do the inner similar reduce to filter the answer part for each question
             const answerOutput = Object.values(rows.reduce((ansAcc,ansCur) => {
                 if(ansCur.id === acc[cur.id].id) {
                     ansAcc[ansCur.answer_id] = ansAcc[ansCur.answer_id] || {
@@ -191,6 +224,7 @@ const getAllQuestions = async(res) => {
             return acc;
         },{}));
         return output;
+
     } catch(error) {
         console.log("error",error.message);
         res.status(500).send(error.message);
@@ -200,6 +234,7 @@ const getAllQuestions = async(res) => {
 module.exports = {
     createQuestion,
     getAllQuestions,
+    getQuestionById,
     updateQuestionById,
     deleteQuestionById,
     getMediaById

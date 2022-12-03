@@ -1,5 +1,5 @@
 "use strict";
-const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById} = require("../models/questionModel");
+const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById} = require("../models/questionModel");
 const {unlink}  = require("node:fs");
 
 
@@ -27,9 +27,19 @@ const getQuestions = async(req,res) => {
     const questions = await getAllQuestions(res);
     if(questions) {
         res.status(201).json(questions);
+    } else {
+        res.status(401).json({message:"Error with getting all questions"});
     }
 }
 
+const readQuestionById = async(req,res) => {
+    const question = await getQuestionById(res,req.params.question_id);
+    if(question) {
+        res.status(201).json(question);
+    } else {
+        res.status(401).json({message:"Error with getting the question"});
+    }
+}
 const modifyQuestionById = async(req,res) => {
     // TODO: Assume user_id is a test user, will replace with actual req.user.id
     const user_id = 10;
@@ -80,5 +90,6 @@ module.exports = {
     addQuestion,
     getQuestions,
     modifyQuestionById,
-    removeQuestionById
+    removeQuestionById,
+    readQuestionById
 }
