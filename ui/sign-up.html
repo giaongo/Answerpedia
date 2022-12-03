@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/ui/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Sign Up</title>
 </head>
 <body>
@@ -21,23 +22,18 @@
         <div id="sign-up-title">
             <h1>Sign up</h1>
         </div>
-        <div id="sign-up-form">
-            <form action="/">
+        <div id="sign-up-form-div">
+            <! -- action needed to be added for redirecting to route in backend part -->
+            <form action="http://localhost:4000/auth/register" method="post" id="sign-up-form">
                 <!-- <label for="username">Username</label> -->
                 <br>
+
+    
                 <input type="text" id="username" name="username" required="required" placeholder="Your username">
-                <br>
-                <!-- <label for="email">Email</label> -->
-                <br>
                 <input type="email" id="email" name="email"  require="required" placeholder="Your email">
-                <br>
-                <!-- <label for="password">Password</label> -->
-                <br>
                 <input type="password" id="password" name="password" required="required" placeholder="Your password">
-                <br><br>
                 <button type="submit" id="sign-up">Sign me up</button>
             </form>
-            <br>
             <div id="line"></div>
             <div id="quick-log-in">
                 <p>Already have an account? <a href="/ui/login.html" target="_blank">Log in</a>
@@ -45,15 +41,15 @@
             </div>
             <div id="sign-up-options">
                 <p>Sign up via:</p>
-                <a href="https://www.google.com/" class="google" target="_blank">
-                    <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                </a>
-                <a href="https://github.com/" class="github" target="_blank">
-                    Github logo goes here
-                </a>
+                <div class="icons">
+                    <i class="fa fa-4x fa-linkedin"></i>
+                    <i class="fa fa-github"></i>
+                    <i class="fa fa-google"></i>
+                </div>
             </div>
         </div>
         
     </main>
+    <script src="/ui/js/signup.js"></script>
 </body>
 </html>
