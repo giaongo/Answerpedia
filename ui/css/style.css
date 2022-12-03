@@ -15,7 +15,7 @@
     --light-blue: rgb(2, 130, 250);
     --blue: #0427ee;
     --green:#285430;
-    --grey:#DFDEE0;
+    --grey:#6f6e71;
     --dark-grey:#2d2e2d;
     --purple:#790252;
     --macroon:#8E3200;
@@ -188,6 +188,15 @@ button:active {
 
 .question div {
     flex:1;
+}
+
+.questionTagBox {
+    padding:0.5em;
+    margin-right:5px;
+    background-color: var(--green);
+    color:var(--white);
+    width: fit-content;
+    display: inline;
 }
 
 .smallDate {
