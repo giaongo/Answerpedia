@@ -223,7 +223,7 @@ const getQuestionById = async(res,questionId) => {
             acc[cur.id].answer = answerOutput;
             return acc;
         },{}));
-        return output;
+        return output[0];
 
     } catch(error) {
         console.log("error",error.message);

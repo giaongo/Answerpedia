@@ -1,11 +1,11 @@
 'use strict'
-const url = 'http://localhost:4000'; //Change url when uploading to server
+const url = 'http://localhost:4000'; 
 
-//Select existing html element
 const questionContainer = document.querySelector('.questionContainer');
 const legendaryContainer = document.querySelector('.legendaryContainer');
 const topTags = document.querySelector('.topTags');
 
+// This function is for truncating the text to max 100 chars only
 const truncateText = (text) => {
     const maxCharLength = 100;
     return text.slice(0,maxCharLength);
@@ -46,6 +46,7 @@ const createQuestionCards = (questions) => {
     });
 }
 
+// This function is for creating data for question legendary
 const createLegendaryQuestionCards = (questions) => {
     questions.forEach(question => {
         const questionId = question.id
@@ -56,6 +57,7 @@ const createLegendaryQuestionCards = (questions) => {
     })
 }
 
+// This function get all question tags, count number of duplicated tags, sorting tags by number
 const measureTag = async(questions) => {
     const tags = questions.map(question => question.question_tag);
     const tagSelection = [];
@@ -82,6 +84,7 @@ const measureTag = async(questions) => {
     return sortingResult;
 }
 
+// This function create list of tags for the aside tag container
 const createTopTagCards = (tags) => {
     Object.keys(tags).forEach(tag => {
         const tagP = document.createElement("p");
@@ -89,9 +92,9 @@ const createTopTagCards = (tags) => {
         topTags.appendChild(tagP)
 
     })
-
 }
 
+// This function fetch all question data and display to UI
 const getAllQuestion = async() => {
     try {
         const response = await fetch(url + "/question");
