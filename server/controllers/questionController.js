@@ -5,7 +5,7 @@ const {unlink}  = require("node:fs");
 
 const addQuestion = async(req,res) => {
     // TODO : Assume user_id = 1 is test user, will replace with req.user.id
-    const user_id = 10;
+    const user_id = 2;
     if(!req.files) {
         res.status(400).json({message:"File is missing or invalid"});
     } else {

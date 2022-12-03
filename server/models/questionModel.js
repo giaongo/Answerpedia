@@ -148,7 +148,7 @@ Learning source:
 */
 const getAllQuestions = async(res) => {
     try {
-        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id INNER JOIN answer a ON q.id = a.question_id INNER JOIN user u1 ON a.user_id = u1.id INNER JOIN answer_media am ON a.id = am.answer_id";
+        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id LEFT JOIN answer a ON q.id = a.question_id LEFT JOIN user u1 ON a.user_id = u1.id LEFT JOIN answer_media am ON a.id = am.answer_id";
         const [rows] = await promisePool.query(questionQuery);
         const output = Object.values(rows.reduce((acc,cur) => {
             acc[cur.id] = acc[cur.id] || {
