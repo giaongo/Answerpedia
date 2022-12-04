@@ -30,9 +30,9 @@
         <div id="modify-profile-container">
             <div id="modify-profile-img">
                 <img src="https://placedog.net/500" alt="placedog">
+                <input id="upload-picture-button" type="button" value="Upload picture"></input>
+                <input type="file" id="upload-picture-input" style="display: none;"></input>
                 <br>
-                <button id="change-picture" type="submit">Change picture</button>
-                <button id="remove-picture" type="submit">Remove picture</button>
             </div>
             <div id="modify-profile-info">
                 <label for="display-name-text">Display username</label><br>
@@ -46,12 +46,12 @@
                 <label for="about-me">About me</label><br>
                 <input type="text" id="about-me-text">
             </div>
-            <br>
             <div id="modify-profile-buttons">
                 <button id="save-profile" type="submit">Save Profile</button> 
                 <button id="cancel" type="reset">Cancel</button>
             </div>
         </div>
     </main>
+    <script src="/ui/js/modify-profile.js"></script>
 </body>
 </html>

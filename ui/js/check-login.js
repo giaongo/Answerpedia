@@ -1,6 +1,6 @@
 (async () => {
     'use strict';
-    const url = 'http://127.0.0.1:5500/ui'; //Change when uploading to server 
+    const url = 'http://localhost:4000'; //Change when uploading to server 
 
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
@@ -15,8 +15,10 @@
                 Authorization: 'Bearer' + sessionStorage.getItem('token'),
             },
         };
+        console.log(fetchOptions.headers);
         const response = await fetch(url + '/user/token', fetchOptions);
         if (!response.ok) {
+            // console.log((response));
             location.href = 'logout.html';
         } else {
             const json = await response.json();
