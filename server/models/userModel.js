@@ -46,7 +46,7 @@ const getUserLogin = async (userEmail) => {
     console.log("getUserLogin", userEmail);
     const [rows] = await promisePool.execute(
       "SELECT * FROM user WHERE email = ?;",
-      userEmail
+      [userEmail]
     );
     return rows;
   } catch (e) {

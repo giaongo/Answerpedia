@@ -1,5 +1,6 @@
 "use strict";
 const passport = require("passport");
+const jwt = require('jsonwebtoken');
 const Strategy = require("passport-local").Strategy;
 const passportJWT = require("passport-jwt");
 const JWTStrategy   = passportJWT.Strategy;
@@ -8,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const { getUserLogin } = require("../models/userModel");
 require('dotenv').config();
 
-// local strategy for username password login
+// local strategy for email and password login
 passport.use(
   new Strategy(async (username, password, done) => {
     const params = [username];
@@ -24,7 +25,7 @@ passport.use(
         return done(null, false, { message: "Incorrect password." });
       }
       // use spread syntax to create shallow copy to get rid of binary row type
-      return done(null, user, { message: "Logged In Successfully" }); 
+      return done(null, { ...user }, { message: "Logged In Successfully" }); 
     } catch (err) {
       return done(err);
     }
@@ -35,10 +36,9 @@ passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey   : process.env.JWT_SECRET,
 },
-
-(jwtPayload, done) => {
+  (jwtPayload, done) => {
      return done(null, jwtPayload);
-}
+  }
 ));
 
 // TODO: JWT strategy for handling bearer token

@@ -26,7 +26,7 @@ const getUsers = async (req, res) => {
  */
 const getUser = async (req, res) => {
   console.log(req.params.id);
-  const user = await userModel.getUserById(res, req.params.id);
+  const user = await userModel.getUserById(req.params.id, res);
   if (user) {
     delete user.password;
     res.json(user);
@@ -56,7 +56,7 @@ const addUser = async (req, res) => {
     if (!user.user_type_id) {
       user.user_type_id = 2;
     }
-    const addUser = await userModel.addUser(res, user);
+    const addUser = await userModel.addUser(user, res);
     res.status(201).json({ message: "user created", userId: addUser });
   } else {
     res
@@ -65,40 +65,40 @@ const addUser = async (req, res) => {
   }
 };
 
-/**
- * Function to check for user details while log in 
- * @param {any} req 
- * @param {Response} res 
- */
-const login = (req, res) => {
+// /**
+//  * Function to check for user details while log in 
+//  * @param {any} req 
+//  * @param {Response} res 
+//  */
+// const login = (req, res) => {
    
-    passport.authenticate('local', {session: false}, (err, user, info) => {
-      if (err || !user) {
-          return res.status(400).json({
-              message: 'Something is not right',
-              user   : user
-          });
-      }
-     req.login(user, {session: false}, (err) => {
-         if (err) {
-             res.send(err);
-         }
-         // generate a signed son web token with the contents of user object and return it in the response
-         // don not include password in token/yser object when sending to client
-         delete user.password;
-         const token = jwt.sign(user, process.env.JWT_SECRET);
-         return res.json({user, token});
-      });
-  })(req, res);
-  };
+//     passport.authenticate('local', {session: false}, (err, user, info) => {
+//       if (err || !user) {
+//           return res.status(400).json({
+//               message: 'Something is not right',
+//               user   : user
+//           });
+//       }
+//      req.login(user, {session: false}, (err) => {
+//          if (err) {
+//              res.send(err);
+//          }
+//          // generate a signed son web token with the contents of user object and return it in the response
+//          // don not include password in token/yser object when sending to client
+//          delete user.password;
+//          const token = jwt.sign(user, process.env.JWT_SECRET);
+//          return res.json({user, token});
+//       });
+//   })(req, res);
+//   };
 
 
   /**
-   * Functoin to check token 
+   * Function to check token 
    * @param {any} req 
    * @param {Response} res 
    */
-  const checkToken = (req, res) => {
+const checkToken = (req, res) => {
     delete req.user.password;
     res.json({user: req.user})
 };
@@ -107,6 +107,5 @@ module.exports = {
   addUser,
   getUsers,
   getUser,
-  login,
   checkToken
 };
