@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const { getUserLogin } = require("../models/userModel");
 require('dotenv').config();
 
-// local strategy for username password login
+// local strategy for email and password login
 passport.use(
   new Strategy(async (username, password, done) => {
     const params = [username];
@@ -36,7 +36,6 @@ passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey   : process.env.JWT_SECRET,
 },
-
   (jwtPayload, done) => {
      return done(null, jwtPayload);
   }

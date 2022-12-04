@@ -31,6 +31,7 @@ const upload = multer({ dest: "uploads/", fileFilter });
 router
   .get("/", userController.getUsers)
   .get("/:id", userController.getUser)
+  .get('/token', userController.checkToken)
   .post(
     "/",
     upload.single("user"),
@@ -39,6 +40,6 @@ router
     body("password").isLength({ min: 8 }).trim(),
     body("description").isLength({ min: 8 }).trim(),
     userController.addUser)
-    .post('/login', userController.login);
+    // .post('/login', userController.login);
 
 module.exports = router;

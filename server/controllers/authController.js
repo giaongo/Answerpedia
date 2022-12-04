@@ -15,7 +15,7 @@ require('dotenv').config();
  * @param {Response} res
  */
 const register = async (req, res) => {
-    console.log(req.body);
+  console.log(req.body);
   const errors = validationResult(req);
   console.log("validation errors", errors);
   console.log(req.file)
@@ -46,36 +46,26 @@ const register = async (req, res) => {
  */
 const login = (req, res) => {
     passport.authenticate('local', {session: false}, (err, user, info) => {
+      user = req.body
       if (err || !user) {
-        console.log(info);
         return res.status(400).json({
             message: 'Something is not right',
             user   : user,
         });
       }
-     req.login(user, {session: false}, (err) => {
-         if (err) {
-             res.send(err);
-         }
-         // generate a signed son web token with the contents of user object and return it in the response
-         // don not include password in token/yser object when sending to client
-         delete user.password;
-         const token = jwt.sign(user, process.env.JWT_SECRET);
-         return res.json({user, token});
-      });
+    req.login(user, {session: false}, (err) => {
+        if (err) {
+            res.send(err);
+        }
+        // generate a signed son web token with the contents of user object and return it in the response
+        // don not include password in token/yser object when sending to client
+        delete user.password;
+        const token = jwt.sign(user, process.env.JWT_SECRET);
+        return res.json({user, token});
+    });
   })(req, res);
 };
 
-
-  /**
-   * Functoin to check token 
-   * @param {any} req 
-   * @param {Response} res 
-   */
-const checkToken = (req, res) => {
-    delete req.user.password;
-    res.json({user: req.user})
-};
 
 /**
  * Function used for user to log out and delete the token
@@ -89,7 +79,6 @@ const logout = (req, res) => {
 
 module.exports = {
   register,
-  checkToken,
   login,
   logout
 };

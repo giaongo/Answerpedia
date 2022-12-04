@@ -30,7 +30,7 @@ const {login, logout, register} = require('../controllers/authController');
   const upload = multer({ dest: "uploads/", fileFilter });
 
 router.get('/logout', logout);
-router.post("/login", login);
+router.post('/login', login);
 router.post('/register', 
 upload.single("user"),
 body('username').isLength({min: 3}).trim().escape(),
