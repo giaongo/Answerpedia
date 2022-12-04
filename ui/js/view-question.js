@@ -67,8 +67,15 @@ const createQuestionCard = (question) => {
 
     createImgGallery(question);
     createTagDisplay(question);
-}
 
+    const modifyQuestion = document.querySelector("#modify");
+    const deleteQuestion = document.querySelector("#delete");
+    modifyQuestion.addEventListener("click", () => {
+        location.href = `modify-question.html?id=${question.id}&title=${question.question_title}&content=${question.question_content}`
+    })
+
+
+}
 
 const createAnswerContainer = (answer,aContainer) => {
     const answerBox = document.createElement("div");

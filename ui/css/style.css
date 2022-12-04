@@ -464,10 +464,12 @@ button:active {
 #modify {
     background-color: var(--yellow);
     margin-right: var(--margin-medium);
+    cursor: pointer;
 }
 #delete {
     background-color: var(--purple);
-    color:var(--white)
+    color:var(--white);
+    cursor:pointer;
 }
 .answerContainer {
     position: relative;

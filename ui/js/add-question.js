@@ -14,7 +14,6 @@ addQuestionForm.addEventListener("submit", async(event) => {
     };
     const response = await fetch(url + "/question",fetchOptions);
     const json = await response.json();
-    console.log(json);
     alert(json.message);
     location.href = "index.html";
 })
