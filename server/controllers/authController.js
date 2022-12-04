@@ -1,10 +1,12 @@
 "use strict";
 
 const userModel = require("../models/userModel");
+const jwt = require('jsonwebtoken');
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const {makeThumbnail} = require('../utils/image');
 const passport = require('../utils/passport');
+require('dotenv').config();
 
 
 /**
@@ -43,13 +45,13 @@ const register = async (req, res) => {
  * @param {Response} res 
  */
 const login = (req, res) => {
-   
     passport.authenticate('local', {session: false}, (err, user, info) => {
       if (err || !user) {
-          return res.status(400).json({
-              message: 'Something is not right',
-              user   : user
-          });
+        console.log(info);
+        return res.status(400).json({
+            message: 'Something is not right',
+            user   : user,
+        });
       }
      req.login(user, {session: false}, (err) => {
          if (err) {
@@ -62,7 +64,7 @@ const login = (req, res) => {
          return res.json({user, token});
       });
   })(req, res);
-  };
+};
 
 
   /**
@@ -70,7 +72,7 @@ const login = (req, res) => {
    * @param {any} req 
    * @param {Response} res 
    */
-  const checkToken = (req, res) => {
+const checkToken = (req, res) => {
     delete req.user.password;
     res.json({user: req.user})
 };
@@ -87,7 +89,7 @@ const logout = (req, res) => {
 
 module.exports = {
   register,
-  login,
   checkToken,
+  login,
   logout
 };

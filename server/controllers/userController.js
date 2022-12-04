@@ -26,7 +26,7 @@ const getUsers = async (req, res) => {
  */
 const getUser = async (req, res) => {
   console.log(req.params.id);
-  const user = await userModel.getUserById(res, req.params.id);
+  const user = await userModel.getUserById(req.params.id, res);
   if (user) {
     delete user.password;
     res.json(user);
@@ -56,7 +56,7 @@ const addUser = async (req, res) => {
     if (!user.user_type_id) {
       user.user_type_id = 2;
     }
-    const addUser = await userModel.addUser(res, user);
+    const addUser = await userModel.addUser(user, res);
     res.status(201).json({ message: "user created", userId: addUser });
   } else {
     res
