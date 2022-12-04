@@ -20,6 +20,7 @@
     --purple:#790252;
     --macroon:#8E3200;
     --yellow:#FDB827;
+    --cream:#F5EBE0;
     --font-heading-large:1.8em;
     --font-heading-medium:1.5em;
     --margin-extraLarge: 70px;
@@ -364,7 +365,7 @@ button:active {
     padding:var(--padding-small);
     position:relative;
     margin-top: var(--margin-large);
-    background-color: lavender;
+    background-color: var(--cream) ;
 }
 #questionContainer h1 {
     font-size: 2em;

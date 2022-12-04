@@ -1,6 +1,8 @@
 "use strict";
 const url = "http://localhost:4000"
 const modifyForm = document.querySelector("#modifyQuestionForm");
+const editTitle = document.querySelector("#editTitle");
+const editContent = document.querySelector("#editContent");
 
 const getQParam = (param) => {
     const queryString = window.location.search;
@@ -8,8 +10,11 @@ const getQParam = (param) => {
     return urlParams.get(param);
 }
 const question_id = getQParam("id");
-console.log("form", modifyForm);
+const question_title = getQParam("title");
+const question_content = getQParam("content");
 
+editTitle.value = question_title;
+editContent.value = question_content;
 
 modifyForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -20,7 +25,6 @@ modifyForm.addEventListener("submit", async (event) => {
             delete data[prop];
         }
     }
-      
     const fetchOptions = {
         method: "PUT",
         headers:{

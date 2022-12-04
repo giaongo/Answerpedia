@@ -11,6 +11,8 @@ const getQParam = (param) => {
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get(param);
 }
+// TODO  Get user data for admin check (allow admin or question owner to modify and delete question)
+// const user = JSON.parse(sessionStorage.getItem('user'));
 
 const createImgGallery = (question) => {
     const mainView = document.querySelector(".mainView");
@@ -68,12 +70,25 @@ const createQuestionCard = (question) => {
     createImgGallery(question);
     createTagDisplay(question);
 
+    // TODO : Add condition to allow these buttons visibility by user admin or question owner
     const modifyQuestion = document.querySelector("#modify");
     const deleteQuestion = document.querySelector("#delete");
     modifyQuestion.addEventListener("click", () => {
         location.href = `modify-question.html?id=${question.id}&title=${question.question_title}&content=${question.question_content}`
     })
-
+    deleteQuestion.addEventListener("click", async() => {
+        console.log("you clicked on delete button");
+        const fetchOptions = {
+            method:"DELETE",
+            headers: {
+                Authorization:"Bearer" + sessionStorage.getItem("token"),
+            }
+        };
+        const response = await fetch(url + "/question/" + question.id, fetchOptions);
+        const json = await response.json();
+        alert(json.message);
+        location.href = "index.html"
+    })
 
 }
 
@@ -123,7 +138,6 @@ const createAnswerContainer = (answer,aContainer) => {
     //Create vote display for answer box
     const voteDisplay = document.createElement("div");
     voteDisplay.classList.add("voteDisplay");   
-    console.log("voteDisplay",voteDisplay);
 
     const btnThumbsUp = document.createElement("button");
     btnThumbsUp.classList.add("thumbsUp");
@@ -143,19 +157,15 @@ const createAnswerContainer = (answer,aContainer) => {
 
 
 // createAnswerContainer();
-
 const getQuestionById = async() => {
     const question_id = getQParam('id');
     try {
         const response = await fetch(url + "/question/" + question_id);
         const question = await response.json();
-        console.log(question);
         createQuestionCard(question);
-        console.log("There are  answer", question.answer.length);
         if(question.answer.length && question.answer[0].answer_id) {
             question.answer.forEach(answer => {
                 const aContainer = document.querySelector(".answerContainer");
-                console.log("Comtainer",aContainer);
                 createAnswerContainer(answer,aContainer);
             })
         }
