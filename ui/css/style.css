@@ -1,19 +1,21 @@
 /* Styling for all htmls------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
 * {
     box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
 }
 :root {
     --black:#242423;
     --white:#ffffff;
     --red:#ff172d;
-    --light-grey: #c5c3c3af;
+    --light-grey: #efececaf;
     --pink-grey:#f3eeee; 
     --light-pink:#fcf1f1;
     --darker-pink:#E7D0D0;
     --light-blue: rgb(2, 130, 250);
     --blue: #0427ee;
     --green:#285430;
-    --grey:#DFDEE0;
+    --grey:#c5c5c5;
     --dark-grey:#2d2e2d;
     --purple:#790252;
     --macroon:#8E3200;
@@ -121,8 +123,8 @@ button:active {
     border-radius: 10px;
 }
 #feed nav {
-    margin-left: 20%;
-    width: fit-content;
+    width:10%;
+    margin-left: 5%;
     background-color: var(--light-grey);
     height:100%;
     border-radius: 10px;
@@ -151,11 +153,10 @@ button:active {
     float:right;
     background-color: var(--light-blue);
     border: none;
-    margin-right: 5%;
+    margin-top:2%;
     padding:var(--padding-small);
     cursor:pointer;
     box-shadow:1px 1px 20px rgba(0, 0,0,0.3);
-    margin-bottom: 5%;
 }
 
 .topAskedQuestions button:hover {
@@ -173,6 +174,7 @@ button:active {
 }
 
 .question {
+    font-size: 1.1em;
     clear: right;
     display: flex;
     cursor: pointer;
@@ -181,17 +183,33 @@ button:active {
 }
 .question > p {
     flex-basis: 150px;
-    padding:var(--padding-small)
+    padding:var(--padding-small);
 }
+
 .question div {
     flex:1;
+}
+
+.questionTagBox {
+    padding:0.5em;
+    margin-right:5px;
+    background-color: var(--green);
+    color:var(--white);
+    width: fit-content;
+    display: inline;
+}
+
+.smallDate {
+    font-size: 14px;
+    float:right;
+    margin-right:10px;
 }
 
 #feed aside {
     text-align: center;
     display: flex;
     flex-direction: column;
-    margin-right: 20%;
+    margin-right: 5%;
     width: 10%;
     background-color: var(--white);
     height: 100%;

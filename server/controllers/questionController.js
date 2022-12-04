@@ -1,13 +1,17 @@
 "use strict";
-const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById} = require("../models/questionModel");
+const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById} = require("../models/questionModel");
 const {unlink}  = require("node:fs");
+const {validationResult} = require("express-validator");
+
 
 const addQuestion = async(req,res) => {
     // TODO : Assume user_id = 1 is test user, will replace with req.user.id
-    const user_id = 10;
-    if(!req.files) {
+    const user_id = 2;
+    const errors = validationResult(req);
+    if(!req.files.length) {
         res.status(400).json({message:"File is missing or invalid"});
-    } else {
+    } else if(errors.isEmpty()){
+        console.log("File is",req.files);
         const question = req.body;
         question.date = new Date();
         question.question_tag = question.question_tag.split(",");
@@ -19,43 +23,70 @@ const addQuestion = async(req,res) => {
         } else {
             res.status(400).json({message:"Question adding failed"});
         }
+    } else {
+        console.log("Validation errors",errors.array());
+        res.status(406).json({message:"Input validation error",errors:errors.array()});
     }
 }
 
 const getQuestions = async(req,res) => {
-    const questions = await getAllQuestions();
+    const questions = await getAllQuestions(res);
     if(questions) {
         res.status(201).json(questions);
+    } else {
+        res.status(401).json({message:"Error with getting all questions"});
     }
 }
 
+const readQuestionById = async(req,res) => {
+    const question = await getQuestionById(res,req.params.question_id);
+    if(question) {
+        res.status(201).json(question);
+    } else {
+        res.status(401).json({message:"Error with getting the question"});
+    }
+}
 const modifyQuestionById = async(req,res) => {
     // TODO: Assume user_id is a test user, will replace with actual req.user.id
     const user_id = 10;
-    const questionToUpdate = req.body;    
-    questionToUpdate.id = req.params.question_id;
-    questionToUpdate.user_id = user_id;
-    const result = await updateQuestionById(res,questionToUpdate);
-    if(result && result.affectedRows > 0) {
-        res.status(201).json({message: "Question is modified successfully"})
+    const errors = validationResult(req);
+    if(errors.isEmpty()) {
+        const questionToUpdate = req.body;    
+        questionToUpdate.id = req.params.question_id;
+        questionToUpdate.user_id = user_id;
+        const result = await updateQuestionById(res,questionToUpdate);
+        if(result && result.affectedRows > 0) {
+            res.status(201).json({message: "Question is modified successfully"})
+        } else {
+            res.status(400).json({message:"Question modification failed"})
+        }
     } else {
-        res.status(400).json({message:"Question modification failed"})
+        res.status(406).json({message:"Input validation errors",errors:errors.array()});
     }
+
 }
 
 const removeQuestionById = async(req,res) => {
     // TODO: Assume user_id is a test user, will replace with actual req.user.id
-    const user_id = 2;
+    const user_id = 1;
     const question_id = req.params.question_id;
-    const filenames = await getMediaById(res,question_id,"question");
-    const result =  await deleteQuestionById(res,question_id,user_id);
-    if(result && result.affectedRows > 0) {
+    const questionMedia = await getMediaById(res,question_id,"question");
+    const answerMedia = await getMediaById(res,question_id,"answer");
+    const deleteQuestionResult =  await deleteQuestionById(res,question_id,user_id);
+    console.log("delete question result",deleteQuestionResult);
+    if(deleteQuestionResult && deleteQuestionResult.affectedRows > 0) {
+        await removeMediaFromUploads(questionMedia, answerMedia)
         res.status(201).json({message: "Question is deleted successfully"})
     } else {
         res.status(400).json({message:"Question deletion failed"})
     }
-    if(filenames) {
-        filenames.forEach(filename => {
+}
+
+const removeMediaFromUploads = async(questionMedia, answerMedia) => {
+    if(questionMedia.length > 0 || answerMedia.length > 0) {
+        questionMedia
+        .concat(answerMedia)
+        .forEach(filename => {
             const uploadLinkToDelete = "../server/uploads/" + filename.media;
             unlink(uploadLinkToDelete,(err) => {
                 if(err) {
@@ -64,14 +95,13 @@ const removeQuestionById = async(req,res) => {
                 }
             })
         })
-    } else {
-        res(400).json({message:"No filename to delete"});
-    }
+    } 
 }
 
 module.exports = {
     addQuestion,
     getQuestions,
     modifyQuestionById,
-    removeQuestionById
+    removeQuestionById,
+    readQuestionById
 }

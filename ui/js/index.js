@@ -1,72 +1,112 @@
 'use strict'
-const url = 'http://127.0.0.1:5500/ui/' //Change url when uploading to server
+const url = 'http://localhost:4000'; 
 
-//Select existing html element
 const questionContainer = document.querySelector('.questionContainer');
 const legendaryContainer = document.querySelector('.legendaryContainer');
 const topTags = document.querySelector('.topTags');
 
+// This function is for truncating the text to max 100 chars only
+const truncateText = (text) => {
+    const maxCharLength = 100;
+    return text.slice(0,maxCharLength);
+}
 //Create questions cards/sections inside allQuestion article
 const createQuestionCards = (questions) => {
-    //Clear questionList before appending new ones
-    questionContainer.innerHTML = '';
     questions.forEach(question => {
-        //Create elements with DOM methods
         const article = document.createElement('article');
-        article.className = 'question';
         const questionP = document.createElement('p');
         const questionDiv = document.createElement('div');
-        article.appendChild(questionP);
-        questionP.innerText='Testing';
-        article.appendChild(questionDiv);
         const questionDivH3 = document.createElement('h3');
         const questionDivP = document.createElement('p');
-        questionDiv.appendChild(questionDivH3);
-        questionDiv.appendChild(questionDivP);
-        questionDivH3.innerText='Question Title';
-        questionDivP.innerText = 'Question description';
+        const askedDate = document.createElement('p');
+
+        article.classList.add("question");
+        askedDate.classList.add("smallDate");
+
+        const questionContent = question.question_content;
+        questionP.innerText= question.id;
+        questionDivH3.innerText= question.question_title;
+        questionDivP.innerText = truncateText(questionContent) +"...";
+        const date = new Date(question.question_date);
+        askedDate.innerText = `asked on ${date.toDateString()} by ${question.question_user}` ;
+
+        questionDiv.append(questionDivH3,questionDivP,askedDate);
+        question.question_tag.forEach(tag => {
+            const tagText = document.createElement("p");
+            tagText.innerText = tag
+            tagText.classList.add("questionTagBox");
+            questionDiv.appendChild(tagText);
+        })
+        article.append(questionP,questionDiv);
         questionContainer.appendChild(article);
+
+        article.addEventListener("click",() => {
+            location.href = "view-question.html?id=" + question.id;
+        })
     });
-    console.log(questionContainer.innerHTML);
 }
 
+// This function is for creating data for question legendary
+const createLegendaryQuestionCards = (questions) => {
+    questions.forEach(question => {
+        const questionId = question.id
+        legendaryContainer.innerHTML += 
+        `<p class="legendaryQuestion">
+            <a target="blank"href="${url + "/question/" + questionId}">Question ${questionId}</a>
+        </p>`
+    })
+}
 
-createQuestionCards([
-    {
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {}
-])
+// This function get all question tags, count number of duplicated tags, sorting tags by number
+const measureTag = async(questions) => {
+    const tags = questions.map(question => question.question_tag);
+    const tagSelection = [];
+    tags.forEach(tag => {
+        tag.forEach(element => tagSelection.push(element));
+    });
+    // count number of tag appearance per tag.
+    const measureOutput = tagSelection.reduce((accumulator,current) => {
+        if(Object.keys(accumulator).includes(current)) {
+            ++accumulator[current];
+        } else {
+            accumulator[current] = 1;
+        }
+        return accumulator;
+    },{})
 
+    // Do the sorting for measure output value
+    const sortingResult = Object.keys(measureOutput)
+    .sort((a,b) => measureOutput[b] - measureOutput[a])
+    .reduce((acc,cur) => {
+        acc[cur] = measureOutput[cur]
+        return acc;
+    },{});
+    return sortingResult;
+}
 
-const createLegendaryQuestionCards = () => {
-    //Clear container before appending new elements
-    legendaryContainer.innerHTML = '';
-    for (let i = 1; i <= 5; i++) {
-        const legendaryQuestionP = document.createElement('p');
-        //TODO: figure how to append p and a at the same time
-        legendaryQuestionP.className = 'legendaryQuestion';
-        legendaryQuestionP.innerText = "Question " + i;
-        legendaryContainer.appendChild(legendaryQuestionP);
+// This function create list of tags for the aside tag container
+const createTopTagCards = (tags) => {
+    Object.keys(tags).forEach(tag => {
+        const tagP = document.createElement("p");
+        tagP.innerText = `#${tag}: ${tags[tag]}`;
+        topTags.appendChild(tagP)
+
+    })
+}
+
+// This function fetch all question data and display to UI
+const getAllQuestion = async() => {
+    try {
+        const response = await fetch(url + "/question");
+        const questions = await response.json();
+        createQuestionCards(questions);
+        createLegendaryQuestionCards(questions);
+        const measureTags = await measureTag(questions);
+        createTopTagCards(measureTags);
+    } catch(error) {
+        console.log("Error",error.message);
     }
-}
 
-createLegendaryQuestionCards();
+};
 
-
-const createTopTagCards = () => {
-    topTags.innerHTML = '';
-    for (let i = 1; i <= 5; i++) {
-        const topTagsP = document.createElement('p');
-        topTagsP.innerText = "#Tags " + i;
-        topTags.appendChild(topTagsP);
-    }
-}
-
-createTopTagCards();
+getAllQuestion();

@@ -19,7 +19,7 @@
     </header>
     <main id="viewContainer">
         <section id="questionContainer">
-            <h1>My code does not work at all</h1>
+            <h1 id="questionTitle">My code does not work at all</h1>
             <figure class="profileContainer">
                 <img class="profileImg" src="http://placekitten.com/g/200/300" alt="profile_image">
                 <p class="username">Giao Ngo</p>
@@ -44,7 +44,7 @@
             <p>Here is the issue</p>
             <div class="imgGallery">
                 <!-- The img will be dynamically added in js file -->
-                <!-- <div class="mainView">
+                < <div class="mainView">
                     <img src="https://cdn.pixabay.com/photo/2022/11/23/18/06/colorful-7612604__480.png" alt="">
                 </div>
                 <div class="sideView">
@@ -79,14 +79,14 @@
                 <div class="questionModify"> 
                     <button id="modify">Modify Question</button>
                     <button id="delete">Delete Question</button>
-                </div> -->
+                </div>
             </div>
         </section>
 
         <hr>
 
         <div class="answerContainer">
-            <!-- <div class="answerBox">
+            <div class="answerBox">
                 <figure class="profileContainer">
                     <img class="profileImg" src="https://cdn.pixabay.com/photo/2022/04/16/01/36/woman-7135489_1280.jpg" alt="profile_image">
                     <p class="username">Elena Soini</p>
@@ -114,18 +114,18 @@
                     <button><i class="fa-regular fa-thumbs-down"></i></button>
                     <p class="voteNumber">100k</p>
                 </div>
-            </div>-->
+            </div>
         </div> 
         <form id="addAnswerForm">
             <label for="answerContent">Your answer</label><br>
-            <textarea id="answerContent" name="answer_content"></textarea><br>
+            <textarea required id="answerContent" name="answer_content"></textarea><br>
             <div class="mediaUpload">
                 <label for="answerMedia">Select a media file:</label>
-                <input type="file" id="answerMedia" name="media" multiple>
+                <input required type="file" id="answerMedia" name="media" multiple>
             </div>
             <input type="submit">
         </form>
     </main>
-    <script src="/ui/js/view-question.js"></script>
+    <script src="js/view-question.js"></script>
 </body>
 </html>
