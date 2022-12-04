@@ -25,6 +25,17 @@ const addMediaToAnswerMedia = async(answer_id, media) => {
     return mediaRows;
 }
 
+// This function is to check if there is question_id in the answer table
+const hasAnswer = async(question_id) => {
+    try {
+        const checkExistenceQuery = "SELECT EXISTS(SELECT question_id FROM answer WHERE question_id = ?)";
+        const [rows] = await promisePool.query(checkExistenceQuery,[question_id]);
+        return Object.values(rows[0])[0] ? true : false
+    } catch(error) {
+        console.log("error",error);
+    }
+}
+
 /* This function is for deleting answer's data from answer table and answer_media table by the corresponding question_id*/
 const deleteAnswerByQuestionId = async(question_id) => {
     if(await hasAnswer(question_id)) {
@@ -37,17 +48,7 @@ const deleteAnswerByQuestionId = async(question_id) => {
             return answerRows;
         }
     }
-}
-
-// This function is to check if there is question_id in the answer table
-const hasAnswer = async(question_id) => {
-    try {
-        const checkExistenceQuery = "SELECT EXISTS(SELECT question_id FROM answer WHERE question_id = ?)";
-        const [rows] = await promisePool.query(checkExistenceQuery,[question_id]);
-        return Object.values(rows[0])[0] ? true : false
-    } catch(error) {
-        console.log("error",error);
-    }
+    return 0;
 }
 
 module.exports = {

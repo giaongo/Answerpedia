@@ -3,6 +3,42 @@ const pool = require("../database/database");
 const promisePool = pool.promise();
 const {deleteAnswerByQuestionId} = require("./answerModel");
 
+// This function is to check whether the loggin user is admin or owner of question or not
+const isAdmin = async(user_id) => {
+    try {
+        const userQuery = "SELECT id FROM user WHERE user.user_type_id = 1";
+        const [rows] = await promisePool.query(userQuery);
+        return rows.some(row => row.id === user_id);
+    } catch(error) {
+        console.log("error",error.message);
+    }
+}
+
+// This function is to check if user is an owner of the requested question
+const isOwnerOfQuestion = async(question_id,user_id) =>  {
+    try {
+        const query = "SELECT user_id from question WHERE id = ?";
+        const [rows] = await promisePool.query(query,[question_id]);
+        return rows[0].user_id === user_id ;
+    } catch(error) {
+        console.log("error",error.message);
+    }
+}
+
+// This function is to add tag data to question_tag
+const addTagToQuestionTag = async(question_id,question_tag) => {
+    const tagQuery = "INSERT INTO question_tag(tag,question_id) VALUES ?"
+    const [tagRows] = await promisePool.query(tagQuery,[question_tag.map(tag => [tag.trim().toLowerCase(),question_id])]);
+    return tagRows;
+}
+
+// This function is to add media data to question_media
+const addMediaToQuestionMedia = async(question_id,media) => {
+    const mediaQuery = "INSERT INTO question_media(media,question_id) VALUES ?";
+    const [mediaRows] = await promisePool.query(mediaQuery,[media.map(element => [element,question_id])]);
+    return mediaRows;
+}
+
 // This function will add data to question, question_tag and question_media tables
 const createQuestion = async(res,questionData) => {
     const {question_title, question_content,date,user_id,question_tag,media} = questionData;
@@ -20,19 +56,6 @@ const createQuestion = async(res,questionData) => {
     } catch(error) {
         res.status(500).send(error.message);
     }
-}
-// This function is to add tag data to question_tag
-const addTagToQuestionTag = async(question_id,question_tag) => {
-    const tagQuery = "INSERT INTO question_tag(tag,question_id) VALUES ?"
-    const [tagRows] = await promisePool.query(tagQuery,[question_tag.map(tag => [tag.trim().toLowerCase(),question_id])]);
-    return tagRows;
-}
-
-// This function is to add media data to question_media
-const addMediaToQuestionMedia = async(question_id,media) => {
-    const mediaQuery = "INSERT INTO question_media(media,question_id) VALUES ?";
-    const [mediaRows] = await promisePool.query(mediaQuery,[media.map(element => [element,question_id])]);
-    return mediaRows;
 }
 
 // This function is to update question by question_id
@@ -57,6 +80,63 @@ const updateQuestionById = async(res,updatedQuestion) => {
         res.status(500).send(error.message);
     }
 } 
+// This function is to check if there is question_id in the favourites table
+const questionIsInFavorite = async(question_id) => {
+    try {
+        const checkExistenceQuery = "SELECT EXISTS (SELECT question_id FROM favourites WHERE question_id = ?)";
+        const [rows] = await promisePool.query(checkExistenceQuery,[question_id]);
+        return Object.values(rows[0])[0] ? true : false;
+    } catch(error) {
+        console.log("error",error);
+    }
+}
+
+
+
+const removeQuestionFromFavourites = async(questionId) => {
+    if(await questionIsInFavorite(questionId)) {
+        const deleteFromFavourite = "DELETE FROM favourites WHERE question_id = ?";
+        const [favouritesRows] = await promisePool.query(deleteFromFavourite,[questionId]);
+        return favouritesRows;
+    }
+    return 0;
+} 
+
+/* Function to delete question and its linked answers from question, question_media,question_tag,answer,
+answer_media table */
+const deleteQuestionAndLinkedAnswers = async(questionId) => {
+    const deleteFromQuestionMedia = "DELETE FROM question_media WHERE question_id = ?";
+    const [questionMediaRows] = await promisePool.query(deleteFromQuestionMedia,[questionId]);
+
+    if(questionMediaRows.affectedRows > 0) {
+        console.log("delete question media successfully");
+        const deleteFromQuestionTag =  "DELETE FROM question_tag WHERE question_id = ?";
+        const [questionTagRows] = await promisePool.query(deleteFromQuestionTag,[questionId]);
+
+        if(questionTagRows.affectedRows > 0) {
+            console.log("Delete question tag successfully");
+
+            const removeCorrespondingAnswer =  await deleteAnswerByQuestionId(questionId);
+            console.log("result from remove media", removeCorrespondingAnswer);
+            if(!removeCorrespondingAnswer || (removeCorrespondingAnswer && removeCorrespondingAnswer.affectedRows > 0)) {
+                if(removeCorrespondingAnswer && removeCorrespondingAnswer.affectedRows > 0) {
+                    console.log("remove all linked answers successfully");
+                }
+                const favouritesRemoveResult = await removeQuestionFromFavourites(questionId);
+                if(!favouritesRemoveResult || (favouritesRemoveResult && favouritesRemoveResult.favouritesRemoveResult > 0)) {
+                    if(favouritesRemoveResult && favouritesRemoveResult.affectedRows > 0) {
+                        console.log("Delete question from favourites successfully");
+                    }
+                
+                    const deleteFromQuestion = "DELETE FROM question WHERE id = ?";
+                    const [questionRows] = await promisePool.query(deleteFromQuestion,[questionId]);
+                    return questionRows;
+                }
+            }
+        }
+    }
+}
+
 
 // Function to delete question from table if user is admin or owner of the requested question
 const deleteQuestionById = async(res,questionId, userId) => {
@@ -74,40 +154,6 @@ const deleteQuestionById = async(res,questionId, userId) => {
     }
 }
 
-/* Function to delete question and its linked answers from question, question_media,question_tag,answer,
-answer_media table */
-const deleteQuestionAndLinkedAnswers = async(questionId) => {
-    const deleteFromQuestionMedia = "DELETE FROM question_media WHERE question_id = ?";
-    const [questionMediaRows] = await promisePool.query(deleteFromQuestionMedia,[questionId]);
-    if(questionMediaRows.affectedRows > 0) {
-        console.log("delete question media successfully");
-        const deleteFromQuestionTag =  "DELETE FROM question_tag WHERE question_id = ?";
-        const [questionTagRows] = await promisePool.query(deleteFromQuestionTag,[questionId]);
-        if(questionTagRows.affectedRows > 0) {
-            console.log("Delete question tag successfully");
-            const removeCorrespondingAnswer =  await deleteAnswerByQuestionId(questionId);
-            if(!removeCorrespondingAnswer || removeCorrespondingAnswer.affectedRows > 0) {
-                if(removeCorrespondingAnswer.affectedRows > 0) {
-                    console.log("remove all linked answers successfully");
-                }
-                const deleteFromQuestion = "DELETE FROM question WHERE id = ?";
-                const [questionRows] = await promisePool.query(deleteFromQuestion,[questionId]);
-                return questionRows;
-            }
-        }
-    }
-}
-
-// This function is to check if user is an owner of the requested question
-const isOwnerOfQuestion = async(question_id,user_id) =>  {
-    try {
-        const query = "SELECT user_id from question WHERE id = ?";
-        const [rows] = await promisePool.query(query,[question_id]);
-        return rows[0].user_id === user_id ;
-    } catch(error) {
-        console.log("error",error.message);
-    }
-}
 
 // Function to fetch only media from either question_media or answer_media table by id
 const getMediaById = async(res,id,type) => {
@@ -127,16 +173,6 @@ const getMediaById = async(res,id,type) => {
     }
 } 
 
-// This function is to check whether the loggin user is admin or owner of question or not
-const isAdmin = async(user_id) => {
-    try {
-        const userQuery = "SELECT id FROM user WHERE user.user_type_id = 1";
-        const [rows] = await promisePool.query(userQuery);
-        return rows.some(row => row.id === user_id);
-    } catch(error) {
-        console.log("error",error.message);
-    }
-}
 
 /* This function inner joins question tables, question's constrained tables, answer tables and 
 answer's constrained tables to return the most important data that client needs to know. The data from 
@@ -176,6 +212,8 @@ const getAllQuestions = async(res) => {
     }
 }
 
+/*This function inner joins question tables, question's constrained tables, answer tables and 
+answer's constrained tables, user table by question id to return the most important data that client needs to know. */
 const getQuestionById = async(res,questionId) => {
     try {
         const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,q.votes as question_votes,u.username as question_user,u.picture_name as question_user_picture,qt.tag as question_tag,qm.media as question_media,a.id as answer_id,a.answer_content,a.date as answer_date,a.votes as answer_votes,u1.username as answer_user, u1.picture_name as answer_user_picture, am.media as answer_media FROM question q INNER JOIN user u ON q.user_id = u.id INNER JOIN question_tag qt ON q.id = qt.question_id INNER JOIN question_media qm ON q.id = qm.question_id LEFT JOIN answer a ON q.id = a.question_id LEFT JOIN user u1 ON a.user_id = u1.id LEFT JOIN answer_media am ON a.id = am.answer_id where q.id = ?";

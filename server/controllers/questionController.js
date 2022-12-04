@@ -11,7 +11,6 @@ const addQuestion = async(req,res) => {
     if(!req.files.length) {
         res.status(400).json({message:"File is missing or invalid"});
     } else if(errors.isEmpty()){
-        console.log("File is",req.files);
         const question = req.body;
         question.date = new Date();
         question.question_tag = question.question_tag.split(",");
@@ -48,7 +47,7 @@ const readQuestionById = async(req,res) => {
 }
 const modifyQuestionById = async(req,res) => {
     // TODO: Assume user_id is a test user, will replace with actual req.user.id
-    const user_id = 10;
+    const user_id = 1;
     const errors = validationResult(req);
     if(errors.isEmpty()) {
         const questionToUpdate = req.body;    
@@ -61,6 +60,8 @@ const modifyQuestionById = async(req,res) => {
             res.status(400).json({message:"Question modification failed"})
         }
     } else {
+        console.log("data is", req.body);
+        console.log("errors", errors.array());
         res.status(406).json({message:"Input validation errors",errors:errors.array()});
     }
 

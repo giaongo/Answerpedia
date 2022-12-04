@@ -20,8 +20,10 @@
     --purple:#790252;
     --macroon:#8E3200;
     --yellow:#FDB827;
+    --cream:#F5EBE0;
     --font-heading-large:1.8em;
     --font-heading-medium:1.5em;
+    --margin-extraLarge: 70px;
     --margin-large:50px;
     --margin-medium:20px;
     --margin-small:10px;
@@ -360,13 +362,17 @@ button:active {
 #questionContainer {
     width: 70%;
     margin: 0 auto;
+    padding:var(--padding-small);
     position:relative;
     margin-top: var(--margin-large);
-    background-color: lavender;
+    background-color: var(--cream) ;
 }
 #questionContainer h1 {
     font-size: 2em;
     margin: 0;
+}
+#questionContainer button {
+    margin-top: var(--margin-extraLarge);
 }
 #questionContainer button #ask{
     color:var(--white);
@@ -383,7 +389,7 @@ button:active {
 }
 
 .profileContainer .username {
-    margin-left: var(--margin-small);
+    margin-left: var(--margin-medium);
     font-weight: bold;
 }
 #questionContainer > button {
@@ -459,10 +465,12 @@ button:active {
 #modify {
     background-color: var(--yellow);
     margin-right: var(--margin-medium);
+    cursor: pointer;
 }
 #delete {
     background-color: var(--purple);
-    color:var(--white)
+    color:var(--white);
+    cursor:pointer;
 }
 .answerContainer {
     position: relative;
@@ -473,7 +481,15 @@ button:active {
     background-color: var(--pink-grey);
     padding: var(--padding-small);
     margin-bottom: var(--margin-large);
+    position:relative;
 }
+
+.answerBox .voteDisplay {
+    position: absolute;
+    bottom:0;
+    right:0;
+}
+
 .imgCollection { 
     display:flex;
     flex-wrap: wrap;
