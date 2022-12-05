@@ -71,7 +71,6 @@ const addUser = async (req, res) => {
    * @param {Response} res 
 */
 const checkToken = (req, res) => {
-  console.log("req.user is",req.user);
     delete req.user.password;
     res.json({user: req.user})
 };

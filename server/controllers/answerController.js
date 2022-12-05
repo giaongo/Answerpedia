@@ -2,8 +2,7 @@
 const {createAnswer} = require("../models/answerModel");
 const {validationResult} = require("express-validator");
 const addAnswer = async(req,res) => {
-        // TODO : Assume user_id = 1 is test user, will replace with req.user.id
-    const user_id = 1;
+    const user_id = req.user.id;
     const errors = validationResult(req)
     if(!req.files.length) {
         res.status(400).json({message:"File is missing or invalid"});

@@ -5,8 +5,7 @@ const {validationResult} = require("express-validator");
 
 
 const addQuestion = async(req,res) => {
-    // TODO : Assume user_id = 1 is test user, will replace with req.user.id
-    const user_id = 2;
+    const user_id = req.user.id;
     const errors = validationResult(req);
     if(!req.files.length) {
         res.status(400).json({message:"File is missing or invalid"});
@@ -46,8 +45,7 @@ const readQuestionById = async(req,res) => {
     }
 }
 const modifyQuestionById = async(req,res) => {
-    // TODO: Assume user_id is a test user, will replace with actual req.user.id
-    const user_id = 1;
+    const user_id = req.user.id;
     const errors = validationResult(req);
     if(errors.isEmpty()) {
         const questionToUpdate = req.body;    
@@ -68,8 +66,7 @@ const modifyQuestionById = async(req,res) => {
 }
 
 const removeQuestionById = async(req,res) => {
-    // TODO: Assume user_id is a test user, will replace with actual req.user.id
-    const user_id = 1;
+    const user_id = req.user.id;
     const question_id = req.params.question_id;
     const questionMedia = await getMediaById(res,question_id,"question");
     const answerMedia = await getMediaById(res,question_id,"answer");

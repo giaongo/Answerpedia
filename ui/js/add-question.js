@@ -1,6 +1,6 @@
 "use strict";
 const url = "http://localhost:4000"
-const addQuestionForm = querySelector("#addQuestionForm");
+const addQuestionForm = document.querySelector("#addQuestionForm");
 
 addQuestionForm.addEventListener("submit", async(event) => {
     event.preventDefault();

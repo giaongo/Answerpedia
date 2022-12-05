@@ -37,11 +37,11 @@ router.get("/:question_id",
     questionController.readQuestionById)
 
 router.post("/:question_id/answer", 
-    passport.authenticate('jwt', {session: false},
+    passport.authenticate('jwt', {session: false}),
     upload.array("media",10),
     body("answer_content").isLength({min:5}).trim().escape(),
     answerController.addAnswer
-    )
 )
+
 
 module.exports = router;

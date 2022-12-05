@@ -12,7 +12,7 @@ const getQParam = (param) => {
     return urlParams.get(param);
 }
 // TODO  Get user data for admin check (allow admin or question owner to modify and delete question)
-// const user = JSON.parse(sessionStorage.getItem('user'));
+const user = JSON.parse(sessionStorage.getItem('user'));
 
 const createImgGallery = (question) => {
     const mainView = document.querySelector(".mainView");
@@ -54,7 +54,12 @@ const createQuestionCard = (question) => {
     titleText.innerText = question.question_title;
     
     const userImg = document.querySelector(".profileImg");
-    userImg.src = url + "/thumbnails/" + question.question_user_picture;
+    if(question.question_user_picture) {
+        userImg.src = url + "/thumbnails/" + question.question_user_picture;
+    } else {
+        userImg.src = "http://placekitten.com/200/300";
+    }
+    
     userImg.alt = question.question_user;
     
     const userName = document.querySelector(".username");
@@ -70,26 +75,30 @@ const createQuestionCard = (question) => {
     createImgGallery(question);
     createTagDisplay(question);
 
-    // TODO : Add condition to allow these buttons visibility by user admin or question owner
+    // Modify/delete buttons is only visible to admin or question owner
     const modifyQuestion = document.querySelector("#modify");
     const deleteQuestion = document.querySelector("#delete");
-    modifyQuestion.addEventListener("click", () => {
-        location.href = `modify-question.html?id=${question.id}&title=${question.question_title}&content=${question.question_content}`
-    })
-    deleteQuestion.addEventListener("click", async() => {
-        console.log("you clicked on delete button");
-        const fetchOptions = {
-            method:"DELETE",
-            headers: {
-                Authorization:"Bearer " + sessionStorage.getItem("token"),
-            }
-        };
-        const response = await fetch(url + "/question/" + question.id, fetchOptions);
-        const json = await response.json();
-        alert(json.message);
-        location.href = "index.html"
-    })
 
+    if(user.id === question.question_user_id || user.user_type_id === 1) {
+        modifyQuestion.style.visibility = "visible";
+        deleteQuestion.style.visibility = "visible";
+        modifyQuestion.addEventListener("click", () => {
+            location.href = `modify-question.html?id=${question.id}&title=${question.question_title}&content=${question.question_content}`
+        })
+        deleteQuestion.addEventListener("click", async() => {
+            console.log("you clicked on delete button");
+            const fetchOptions = {
+                method:"DELETE",
+                headers: {
+                    Authorization:"Bearer " + sessionStorage.getItem("token"),
+                }
+            };
+            const response = await fetch(url + "/question/" + question.id, fetchOptions);
+            const json = await response.json();
+            alert(json.message);
+            location.href = "index.html"
+        })
+    }
 }
 
 const createAnswerContainer = (answer,aContainer) => {
@@ -103,7 +112,12 @@ const createAnswerContainer = (answer,aContainer) => {
     const profileImg = document.createElement("img");
     profileImg.classList.add("profileImg");
 
-    profileImg.src = url + "/thumbnails/" + answer.answer_user_picture;
+    if(answer.answer_user_picture) {
+        profileImg.src = url + "/thumbnails/" + answer.answer_user_picture;
+    } else {
+        profileImg.src = "http://placekitten.com/200/300";
+    }
+    
     profileImg.alt = answer.answer_user;
 
     const username = document.createElement("p");
@@ -184,6 +198,7 @@ const getQuestionById = async() => {
                 },
                 body:fd
             };
+            console.log("test",fetchOptions.headers);
             const response = await fetch(url + "/question/" + question.id + "/answer",fetchOptions);
             const json = await response.json();
             alert(json.message);
