@@ -1,6 +1,6 @@
 'use strict'
 // changed the url to localhost, sorry about that  
-const url = 'localhost:4000';
+const url = 'http://localhost:4000';
 
 
 
@@ -11,14 +11,15 @@ const signUpForm = document.querySelector('#sign-up-form');
 //submit register form
 signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const data = new serializeJson(signUpForm);
-    cons
+    // const data = new serializeJson(signUpForm);
+    const data = serializeJson(signUpForm);
+    console.log(data);
     const fetchOptions = {
         method: 'POST',
         headers: {
             'Content-Type':'application/json',
         },
-        body: data,
+        body: JSON.stringify(data),
     };
     const response = await fetch(url + '/auth/register', fetchOptions);
     const json = await response.json();

@@ -62,6 +62,10 @@ header nav ul li a {
     color:var(--white);
 }
 
+.navLogOut {
+    display: none;
+}
+
 /* global styling for button */
 button:active {
     transform: scale(0.95);

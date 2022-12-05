@@ -32,7 +32,7 @@ const {login, logout, register} = require('../controllers/authController');
 router.get('/logout', logout);
 router.post('/login', login);
 router.post('/register', 
-upload.single("user"),
+// upload.single("user"),
 body('username').isLength({min: 3}).trim().escape(),
 body('email').isEmail().normalizeEmail(),  
 body('password').isLength({min: 8}).trim(), 

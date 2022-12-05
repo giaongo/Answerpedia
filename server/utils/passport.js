@@ -1,6 +1,5 @@
 "use strict";
 const passport = require("passport");
-const jwt = require('jsonwebtoken');
 const Strategy = require("passport-local").Strategy;
 const passportJWT = require("passport-jwt");
 const JWTStrategy   = passportJWT.Strategy;
@@ -40,8 +39,5 @@ passport.use(new JWTStrategy({
      return done(null, jwtPayload);
   }
 ));
-
-// TODO: JWT strategy for handling bearer token
-// consider .env for secret, e.g. secretOrKey: process.env.JWT_SECRET
 
 module.exports = passport;

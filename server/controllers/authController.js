@@ -4,7 +4,6 @@ const userModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const {makeThumbnail} = require('../utils/image');
 const passport = require('../utils/passport');
 require('dotenv').config();
 
@@ -24,9 +23,6 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(req.body.password, salt);
     req.body.password = passwordHash;
     const user = req.body;
-    // The user picture is registered in edit profile so no need for thumbnail over here
-    //await makeThumbnail(req.file.path, req.file.filename);
-    //user.filename = req.file.filename;
     if (!user.user_type_id) {
       user.user_type_id = 2;
     }
@@ -61,6 +57,7 @@ const login = (req, res) => {
         // don not include password in token/yser object when sending to client
         delete user.password;
         const token = jwt.sign(user, process.env.JWT_SECRET);
+        console.log("return token from server",token);
         return res.json({user, token});
     });
   })(req, res);

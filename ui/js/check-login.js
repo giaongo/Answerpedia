@@ -12,13 +12,14 @@
     try {
         const fetchOptions = {
             headers: {
-                Authorization: 'Bearer' + sessionStorage.getItem('token'),
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
         console.log(fetchOptions.headers);
         const response = await fetch(url + '/user/token', fetchOptions);
+
         if (!response.ok) {
-            // console.log((response));
+            console.log((response));
             location.href = 'logout.html';
         } else {
             const json = await response.json();

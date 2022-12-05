@@ -24,17 +24,6 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({extended: true})); //for parsing application( x- ww form-urlencoded<
 app.use(passport.initialize());
 
-// //Testing with cookie
-// app.use(cookieParser());
-// app.use(session({
-//     secret:'random',
-//     saveUninitialized:false,
-//     resave:true,
-//     cookie: {maxAge:60000}
-// }));
-
-
-
 
 app.use('/auth', authRouter);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
