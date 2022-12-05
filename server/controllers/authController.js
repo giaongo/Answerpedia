@@ -4,14 +4,11 @@ const userModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const passport = require('../utils/passport');
+const passport = require('passport');
 require('dotenv').config();
-
 
 /**
  * Function to add users
- * @param {any} req req.body contains all the details needed to add user
- * @param {Response} res
  */
 const register = async (req, res) => {
   console.log(req.body);
@@ -37,12 +34,10 @@ const register = async (req, res) => {
 
 /**
  * Function to check for user details while log in 
- * @param {any} req 
- * @param {Response} res 
  */
 const login = (req, res) => {
-    passport.authenticate('local', {session: false}, (err, user, info) => {
-      user = req.body
+    passport.authenticate("local", { session: false }, (err, user, info) => {
+      console.log("user is",user);
       if (err || !user) {
         return res.status(400).json({
             message: 'Something is not right',
@@ -66,8 +61,6 @@ const login = (req, res) => {
 
 /**
  * Function used for user to log out and delete the token
- * @param {any} req 
- * @param {Response} res 
  */
 const logout = (req, res) => {
     console.log('some user logged out');

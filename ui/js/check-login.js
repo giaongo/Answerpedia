@@ -4,6 +4,7 @@
 
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
+        console.log("user is not logged in yet");
         location.href = 'login.html';
         return;
     }
@@ -24,6 +25,7 @@
         } else {
             const json = await response.json();
             sessionStorage.setItem('user', JSON.stringify(json.user));
+            console.log("user is logged in");
         }
     } catch (e) {
         console.log(e.message);

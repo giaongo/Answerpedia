@@ -5,7 +5,7 @@ const cors = require('cors');
 const authRouter = require('./routes/authRoute');
 const userRouter = require('./routes/userRoute');
 const questionRouter = require("./routes/questionRoute");
-const passport = require('./utils/passport');
+const passport = require("./utils/passport");
 
 
 // //Testing with cookie

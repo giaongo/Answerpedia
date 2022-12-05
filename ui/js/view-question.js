@@ -81,7 +81,7 @@ const createQuestionCard = (question) => {
         const fetchOptions = {
             method:"DELETE",
             headers: {
-                Authorization:"Bearer" + sessionStorage.getItem("token"),
+                Authorization:"Bearer " + sessionStorage.getItem("token"),
             }
         };
         const response = await fetch(url + "/question/" + question.id, fetchOptions);
@@ -160,7 +160,12 @@ const createAnswerContainer = (answer,aContainer) => {
 const getQuestionById = async() => {
     const question_id = getQParam('id');
     try {
-        const response = await fetch(url + "/question/" + question_id);
+        const fetchOptions = {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + "/question/" + question_id,fetchOptions);
         const question = await response.json();
         createQuestionCard(question);
         if(question.answer.length && question.answer[0].answer_id) {

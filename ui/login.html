@@ -25,8 +25,8 @@
         <div id="log-in-form-div">
             <!-- <! -- action needed to be added for redirecting to route in backend part -->
             <form action="http://localhost:4000/auth/login" method="post" id="log-in-form">
-                <input type="email" id="email" name="email" required="required" placeholder="Email">
-                <input type="password" id="password" name="password"  placeholder="Password">
+                <input type="text" id="email" name="username" required placeholder="Email">
+                <input type="password" id="password" name="password" required placeholder="Password">
                 <button type="submit" id="log-in">Let me in</button>
                 <label>
                     <input type="checkbox" id="remember-me">Remeber me 
@@ -36,7 +36,7 @@
                 </p>
                 <div id="line"></div>
                 <div id="quick-sign-up">
-                    <p>Dont have an account? <a href="/ui/sign-up.html" target="_blank">Sign up</a>
+                    <p>Dont have an account? <a href="sign-up.html" target="_blank">Sign up</a>
                     </p>
                 </div>
                 <div id="log-in-options">

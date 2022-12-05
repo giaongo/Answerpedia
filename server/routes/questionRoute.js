@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const questionController = require("../controllers/questionController");
 const answerController = require("../controllers/answerController");
+const passport = require('../utils/passport');
 const {body} = require("express-validator")
 // FIle filter for image types
 const fileFilter = (req,file,cb) => {
@@ -14,30 +15,33 @@ const fileFilter = (req,file,cb) => {
     }
 }
 const upload = multer({dest:"uploads/",fileFilter});
-router.route("/")
-    .post(
-        upload.array("media",10),
-        body("question_title").isLength({min:1}).trim().escape(),
-        body("question_content").isLength({min:5}).trim().escape(),
-        body("question_tag").isLength({min:1}).trim().escape(),
-        questionController.addQuestion
-    )
-    .get(questionController.getQuestions)
+router.get("/", questionController.getQuestions)
+router.post("/", passport.authenticate('jwt', {session: false}),
+    upload.array("media",10),
+    body("question_title").isLength({min:1}).trim().escape(),
+    body("question_content").isLength({min:5}).trim().escape(),
+    body("question_tag").isLength({min:1}).trim().escape(),
+    questionController.addQuestion
+)
 
-router.route("/:question_id")
-    .put(
-        body("question_title").isLength({min:1}).trim().escape(),
-        body("question_content").isLength({min:5}).trim().escape(),
-        questionController.modifyQuestionById
-    )
-    .delete(questionController.removeQuestionById)
-    .get(questionController.readQuestionById)
+router.put("/:question_id",passport.authenticate('jwt', {session: false}),
+    body("question_title").isLength({min:1}).trim().escape(),
+    body("question_content").isLength({min:5}).trim().escape(),
+    questionController.modifyQuestionById
+)
+router.delete("/:question_id",
+    passport.authenticate('jwt', {session: false}),
+    questionController.removeQuestionById)
+router.get("/:question_id",
+    passport.authenticate('jwt', {session: false}),
+    questionController.readQuestionById)
 
-router.route("/:question_id/answer")
-    .post(
-        upload.array("media",10),
-        body("answer_content").isLength({min:5}).trim().escape(),
-        answerController.addAnswer
+router.post("/:question_id/answer", 
+    passport.authenticate('jwt', {session: false},
+    upload.array("media",10),
+    body("answer_content").isLength({min:5}).trim().escape(),
+    answerController.addAnswer
     )
+)
 
 module.exports = router;

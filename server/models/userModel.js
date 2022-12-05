@@ -4,8 +4,6 @@ const promisePool = pool.promise();
 
 /**
  * Funtion to get list of all the users
- * @param {Response} res
- * @returns list of all the users
  */
 const getAllUsers = async (res) => {
   try {
@@ -20,9 +18,6 @@ const getAllUsers = async (res) => {
 
 /**
  * Function to get user according to Id
- * @param {Response} res
- * @param {Integer} userId UserId of the searched user
- * @returns {user} user that has the specific userId
  */
 const getUserById = async (res, userId) => {
   try {
@@ -38,15 +33,13 @@ const getUserById = async (res, userId) => {
 
 /**
  * Function to check email address entered to log in
- * @param {text} userEmail email of the user that wants to log in
- * @returns {user} user that has entered email
  */
 const getUserLogin = async (userEmail) => {
   try {
     console.log("getUserLogin", userEmail);
     const [rows] = await promisePool.execute(
       "SELECT * FROM user WHERE email = ?;",
-      [userEmail]
+      userEmail
     );
     return rows;
   } catch (e) {
@@ -57,9 +50,6 @@ const getUserLogin = async (userEmail) => {
 
 /**
  * Function to add new users
- * @param {Response} res Response
- * @param {any} req Request contains the details that will be saved in the database
- * @returns {user} user that has been added to database
  */
 const addUser = async (res, user) => {
   try {
@@ -81,9 +71,6 @@ const addUser = async (res, user) => {
 
 /**
  * Function to modify existing users
- * @param {Response} res Response
- * @param {*} req Request contains the new details of the users that needs to changed.
- * @returns {user} user with new details that has been changed.
  */
 const modifyUser = async (res, req) => {
   try {

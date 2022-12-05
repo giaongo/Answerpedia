@@ -9,22 +9,22 @@ const { getUserLogin } = require("../models/userModel");
 require('dotenv').config();
 
 // local strategy for email and password login
-passport.use(
-  new Strategy(async (username, password, done) => {
-    const params = [username];
-    try {
-      const [user] = await getUserLogin(params);
-      console.log("Local strategy", user); // result is binary row
-      if (user === undefined) {
-        return done(null, false, { message: "Incorrect email." });
-      }
+passport.use( new Strategy(async (username, password, done) => {
+  const params = [username];
+  try {
+    const [user] = await getUserLogin(params);
+    console.log("Local strategy", user);
+    if (user === undefined) {
+      return done(null, false, { message: "Incorrect email." });
+    }
       // Hash login password and compare it to the password hash in DB.
-      const passwordOk = await bcrypt.compare(password, user.password);
-      if (!passwordOk) {
+    const passwordOk = await bcrypt.compare(password, user.password);
+    if (!passwordOk) {
         return done(null, false, { message: "Incorrect password." });
-      }
+    }
+    console.log("Found user is", user)
       // use spread syntax to create shallow copy to get rid of binary row type
-      return done(null, { ...user }, { message: "Logged In Successfully" }); 
+    return done(null, { ...user }, { message: "Logged In Successfully" }); 
     } catch (err) {
       return done(err);
     }
