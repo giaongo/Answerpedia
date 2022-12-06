@@ -60,7 +60,7 @@ const addUser = async (res, user) => {
       user.email,
       user.password,
       user.user_type_id,
-      user.filename,
+      user.picture_name,
       user.description,
     ]);
   } catch (e) {

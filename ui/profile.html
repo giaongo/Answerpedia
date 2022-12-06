@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/ui/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>profile</title>
 </head>
 <body>
@@ -17,27 +17,20 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text">
                 </li>
+                <li class="navEditProfile"> <a href="modify-profile.html">Edit profile</a></li>
                 <li class="navLogIn"><a href="login.html">Login</a></li>
                 <li class="navSignUp"><a href="sign-up.html">Sign up</a></li>
-                <li class="navEditProfile"> <a href="modify-profile.html">Edit profile</a></li>
-                <li class="navLogOut"><a href="login.html">Log out</a></li>
+                <li class="navLogOut"><a href="logout.html">Log out</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div id="profile-pic">
-            <img src="http://placekitten.com/200/250" alt="profilePicture">
         </div>
         <br>
         <br>
         <div id="wrap">
             <div id="profile-info">
-                <h2>Username</h2>
-                <p>fetch username to here</p>
-                <h2>Email</h2>
-                <p>fetch email to here</p>
-                <h2 for="bio">User bio</h2>
-                <p>fetch userbio to here</p>
             </div>
             <div id="left-nav-bar">
                 <p><a href="#">Questions</a></p>
@@ -45,7 +38,8 @@
                 <p><a href="#">Tags</a></p>
             </div> 
         </div>
-        
+        <script src="js/serialize.js"></script>
+        <script src="js/profile.js"></script>
     </main>
 </body>
 </html>

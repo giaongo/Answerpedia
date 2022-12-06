@@ -13,7 +13,6 @@ passport.use( new Strategy(async (username, password, done) => {
   const params = [username];
   try {
     const [user] = await getUserLogin(params);
-    console.log("Local strategy", user);
     if (user === undefined) {
       return done(null, false, { message: "Incorrect email." });
     }
@@ -22,7 +21,6 @@ passport.use( new Strategy(async (username, password, done) => {
     if (!passwordOk) {
         return done(null, false, { message: "Incorrect password." });
     }
-    console.log("Found user is", user)
       // use spread syntax to create shallow copy to get rid of binary row type
     return done(null, { ...user }, { message: "Logged In Successfully" }); 
     } catch (err) {
