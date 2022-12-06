@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Modify Profile</title>
 </head>
+
 <body>
     <header>
         <nav>
@@ -27,41 +29,45 @@
         <div id="modify-profile-title">
             <h1>Edit your profile</h1>
         </div>
-        <form >
-        <div id="modify-profile-container">
-            <div id="modify-profile-img">
+        <form id="modify-profile-form" action="http://localhost:4000/user/modify" method="put">
+            <div>
+                <div id="modify-profile-img">
+                </div>
+                <div id="modify-profile-button">
+                    <label for="inputTag">
+                        Upload Picture
+                        <input id="inputTag" name="user" type="file"  multiple/>
+                        <span id="imageName"></span>
+                    </label>
+                    <br>
+
+                </div>
+                <div id="modify-profile-info">
+                    <br>
+
+                    <label for="username">Display username</label><br>
+                    <input type="text" id="username" name="username" required="required" placeholder="Your username">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" require="required" placeholder="Your email">
+                    <label for="password">Password</label><br>
+                    <input type="password" id="password" name="password" required="required"
+                        placeholder="Your password">
+                    <label for="confirmPassword">Confirm Password</label><br>
+                    <input type="password" id="confirmPassword" name="password" required="required"
+                        placeholder="Confirm password">
+                    <label for="description">About me</label><br>
+                    <input type="text" id="description" name="description" require="required" placeholder="About me">
+
+                </div>
+                <div id="modify-profile-buttons">
+                    <button id="save-profile" type="submit">Save Profile</button>
+                    <button id="cancel" type="reset">Cancel</button>
+                </div>
             </div>
-            <div id = "modify-profile-button">
-                <label  for="inputTag">
-                    Upload Picture
-                    <input id="inputTag" type="file" accept="image/*"/>
-                    <span id="imageName"></span>
-                </label>
-                <br>
-                
-            </div>
-            <div id="modify-profile-info">
-                <br>
-                
-                <label for="display-name-text">Display username</label><br>
-                <input type="text" id="display-name-text">
-                <label for="email-text">Email</label>
-                <input type="email" id="email-text">
-                <label for="password-text">Password</label><br>
-                <input type="password" id="password-text">
-                <label for="confirm-password">Confirm Password</label><br>
-                <input type="password" id="confirm-password-text">
-                <label for="about-me">About me</label><br>
-                <input type="text" id="about-me-text">
-            
-            </div>
-            <div id="modify-profile-buttons">
-                <button id="save-profile" type="submit">Save Profile</button> 
-                <button id="cancel" type="reset">Cancel</button>
-            </div>
-        </div>
-    </form>
+        </form>
     </main>
+    <script src="js/serialize.js"></script>
     <script src="js/modify-profile.js"></script>
 </body>
+
 </html>

@@ -70,24 +70,22 @@ const addUser = async (res, user) => {
 };
 
 /**
- * Function to modify existing users
+ * Function for modifying user
+ * @param {Response} res 
+ * @param {any} req 
+ * @returns status if the query is executed
  */
-const modifyUser = async (res, req) => {
-  try {
-    const user = req.body;
-    let query = `UPDATE user SET name = ?, email = ?, password = ?, description = ? WHERE user_id = ?;`;
-    return promisePool.query(query, [
-      user.name,
-      user.email,
-      user.passwd,
-      user.description,
-      req.user.user_id,
-    ]);
-  } catch (e) {
-    res.status(500).send(e.message);
-    console.error("error", e.message);
-  }
-};
+ const modifyUser = async(res, req,user_id) => {
+    try{
+      const user = req.body;
+      let query = `UPDATE user SET username = ?, email = ?, password = ?, description = ?, picture_name = ? WHERE id = ?;`;
+      return promisePool.query(query, [user.username, user.email, user.password,user.description,user.picture_name, req.user.id]);
+    }catch(e) {
+      res.status(500).send(e.message);
+      console.error("error", e.message);
+    }
+  };
+
 
 module.exports = {
   getAllUsers,

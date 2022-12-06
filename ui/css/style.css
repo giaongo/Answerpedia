@@ -62,12 +62,7 @@ header nav ul li a {
     color:var(--white);
 }
 
-.navLogIn, .navSignUp {
-    display:none ;
-}
-.navEditProfile{
-    margin-left: 35rem ;
-}
+
 
 /* global styling for button */
 button:active {
@@ -675,6 +670,10 @@ button:active {
     color: #f1f1f1; 
 }
 
+.navLogIn, .navSignUp {
+    display:none ;
+}
+
 /* Styling for sign-up.html----------------------------------------------------------------------- */
 #sign-up-title {
     text-align: center;
@@ -876,7 +875,7 @@ button:active {
     text-align: center;
 }
 
-#modify-profile-container {
+#modify-profile-form {
     margin: auto;
     margin-top: 2%;
     margin-bottom: 5%;
