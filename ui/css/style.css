@@ -62,11 +62,8 @@ header nav ul li a {
     color:var(--white);
 }
 
-.navLogIn, .navSignUp {
-    display:none ;
-}
-.navEditProfile{
-    margin-left: 35rem ;
+.navLogOut, .navEditProfile {
+    display: none;
 }
 
 /* global styling for button */

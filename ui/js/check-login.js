@@ -1,7 +1,8 @@
 (async () => {
     'use strict';
     const url = 'http://localhost:4000'; //Change when uploading to server 
-
+    const navLogOut = document.querySelector(".navLogOut"); 
+    const navEditProfile = document.querySelector(".navEditProfile");
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
         console.log("user is not logged in yet");
@@ -26,6 +27,8 @@
             const json = await response.json();
             sessionStorage.setItem('user', JSON.stringify(json.user));
             console.log("user is logged in");
+            navLogOut.style.display = "inline-block";
+            navEditProfile.style.display = "inline-block";
         }
     } catch (e) {
         console.log(e.message);
