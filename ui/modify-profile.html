@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/ui/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Modify Profile</title>
 </head>
 <body>
@@ -27,14 +27,22 @@
         <div id="modify-profile-title">
             <h1>Edit your profile</h1>
         </div>
+        <form >
         <div id="modify-profile-container">
             <div id="modify-profile-img">
-                <img src="https://placedog.net/500" alt="placedog">
-                <input id="upload-picture-button" type="button" value="Upload picture"></input>
-                <input type="file" id="upload-picture-input" style="display: none;"></input>
+            </div>
+            <div id = "modify-profile-button">
+                <label  for="inputTag">
+                    Upload Picture
+                    <input id="inputTag" type="file" accept="image/*"/>
+                    <span id="imageName"></span>
+                </label>
                 <br>
+                
             </div>
             <div id="modify-profile-info">
+                <br>
+                
                 <label for="display-name-text">Display username</label><br>
                 <input type="text" id="display-name-text">
                 <label for="email-text">Email</label>
@@ -45,13 +53,15 @@
                 <input type="password" id="confirm-password-text">
                 <label for="about-me">About me</label><br>
                 <input type="text" id="about-me-text">
+            
             </div>
             <div id="modify-profile-buttons">
                 <button id="save-profile" type="submit">Save Profile</button> 
                 <button id="cancel" type="reset">Cancel</button>
             </div>
         </div>
+    </form>
     </main>
-    <script src="/ui/js/modify-profile.js"></script>
+    <script src="js/modify-profile.js"></script>
 </body>
 </html>

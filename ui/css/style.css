@@ -62,8 +62,11 @@ header nav ul li a {
     color:var(--white);
 }
 
-.navLogOut {
-    display: none;
+.navLogIn, .navSignUp {
+    display:none ;
+}
+.navEditProfile{
+    margin-left: 35rem ;
 }
 
 /* global styling for button */
@@ -895,14 +898,25 @@ button:active {
     border-radius: 70%;
 }
 
-#modify-profile-img #upload-picture-button {
+#modify-profile-button   {
     margin-top: 2%;
+    margin-left: 37%;
     width: 40%;
     height: 30px;
     border: none;  
     border-radius: 17px;  
     font-weight: bold;
 }
+
+
+#modify-profile-button input{
+    display: none;
+}
+#modify-profile-button label{
+    cursor: pointer;
+    
+}
+
 
 #upload-picture-button:hover {
     background-color: #a39d9d;
