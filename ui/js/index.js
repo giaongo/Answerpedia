@@ -7,7 +7,7 @@ const topTags = document.querySelector('.topTags');
 const login = document.querySelector(".navLogIn");
 const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
-
+const editProfile = document.querySelector(".navEditProfile");
 /*  Un-registered user can view only index.html and about.html  
     Registered user and admin can view all pages, add questions and answers. 
     Below function is to check user login state. If user does not register and login => continute to
@@ -38,6 +38,7 @@ const signup = document.querySelector(".navSignUp");
             login.style.visibility="hidden";
             signup.style.visibility="hidden";
             logout.style.display="inline-block";
+            editProfile.style.display = "inline-block";
             logout.addEventListener("click",() => {
                 console.log("clicked")
                 location.href = 'logout.html';
