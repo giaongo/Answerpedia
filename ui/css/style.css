@@ -696,10 +696,6 @@ button:active {
     color: #f1f1f1; 
 }
 
-.navLogIn, .navSignUp {
-    display:none ;
-}
-
 /* Styling for sign-up.html----------------------------------------------------------------------- */
 #sign-up-title {
     text-align: center;
