@@ -258,6 +258,7 @@ button:active {
 #questionForm,
 #modifyQuestionContainer {
     width:50%;
+    max-width: 600px;
     margin: 0 auto;
     font-size: 20px;
 }
@@ -317,6 +318,7 @@ button:active {
 #savedQuestionContainer,
 #tagContainer {
     width:70%;
+    max-width: 800px;
     height:100%;
     margin: var(--margin-large) auto;
 }
@@ -325,6 +327,7 @@ button:active {
     background-color: var(--light-pink);
     display: flex;
     margin-top: var(--margin-large);
+    align-items: center;
 } 
 .tagCard h2 {
     flex-basis: 200px;
@@ -350,6 +353,7 @@ button:active {
     background-color: var(--macroon);
     display: flex;
     margin-bottom: var(--margin-large);
+    align-items: center;
 }
 .questionCard h2 {
     flex-basis: 200px;
@@ -362,9 +366,22 @@ button:active {
     flex:1;
     padding:1.5em;
 }
+
+@media screen and (max-width:800px) {
+    #questionByTagContainer,
+    #savedQuestionContainer,
+    #tagContainer{
+       width: 100%;
+    }
+
+    #tagContainer h1{
+        text-align: center;
+    }
+}
 /* Styling for view-question.html------------------------------------------------------- */
 #questionContainer {
-    width: 70%;
+    width: 60%;
+    max-width: 600px;
     margin: 0 auto;
     padding:var(--padding-small);
     position:relative;
@@ -478,7 +495,7 @@ button:active {
 }
 .answerContainer {
     position: relative;
-    width:70%;
+    width:60%;
     margin: var(--margin-large) auto;
 }
 .answerBox {
@@ -504,7 +521,8 @@ button:active {
     margin:0 var(--margin-small) var(--margin-small) 0;
 }
 #addAnswerForm {
-    width:70%;
+    width:60%;
+    max-width: 600px;
     margin: var(--margin-large) auto;
     background-color: var(--grey);
     padding:var(--padding-small);
@@ -532,6 +550,12 @@ button:active {
     font-weight: bold;
     margin-bottom: var(--margin-medium);
     box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+}
+
+@media screen and (max-width: 600px) {
+    .voteDisplay .voteNumber {
+        margin-left: 20%;
+    }
 }
 
 /* Styling for login.html------------------------------------------------------------------------ */
@@ -785,6 +809,8 @@ button:active {
     background-color: antiquewhite;
     text-align: justify;
     padding: 5px;
+    margin-right: 2%;
+    margin-left: 2%;
     font-weight: 300;
     font-size: 1.5rem;
     word-wrap: break-word;
@@ -844,7 +870,7 @@ button:active {
 }
 
 
-@media screen  and (max-width: 1000px){ 
+@media screen  and (max-width: 800px){ 
     .column {
         width: 100%;
         height: 33.3%;
