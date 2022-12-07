@@ -74,7 +74,6 @@ const updateQuestionById = async(res,updatedQuestion) => {
             const [rows] = await promisePool.query(editQuery,[question_title, question_content,id, user_id]);
             return rows;
         }
-        return roe
     } catch(error) {
         console.log("error",error.message);
         res.status(500).send(error.message);
@@ -91,8 +90,7 @@ const questionIsInFavorite = async(question_id) => {
     }
 }
 
-
-
+// This function is to remove the favorite question from favorite list
 const removeQuestionFromFavourites = async(questionId) => {
     if(await questionIsInFavorite(questionId)) {
         const deleteFromFavourite = "DELETE FROM favourites WHERE question_id = ?";
