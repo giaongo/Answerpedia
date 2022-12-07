@@ -2,6 +2,7 @@
 const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById} = require("../models/questionModel");
 const {unlink}  = require("node:fs");
 const {validationResult} = require("express-validator");
+const questionModel = require('../models/questionModel');
 
 
 const addQuestion = async(req,res) => {
@@ -96,10 +97,20 @@ const removeMediaFromUploads = async(questionMedia, answerMedia) => {
     } 
 }
 
+const getVoteNumber = async(req, res) => {
+    const voteNumber = await questionModel.getVoteNumber(res, req.params.question_id);
+    if(voteNumber) {
+        res.status(201).json(voteNumber);
+    } else {
+        res.status(401).json({message:"Error with getting the votes"});
+    }
+}
+
 module.exports = {
     addQuestion,
     getQuestions,
     modifyQuestionById,
     removeQuestionById,
-    readQuestionById
+    readQuestionById,
+    getVoteNumber
 }

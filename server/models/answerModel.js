@@ -51,7 +51,22 @@ const deleteAnswerByQuestionId = async(question_id) => {
     return 0;
 }
 
+/*This function is for getting vote numbers from answer table*/ 
+const getVoteNumber = async (res, answerId) => {
+    try {
+        const [getVoteNumberQuery] = await promisePool.query('SELECT votes from answer where id = ?', answerId);
+        return getVoteNumberQuery;
+    } catch (e) {
+        res.status(500).send(e.message);
+        console.log("error: ", e);
+    }
+}
+
+/* This function is for updating vote numbers from answer table*/
+
+
 module.exports = {
     createAnswer,
-    deleteAnswerByQuestionId
+    deleteAnswerByQuestionId,
+    getVoteNumber
 }

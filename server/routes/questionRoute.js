@@ -32,9 +32,13 @@ router.put("/:question_id",passport.authenticate('jwt', {session: false}),
 router.delete("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.removeQuestionById)
+
+
 router.get("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.readQuestionById)
+router.get("/:question_id", passport.authenticate('jwt', {session: false}),questionController.getVoteNumber)
+
 
 router.post("/:question_id/answer", 
     passport.authenticate('jwt', {session: false}),
