@@ -2,8 +2,9 @@
 const express = require("express");
 const router = express.Router();
 const {body} = require('express-validator');
-const {login, logout, register} = require('../controllers/authController');
+const {login, logout, register, modifyUser} = require('../controllers/authController');
 const multer = require('multer');
+
 
 
 /**
@@ -32,11 +33,12 @@ const multer = require('multer');
 router.post('/login', login);
 
 router.post('/register', 
- //upload.single("user"),
+
 body('username').isLength({min: 3}).trim().escape(),
 body('email').isEmail().normalizeEmail(),  
 body('password').isLength({min: 8}).trim(), 
 register);
+
 
 router.get('/logout', logout);
 module.exports = router;

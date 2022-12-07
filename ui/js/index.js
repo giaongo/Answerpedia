@@ -65,7 +65,8 @@ const truncateText = (text) => {
     return text.slice(0,maxCharLength);
 }
 //Create questions cards/sections inside allQuestion article
-const createQuestionCards = (questions) => {
+const createQuestionCards = (questions,searchValue = null) => {
+    questionContainer.innerHTML = "";
     questions.forEach(question => {
         const article = document.createElement('article');
         const questionP = document.createElement('p');
@@ -111,7 +112,7 @@ const createLegendaryQuestionCards = (questions) => {
     })
 }
 
-// This function get all question tags, count number of duplicated tags, sorting tags by number
+// This function is to get all question tags, count number of duplicated tags and sort tags by number
 const measureTag = async(questions) => {
     const tags = questions.map(question => question.question_tag);
     const tagSelection = [];
@@ -138,7 +139,7 @@ const measureTag = async(questions) => {
     return sortingResult;
 }
 
-// This function create list of tags for the aside tag container
+// This function is to create list of tags for the aside tag container
 const createTopTagCards = (tags) => {
     Object.keys(tags).forEach(tag => {
         const tagP = document.createElement("p");
@@ -148,7 +149,38 @@ const createTopTagCards = (tags) => {
     })
 }
 
-// This function fetch all question data and display to UI
+// This function is to filter out the question data based on the search input value
+const searchFunction = (questions,inputValue) => {
+    const splitInput = inputValue.split(" ");
+    const foundData = [];
+    // For each found question object => append to foundData array
+    splitInput.forEach(input => {
+        const result = questions
+        .filter(question => {
+            return question.question_title.toLowerCase().includes(input) 
+            || question.question_content.toLowerCase().includes(input)
+        })
+
+        foundData.push(...result);
+    })
+    // Remove the duplicated question objects from the foundData array
+    const filteredQuestion = Object.values(foundData.reduce((acc,cur) => {
+        acc[cur.id] = acc[cur.id] || {
+            id:cur.id,
+            question_title:cur.question_title,
+            question_content:cur.question_content,
+            question_date:cur.question_date,
+            question_votes:cur.question_vote,
+            question_user:cur.question_user,
+            question_user_picture:cur.question_user_picture,
+            question_tag:cur.question_tag
+        }
+        return acc;
+    },{}))
+    return filteredQuestion;
+}
+
+// This function is to fetch all question data from server and display to UI
 const getAllQuestion = async() => {
     try {
         const response = await fetch(url + "/question");
@@ -157,10 +189,22 @@ const getAllQuestion = async() => {
         createLegendaryQuestionCards(questions);
         const measureTags = await measureTag(questions);
         createTopTagCards(measureTags);
+
+        const searchBar = document.querySelector("#searchQuestions");
+
+        //Register keyup listener for input on searchBar
+        searchBar.addEventListener("keyup",() => {
+            const inputValue = searchBar.value.toLowerCase();
+            const result = searchFunction(questions,inputValue);
+            console.log("result is",result);
+            createQuestionCards(result)
+        });
     } catch(error) {
         console.log("Error",error.message);
     }
-
 };
 
+
 getAllQuestion();
+
+

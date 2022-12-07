@@ -121,7 +121,6 @@ header nav ul li a {
 
 }
 
-
 /* TODO: ask teacher about hover over button to appear all the nav options */
 
 /* global styling for button */
@@ -1000,7 +999,7 @@ button:active {
     text-align: center;
 }
 
-#modify-profile-container {
+#modify-profile-form {
     margin: auto;
     margin-top: 2%;
     margin-bottom: 5%;

@@ -6,7 +6,7 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const passport = require('passport');
 require('dotenv').config();
-//const {makeThumbnail} = require('../utils/image');
+
 
 /**
  * Function to add users
@@ -21,9 +21,6 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(req.body.password, salt);
     req.body.password = passwordHash;
     const user = req.body;
-    // This will be used for user modified and save picture
-    //user.picture_name = req.file.filename;
-    //await makeThumbnail(req.file.path, req.file.filename);
     if (!user.user_type_id) {
       user.user_type_id = 2;
     }
@@ -61,6 +58,8 @@ const login = (req, res) => {
     });
   })(req, res);
 };
+
+
 
 
 /**

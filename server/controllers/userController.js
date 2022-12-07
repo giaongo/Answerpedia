@@ -3,8 +3,8 @@
 const userModel = require("../models/userModel");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const {makeThumbnail} = require('../utils/image');
-const passport = require('../utils/passport');
+const { makeThumbnail } = require("../utils/image");
+const passport = require("../utils/passport");
 
 /**
  * Function for getting the list of all users
@@ -26,7 +26,7 @@ const getUsers = async (req, res) => {
  */
 const getUser = async (req, res) => {
   console.log(req.params.id);
-  const user = await userModel.getUserById(req.params.id, res);
+  const user = await userModel.getUserById(res, req.params.id);
   if (user) {
     delete user.password;
     res.json(user);
@@ -65,19 +65,52 @@ const addUser = async (req, res) => {
   }
 };
 
-  /**
-   * Function to check token 
-   * @param {any} req 
-   * @param {Response} res 
-*/
+/**
+ * Function to check token
+ * @param {any} req
+ * @param {Response} res
+ */
 const checkToken = (req, res) => {
-    delete req.user.password;
-    res.json({user: req.user})
+  delete req.user.password;
+  res.json({ user: req.user });
+};
+
+/**
+ * Function for modifying user
+ * @param {any} req
+ * @param {Response} res
+ */
+const modifyUser = async (req, res) => {
+  const errors = validationResult(req);
+  console.log("validation errors", errors);
+  console.log(req.body);
+  console.log(req.file);
+  if (!req.file) {
+    res.status(400).json({ message: "user file not found" });
+  } else if (errors.isEmpty()) {
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(req.body.password, salt);
+    req.body.password = passwordHash;
+    // This will be used for user modified and save picture
+    req.body.picture_name = req.file.filename;
+    await makeThumbnail(req.file.path, req.file.filename);
+   
+
+    const updateUser = await userModel.modifyUser(res, req);
+    if (updateUser) {
+      res.status(201).json({ message: "User data updated" });
+    } else {
+      res
+        .sendStatus(404)
+        .json({ message: "user creation failed", errors: errors.array() });
+    }
+  }
 };
 
 module.exports = {
   addUser,
   getUsers,
   getUser,
-  checkToken
+  checkToken,
+  modifyUser,
 };

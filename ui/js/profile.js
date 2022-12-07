@@ -51,12 +51,17 @@ const signup = document.querySelector(".navSignUp");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 console.log("working on edit profile");
-console.log(user);
+const liveUser = JSON.parse(sessionStorage.getItem("user"));
+console.log(liveUser.id);
 
-const imgDiv = document.querySelector("#profile-pic");
+const createUserCards = (users) =>{
+  users.forEach((user) =>{
+    if(user.id == liveUser.id){
+      const imgDiv = document.querySelector("#profile-pic");
 const infoDiv = document.querySelector("#profile-info");
 
-const img = document.createElement("img");
+
+    const img = document.createElement("img");
 if (!user.picture_name) {
   img.src = "https://place-puppy.com/300x300";
 } else {
@@ -98,3 +103,32 @@ infoDiv.appendChild(headingEmail);
 infoDiv.appendChild(email);
 infoDiv.appendChild(headingBio);
 infoDiv.appendChild(bio);
+
+    };
+  })
+};
+
+
+/**
+ * For displaying the user details in the profile.html
+ */
+
+// AJAX call
+const getUser = async () => {
+  try {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    
+    const response = await fetch(url + '/user', fetchOptions);
+    const users = await response.json();
+    createUserCards(users);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+getUser();
+
