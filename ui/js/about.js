@@ -13,10 +13,10 @@ const editProfile = document.querySelector(".navEditProfile");
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
         console.log("This is unregistered user");
-        logout.style.visibility = 'hidden';
+        logout.style.display = 'none';
         login.style.display = 'inline-block';
         signup.style.display = 'inline-block';
-        editProfile.style.visibility = 'hidden';
+        editProfile.style.display = 'none';
         return;
     }
     // Check if token is valid 

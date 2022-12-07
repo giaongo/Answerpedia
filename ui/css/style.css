@@ -291,7 +291,7 @@ button:active {
 
 /*Responsive css for index.html*/
 @media screen and (max-width: 992px) {
-    #feed aside,#feed nav {
+    #feed aside, #feed nav {
         display: none;
     }
 
@@ -308,21 +308,6 @@ button:active {
     }
 }
 
-@media screen and (max-width:600px) {
-    .allQuestionsContainer {
-        font-size:0.8em;
-    }
-    .question > p {
-        flex-basis: 80px ;
-    }
-    .question .smallDate{
-        font-size: 10px;
-    }
-    .questionTagBox {
-        font-size: 10px;
-        float:right;
-    }
-}
 @media screen and (max-width:768px) {
     .topAskedQuestions h2{
         padding-top: 15px;
@@ -342,6 +327,8 @@ button:active {
     }
 
     #feed nav {
+        display: block;
+        margin-left: 0;
         width: 100%;
         top: -40px;
         position: relative;
@@ -350,23 +337,21 @@ button:active {
 }
 
 @media screen and (max-width:600px) {
-    .topAskedQuestions h2{
-        padding-top: 15px;
+    .allQuestionsContainer {
+        font-size:0.8em;
     }
-    .question{
-        height: 180px;
+    .question > p {
+        flex-basis: 80px ;
     }
-    .question p:first-child{
-        flex-basis: 0;
+    .question .smallDate{
+        font-size: 10px;
     }
-    .question p:nth-child(2){
-        margin-top: -10px;
-    }
-
-    .question p:nth-child(3){
-        margin-top: -10px;
+    .questionTagBox {
+        font-size: 10px;
+        float:right;
     }
 }
+
 
 
 /* Styling for add-question.html, modify-question.html--------------------------------------------*/
