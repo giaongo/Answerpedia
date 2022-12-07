@@ -3,6 +3,7 @@ const url = 'http://localhost:4000';
 const login = document.querySelector(".navLogIn");
 const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
+const editProfile = document.querySelector(".navEditProfile");
 /*  Un-registered user can view only index.html and about.html  
     Registered user and admin can view all pages, add questions and answers. 
     Below function is to check user login state. If user does not register and login => continute to
@@ -30,8 +31,8 @@ const signup = document.querySelector(".navSignUp");
             console.log("This is registered user");
             const json = await response.json();
             sessionStorage.setItem('user', JSON.stringify(json.user));
-            login.style.visibility="hidden";
-            signup.style.visibility="hidden";
+            login.style.display="none";
+            signup.style.display="none";
             logout.style.display="inline-block";
             editProfile.style.display = "inline-block";
             logout.addEventListener("click",() => {
