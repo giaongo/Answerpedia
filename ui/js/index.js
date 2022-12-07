@@ -7,6 +7,11 @@ const topTags = document.querySelector('.topTags');
 const login = document.querySelector(".navLogIn");
 const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
+const menuIcon = document.querySelector('.menuIcon');
+const editProfile = document.querySelector('.navEditProfile');
+
+/*Function to show top navigation bar after clicking at the menu icon*/
+
 
 /*  Un-registered user can view only index.html and about.html  
     Registered user and admin can view all pages, add questions and answers. 
@@ -17,34 +22,39 @@ const signup = document.querySelector(".navSignUp");
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
         console.log("This is unregistered user");
+        logout.style.visibility = 'hidden';
+        login.style.display = 'inline-block';
+        signup.style.display = 'inline-block';
+        editProfile.style.visibility = 'hidden'
         return;
-    }
-    // Check if token is valid 
-    try {
-        const fetchOptions = {
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-            },
-        };
-        console.log(fetchOptions.headers);
-        const response = await fetch(url + '/user/token', fetchOptions);
-        if (!response.ok) {
-            console.log((response));
-            location.href = 'logout.html';
-        } else {
-            console.log("This is registered user");
-            const json = await response.json();
-            sessionStorage.setItem('user', JSON.stringify(json.user));
-            login.style.visibility="hidden";
-            signup.style.visibility="hidden";
-            logout.style.display="inline-block";
-            logout.addEventListener("click",() => {
-                console.log("clicked")
+    } else {
+        
+        try {
+            const fetchOptions = {
+                headers: {
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                },
+            };
+            console.log(fetchOptions.headers);
+            const response = await fetch(url + '/user/token', fetchOptions);
+            if (!response.ok) {
+                console.log((response));
                 location.href = 'logout.html';
-            })
+            } else {
+                console.log("This is registered user");
+                const json = await response.json();
+                sessionStorage.setItem('user', JSON.stringify(json.user));
+                login.style.display="none";
+                signup.style.display="none";
+                logout.style.display="inline-block";
+                logout.addEventListener("click",() => {
+                    console.log("clicked")
+                    location.href = 'logout.html';
+                })
+            }
+        } catch (e) {
+            console.log(e.message);
         }
-    } catch (e) {
-        console.log(e.message);
     }
 })();
 

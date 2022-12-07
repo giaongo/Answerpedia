@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/3e403a213d.js" crossorigin="anonymous"></script>
     <title>About</title>
 </head>
 <body>
     <header>
         <nav>
             <a href="index.html"><img src="image/app_logo.png" alt="logo" width="100" height="100"></a>
-            <ul>
-                <li><a href="index.html">Home</a></li>
+            <li class="menuIcon">
+                <i class="fa-solid fa-bars fa-xl"></i>
+            </li>
+            <ul id="indexWrap">
+                <li><a href="about.html">About</a></li>
+                <li class="navSearchBar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchQuestions" placeholder="Search for question">
+                </li>
                 <li class="navLogIn"><a href="login.html">Login</a></li>
                 <li class="navSignUp"><a href="sign-up.html">Sign up</a></li>
+                <li class="navEditProfile"><a href="profile.html">Edit Profile</a></li>
+                <li class="navLogOut"><a href="logout.html">Logout</a></li>
             </ul>
+            
         </nav>
     </header>
     <main>
@@ -87,5 +98,6 @@
             </div>
         </div>
     </main>
+    <script src="js/about.js"></script>
 </body>
 </html>

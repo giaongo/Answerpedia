@@ -5,30 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/3e403a213d.js" crossorigin="anonymous"></script>
     <title>profile</title>
 </head>
 <body>
     <header>
         <nav>
             <a href="index.html"><img src="image/app_logo.png" alt="logo" width="100" height="100"></a>
-            <ul>
+            <li class="menuIcon">
+                <i class="fa-solid fa-bars fa-xl"></i>
+            </li>
+            <ul id="indexWrap">
                 <li><a href="about.html">About</a></li>
                 <li class="navSearchBar">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text">
+                    <input type="text" id="searchQuestions" placeholder="Search for question">
                 </li>
-                <li class="navEditProfile"> <a href="modify-profile.html">Edit profile</a></li>
                 <li class="navLogIn"><a href="login.html">Login</a></li>
                 <li class="navSignUp"><a href="sign-up.html">Sign up</a></li>
-                <li class="navLogOut"><a href="logout.html">Log out</a></li>
+                <li class="navEditProfile"><a href="profile.html">Edit Profile</a></li>
+                <li class="navLogOut"><a href="logout.html">Logout</a></li>
             </ul>
+            
         </nav>
     </header>
     <main>
         <div id="profile-pic">
         </div>
-        <br>
-        <br>
         <div id="wrap">
             <div id="profile-info">
             </div>
