@@ -317,6 +317,17 @@ const getQuestionByUser = async(res,req) => {
     }
 }
 
+
+/* This function is to get vote number from question */
+const getVoteNumber = async(res, questionId) => {
+    try {
+        const [getVoteNumberQuery] = await promisePool.query('SELECT votes from question where id = ?',questionId);
+       return getVoteNumberQuery;
+    } catch (e) {
+        res.status(500).send(e.message);
+        console.log('error: ', e);
+    }
+}
 module.exports = {
     createQuestion,
     getAllQuestions,
@@ -325,4 +336,5 @@ module.exports = {
     deleteQuestionById,
     getMediaById,
     getQuestionByUser,
+    getVoteNumber
 }

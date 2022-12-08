@@ -41,6 +41,8 @@ router.get("/byuser",
 router.get("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.readQuestionById)
+router.get("/:question_id", passport.authenticate('jwt', {session: false}),questionController.getVoteNumber)
+
 
 router.post("/:question_id/answer", 
     passport.authenticate('jwt', {session: false}),
@@ -48,8 +50,5 @@ router.post("/:question_id/answer",
     body("answer_content").isLength({min:5}).trim().escape(),
     answerController.addAnswer
 )
-
-
-
 
 module.exports = router;

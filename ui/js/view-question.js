@@ -5,6 +5,7 @@ const questionContainer = document.querySelector('.questionContainer');
 const answerContainer = document.querySelector('.answerContainer');
 const imgGallery = document.querySelector('.imgGallery');
 const answerForm = document.querySelector("#addAnswerForm");
+const questionVoteNumber = document.querySelector('.questionVoteNumber');
 
 const getQParam = (param) => {
     const queryString = window.location.search;
@@ -37,6 +38,8 @@ const createImgGallery = (question) => {
         }
     })
 };
+
+/*TODO: added function for getting vote numbers from each questions and answer*/
 
 const createTagDisplay = (question) => {
     const tagDisplay = document.querySelector("#tagDisplay");
@@ -160,11 +163,11 @@ const createAnswerContainer = (answer,aContainer) => {
     const btnThumbsDown = document.createElement("button");
     btnThumbsDown.innerHTML += '<i class="fa-regular fa-thumbs-down"></i>';
 
-    const voteNumber = document.createElement("p");
-    voteNumber.className = 'voteNumber';
-    voteNumber.innerText = '100K';
+    const answerVoteNumber = document.createElement("p");
+    answerVoteNumber.className = 'answerVoteNumber';
+    answerVoteNumber.innerText = '100K';
 
-    voteDisplay.append(btnThumbsUp,btnThumbsDown,voteNumber);
+    voteDisplay.append(btnThumbsUp,btnThumbsDown,answerVoteNumber);
     answerBox.append(profileContainer,answerInfo,imgCollection,voteDisplay);
     aContainer.appendChild(answerBox);    
 }

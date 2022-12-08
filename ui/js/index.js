@@ -25,7 +25,7 @@ const editProfile = document.querySelector('.navEditProfile');
         logout.style.visibility = 'hidden';
         login.style.display = 'inline-block';
         signup.style.display = 'inline-block';
-        editProfile.style.visibility = 'hidden'
+        editProfile.style.visibility = 'hidden';
         return;
     } else {
         
