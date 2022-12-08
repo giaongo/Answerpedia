@@ -115,17 +115,15 @@ const deleteQuestionAndLinkedAnswers = async(questionId) => {
             console.log("Delete question tag successfully");
 
             const removeCorrespondingAnswer =  await deleteAnswerByQuestionId(questionId);
-            console.log("result from remove media", removeCorrespondingAnswer);
             if(!removeCorrespondingAnswer || (removeCorrespondingAnswer && removeCorrespondingAnswer.affectedRows > 0)) {
                 if(removeCorrespondingAnswer && removeCorrespondingAnswer.affectedRows > 0) {
                     console.log("remove all linked answers successfully");
                 }
                 const favouritesRemoveResult = await removeQuestionFromFavourites(questionId);
-                if(!favouritesRemoveResult || (favouritesRemoveResult && favouritesRemoveResult.favouritesRemoveResult > 0)) {
+                if(!favouritesRemoveResult || (favouritesRemoveResult && favouritesRemoveResult.affectedRows > 0)) {
                     if(favouritesRemoveResult && favouritesRemoveResult.affectedRows > 0) {
                         console.log("Delete question from favourites successfully");
                     }
-                
                     const deleteFromQuestion = "DELETE FROM question WHERE id = ?";
                     const [questionRows] = await promisePool.query(deleteFromQuestion,[questionId]);
                     return questionRows;
