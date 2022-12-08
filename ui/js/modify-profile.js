@@ -91,6 +91,7 @@ input.addEventListener("change", () => {
   imageName.innerText = inputImage.name;
 });
 
+const modifyUserForm = document.querySelector("#modify-profile-form");
 // Catching the data inserted by the user
 modifyUserForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();

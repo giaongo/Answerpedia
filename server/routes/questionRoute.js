@@ -32,6 +32,12 @@ router.put("/:question_id",passport.authenticate('jwt', {session: false}),
 router.delete("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.removeQuestionById)
+
+router.get("/byuser", 
+    passport.authenticate('jwt', {session: false}),
+    questionController.getAllQuestionByUser
+ )
+
 router.get("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.readQuestionById)
@@ -42,6 +48,8 @@ router.post("/:question_id/answer",
     body("answer_content").isLength({min:5}).trim().escape(),
     answerController.addAnswer
 )
+
+
 
 
 module.exports = router;

@@ -281,11 +281,48 @@ const getQuestionById = async(res,questionId) => {
     }
 }
 
+/*This function inner joins question tables, question's constrained tables, answer tables and 
+answer's constrained tables, user table by question id to return the most important data that client needs to know. */
+const getQuestionByUser = async(res,req) => {
+    try {
+        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,"+
+        "q.votes as question_votes, u.username as question_user,u.picture_name as question_user_picture,"+
+        "qt.tag as question_tag "+
+        "FROM question q INNER JOIN user u ON q.user_id = u.id "+
+        "INNER JOIN question_tag qt ON q.id = qt.question_id WHERE q.user_id = ? ORDER BY q.id";
+        const [rows] = await promisePool.query(questionQuery,[req.user.id]);
+        const output = Object.values(rows.reduce((acc,cur) => {
+            // in first loop acc is {}, cur is the first object in rows
+            acc[cur.id] = acc[cur.id] || {
+                id: cur.id, 
+                question_title: cur.question_title,
+                question_content:cur.question_content,
+                question_date:cur.question_date,
+                question_votes:cur.question_votes,
+                question_user:cur.question_user,
+                question_user_picture:cur.question_user_picture,
+                question_tag: [], 
+            };
+            // push the next value of cur to acc object and set the array data to be distinct set
+            acc[cur.id].question_tag.push(cur.question_tag);
+            acc[cur.id].question_tag = [...new Set(acc[cur.id].question_tag)];
+            return acc;
+        },{}));
+        
+        return output;
+
+    } catch(error) {
+        console.log("error",error.message);
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     createQuestion,
     getAllQuestions,
     getQuestionById,
     updateQuestionById,
     deleteQuestionById,
-    getMediaById
+    getMediaById,
+    getQuestionByUser,
 }
