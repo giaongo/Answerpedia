@@ -97,20 +97,30 @@ const removeMediaFromUploads = async(questionMedia, answerMedia) => {
     } 
 }
 
-const getVoteNumber = async(req, res) => {
-    const voteNumber = await questionModel.getVoteNumber(res, req.params.question_id);
-    if(voteNumber) {
+const incrementQuestionVoteNumber = async(req, res) => {
+    const incrementedQuestionVoteNumber = await questionModel.incrementQuestionVoteNumber(res, req.params.id);
+    if(incrementedQuestionVoteNumber) {
         res.status(201).json(voteNumber);
     } else {
-        res.status(401).json({message:"Error with getting the votes"});
+        res.status(401).json({message:"Error with incrementing the votes"});
     }
 }
 
+
+const decrementQuestionVoteNumber = async(req, res) => {
+    const decrementedQuestionVoteNumber = await questionModel.decrementQuestionVoteNumber(res, req.params.id);
+    if(decrementedQuestionVoteNumber) {
+        res.status(201).json(voteNumber);
+    } else {
+        res.status(401).json({message:"Error with decrementing the votes"});
+    }
+}
 module.exports = {
     addQuestion,
     getQuestions,
     modifyQuestionById,
     removeQuestionById,
     readQuestionById,
-    getVoteNumber
+    decrementQuestionVoteNumber,
+    incrementQuestionVoteNumber
 }

@@ -9,8 +9,20 @@ const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
 const menuIcon = document.querySelector('.menuIcon');
 const editProfile = document.querySelector('.navEditProfile');
+const indexWrap = document.querySelector('#indexWrap');
 
 /*Function to show top navigation bar after clicking at the menu icon*/
+let count = 1;
+const clickEvent = menuIcon.addEventListener('click', () => {
+    count++;
+    console.log('clicked');
+    if (count % 2 == 0){
+        indexWrap.style.display = 'none';
+    } else{
+        indexWrap.style.display = 'block';
+    }
+});
+
 
 
 /*  Un-registered user can view only index.html and about.html  

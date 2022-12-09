@@ -25,16 +25,15 @@ const addAnswer = async(req,res) => {
     }
 }
 
-const getVoteNumber = async(req, res) => {
-    const voteNumber = await questionModel.getVoteNumber(res, req.params.answer_id);
-    if(voteNumber) {
-        res.status(201).json(voteNumber);
-    } else {
-        res.status(401).json({message:"Error with getting the votes"});
-    }
-}
+// const getVoteNumber = async(req, res) => {
+//     const voteNumber = await questionModel.getVoteNumber(res, req.params.answer_id);
+//     if(voteNumber) {
+//         res.status(201).json(voteNumber);
+//     } else {
+//         res.status(401).json({message:"Error with getting the votes"});
+//     }
+// }
 
 module.exports = {
     addAnswer,
-    getVoteNumber
 }

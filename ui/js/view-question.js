@@ -1,4 +1,5 @@
 'use strict'
+
 const url = "http://localhost:4000"
 
 const questionContainer = document.querySelector('.questionContainer');
@@ -6,6 +7,8 @@ const answerContainer = document.querySelector('.answerContainer');
 const imgGallery = document.querySelector('.imgGallery');
 const answerForm = document.querySelector("#addAnswerForm");
 const questionVoteNumber = document.querySelector('.questionVoteNumber');
+const thumbsUp = document.querySelector('.thumbsUp');
+const thumbsDown = document.querySelector('.thumbDown');
 
 const getQParam = (param) => {
     const queryString = window.location.search;
@@ -39,7 +42,6 @@ const createImgGallery = (question) => {
     })
 };
 
-/*TODO: added function for getting vote numbers from each questions and answer*/
 
 const createTagDisplay = (question) => {
     const tagDisplay = document.querySelector("#tagDisplay");
@@ -77,6 +79,7 @@ const createQuestionCard = (question) => {
 
     createImgGallery(question);
     createTagDisplay(question);
+    // getQuestionVoteNumber(question);
 
     // Modify/delete buttons is only visible to admin or question owner
     const modifyQuestion = document.querySelector("#modify");
@@ -103,6 +106,7 @@ const createQuestionCard = (question) => {
         })
     }
 }
+
 
 const createAnswerContainer = (answer,aContainer) => {
     const answerBox = document.createElement("div");
@@ -163,17 +167,61 @@ const createAnswerContainer = (answer,aContainer) => {
     const btnThumbsDown = document.createElement("button");
     btnThumbsDown.innerHTML += '<i class="fa-regular fa-thumbs-down"></i>';
 
+
     const answerVoteNumber = document.createElement("p");
     answerVoteNumber.className = 'answerVoteNumber';
-    answerVoteNumber.innerText = '100K';
+
+    const getAnswerVoteNumber = async() => {
+        const question_id = getQParam('id');
+        try {
+            const fetchOptions = {
+                headers: {
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                },
+            };
+            const voteNumber = await fetch(url + '/question/' + question_id,fetchOptions);
+            const response = await voteNumber.json();
+            response.answer.answer_votes = answerVoteNumber;
+            if (answer.answer_votes == null){
+                answer.answer_votes = 0;
+                answerVoteNumber.innerText = answer.answer_votes;
+            } else {
+                answerVoteNumber.innerText = answer.answer_votes;
+            }
+        } catch (error) {
+            console.log("error: ", error.message);
+        }
+    }
+    getAnswerVoteNumber();
 
     voteDisplay.append(btnThumbsUp,btnThumbsDown,answerVoteNumber);
     answerBox.append(profileContainer,answerInfo,imgCollection,voteDisplay);
     aContainer.appendChild(answerBox);    
 }
 
+/*function for getting vote numbers from each questions */
+const getQuestionVoteNumber = async() => {
+    const question_id = getQParam('id');
+    try {
+        const fetchOptions = {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const voteNumber = await fetch(url + '/question/' + question_id,fetchOptions);
+        const response = await voteNumber.json();
+        if (response.question_votes == null){
+            questionVoteNumber.innerText = 0;
+        } else {
+            questionVoteNumber.innerText = response.question_votes;
+        }
+    } catch (error) {
+        console.log("error: ", error.message);
+    }
+}
 
-// createAnswerContainer();
+getQuestionVoteNumber();
+
 const getQuestionById = async() => {
     const question_id = getQParam('id');
     try {
@@ -206,6 +254,7 @@ const getQuestionById = async() => {
             const json = await response.json();
             alert(json.message);
             location.href = "view-question.html?id=" + question.id;
+            // await updateQuestionVoteNumber(question);
 
         })
     } catch(error) {
@@ -214,5 +263,23 @@ const getQuestionById = async() => {
 }
 
 getQuestionById()
+
+// const updateQuestionVoteNumber = async(question) => {
+//         thumbsUp.addEventListener('click', async() => {
+//                 const fetchOptions = {
+//                     method:'PUT',
+//                     headers: {
+//                         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+//                     }
+//                 };
+//                 const response = await fetch(url + '/question/' + question.id + '/votes', fetchOptions);
+//                 const json = await response.json();
+//                 console.log(json);
+//             })
+// }
+
+
+// updateQuestionVoteNumber();
+
 
 

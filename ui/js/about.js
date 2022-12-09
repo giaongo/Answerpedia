@@ -48,3 +48,4 @@ const editProfile = document.querySelector(".navEditProfile");
         console.log(e.message);
     }
 })();
+

@@ -5,6 +5,23 @@ const login = document.querySelector(".navLogIn");
 const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
 const editProfile = document.querySelector(".navEditProfile");
+const indexWrap = document.querySelector('#indexWrap');
+const menuIcon = document.querySelector('.menuIcon');
+
+/*Function to show top navigation bar after clicking at the menu icon*/
+let count = 0;
+const clickEvent = menuIcon.addEventListener('click', () => {
+    count++;
+    console.log('clicked');
+    indexWrap.style.display = 'block';
+    indexWrap.style.width = '100%';
+    if (count % 2 == 0){
+        indexWrap.style.display = 'none';
+    }
+});
+
+
+
 /*  Un-registered user can view only index.html and about.html  
     Registered user and admin can view all pages, add questions and answers. 
     Below function is to check user login state. If user does not register and login => continute to

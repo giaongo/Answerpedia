@@ -283,11 +283,30 @@ const getQuestionById = async(res,questionId) => {
 
 
 /* This function is to get vote number from question */
-const getVoteNumber = async(res, questionId) => {
+// const getVoteNumber = async(res, questionId) => {
+//     try {
+//         const [getVoteNumberQuery] = await promisePool.query('SELECT votes from question where id = ?',questionId);
+//        return getVoteNumberQuery;
+//     } catch (e) {
+//         res.status(500).send(e.message);
+//         console.log('error: ', e);
+//     }
+// }
+
+
+const incrementQuestionVoteNumber = async (res, questionId) => {
     try {
-        const [getVoteNumberQuery] = await promisePool.query('SELECT votes from question where id = ?',questionId);
-       return getVoteNumberQuery;
-    } catch (e) {
+        return updateQuestionVoteNumber = promisePool.query('update question set votes = votes + 1  where id = ?;', questionId);
+    } catch (error) {
+        res.status(500).send(e.message);
+        console.log('error: ', e);
+    }
+}
+
+const decrementQuestionVoteNumber = async (res, questionId) => {
+    try {
+        return updateQuestionVoteNumber = promisePool.query('update question set votes = votes - 1 where id = ?;', questionId);
+    } catch (error) {
         res.status(500).send(e.message);
         console.log('error: ', e);
     }
@@ -299,5 +318,6 @@ module.exports = {
     updateQuestionById,
     deleteQuestionById,
     getMediaById,
-    getVoteNumber
+    incrementQuestionVoteNumber,
+    decrementQuestionVoteNumber
 }

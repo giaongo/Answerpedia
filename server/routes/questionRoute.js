@@ -21,7 +21,7 @@ router.post("/", passport.authenticate('jwt', {session: false}),
     body("question_title").isLength({min:1}).trim().escape(),
     body("question_content").isLength({min:5}).trim().escape(),
     body("question_tag").isLength({min:1}).trim().escape(),
-    questionController.addQuestion
+    questionController.addQuestion,
 )
 
 router.put("/:question_id",passport.authenticate('jwt', {session: false}),
@@ -37,14 +37,17 @@ router.delete("/:question_id",
 router.get("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.readQuestionById)
-router.get("/:question_id", passport.authenticate('jwt', {session: false}),questionController.getVoteNumber)
-
 
 router.post("/:question_id/answer", 
     passport.authenticate('jwt', {session: false}),
     upload.array("media",10),
     body("answer_content").isLength({min:5}).trim().escape(),
-    answerController.addAnswer
+    answerController.addAnswer,
+)
+
+router.put("/:question_id/votes",
+    passport.authenticate('jwt', {session: false}),
+    questionController.incrementQuestionVoteNumber
 )
 
 
