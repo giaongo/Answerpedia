@@ -1,12 +1,8 @@
 'use strict';
-// changed the url to localhost, sorry about that  
-const url = 'http://localhost:4000'; //Change when uploading to server
+const url = 'http://localhost:4000'; 
 
-//select existing elements
 const logInForm = document.querySelector('#log-in-form');
 
-
-//log in
 logInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = serializeJson(logInForm);
@@ -24,7 +20,6 @@ logInForm.addEventListener('submit', async (event) => {
     if (!json.user) {
         alert(json.message);
     } else {
-        //TODO: add save token code block here
         sessionStorage.setItem('token', json.token);
         sessionStorage.setItem('user', JSON.stringify(json.user));
         location.href = 'index.html';

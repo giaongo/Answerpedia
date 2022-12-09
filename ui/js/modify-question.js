@@ -19,7 +19,6 @@ editContent.value = question_content;
 modifyForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = serializeJson(modifyForm);
-  // remove empty properties
     for (const [prop, value] of Object.entries(data)) {
         if (value === '') {
             delete data[prop];

@@ -171,9 +171,6 @@ const createAnswerContainer = (answer,aContainer) => {
     aContainer.appendChild(answerBox);    
 }
 
-
-// --------------------------------------Favourite Feature------------------------------------------
-
 // Function to check whether question is marked as favourite
 const checkQuestionMarkedFavourite = async(question_id) => {
     const fetchOptions = {
@@ -244,7 +241,6 @@ const displayFavoriteBtn = async(question_id) => {
     })
 }
 
-//-------------------------------------------------------------------------------------------------
 
 // Main function of this js file to get question data from server and register event listeners
 const getQuestionById = async() => {
