@@ -10,9 +10,6 @@ const signup = document.querySelector(".navSignUp");
 const menuIcon = document.querySelector('.menuIcon');
 const editProfile = document.querySelector('.navEditProfile');
 
-/*Function to show top navigation bar after clicking at the menu icon*/
-
-
 /*  Un-registered user can view only index.html and about.html  
     Registered user and admin can view all pages, add questions and answers. 
     Below function is to check user login state. If user does not register and login => continute to
@@ -64,7 +61,8 @@ const truncateText = (text) => {
     const maxCharLength = 100;
     return text.slice(0,maxCharLength);
 }
-//Create questions cards/sections inside allQuestion article
+
+// This function creates questions cards/sections inside allQuestion article
 const createQuestionCards = (questions,searchValue = null) => {
     questionContainer.innerHTML = "";
     questions.forEach(question => {
@@ -107,7 +105,7 @@ const createLegendaryQuestionCards = (questions) => {
         const questionId = question.id
         legendaryContainer.innerHTML += 
         `<p class="legendaryQuestion">
-            <a target="blank"href="${url + "/question/" + questionId}">Question ${questionId}</a>
+            <a target="blank" href="view-question.html?id=${question.id}">Question ${questionId}</a>
         </p>`
     })
 }

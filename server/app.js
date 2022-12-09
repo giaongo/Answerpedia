@@ -8,11 +8,6 @@ const questionRouter = require("./routes/questionRoute");
 const savedRouter = require("./routes/savedRoute");
 const passport = require("./utils/passport");
 
-
-// //Testing with cookie
-// const cookieParser = require('cookie-parser');
-// const session = require('express-session');
-
 const port = 4000;
 
 //Server uploaded files

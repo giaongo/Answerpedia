@@ -174,6 +174,11 @@ const getMediaById = async(res,id,type) => {
 answer's constrained tables to return the most important data that client needs to know. The data from 
 database query is then formatted by outer reduce JS feature for question part and inner reduce for answer's parts belonging
 to that particular question. 
+
+The reason for formatting the returned data from database is to remove duplicated questions. As media and tag tables
+accepts multiple data for 1 question (one-to-many relationship), there will be unwanted duplicated question having 
+different tags or media.
+
 Learning source:
 1. https://stackoverflow.com/questions/68955426/how-to-merge-multiple-array-objects-with-the-same-key
 2. https://bobbyhadz.com/blog/javascript-remove-duplicates-from-array-of-objects

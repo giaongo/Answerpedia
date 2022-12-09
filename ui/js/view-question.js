@@ -171,9 +171,6 @@ const createAnswerContainer = (answer,aContainer) => {
     aContainer.appendChild(answerBox);    
 }
 
-
-// --------------------------------------Favourite Feature------------------------------------------
-
 // Function to check whether question is marked as favourite
 const checkQuestionMarkedFavourite = async(question_id) => {
     const fetchOptions = {
@@ -228,26 +225,24 @@ const stylingHeart = (markedFavourite) => {
     
 }
 
+// Function to display heart icon button and register click event listener for the button
 const displayFavoriteBtn = async(question_id) => {
     const favouriteBtn = document.querySelector("#favouriteBtn");
-    const firstResult = await checkQuestionMarkedFavourite(question_id);
-    stylingHeart(firstResult.question_exist);
+    let questionExistResult = await checkQuestionMarkedFavourite(question_id);
+    stylingHeart(questionExistResult.question_exist);
     favouriteBtn.addEventListener("click", async() => {
-        const secondResult = await checkQuestionMarkedFavourite(question_id);
-        if(!secondResult.question_exist) {
-            stylingHeart(!secondResult.question_exist);
+        stylingHeart(!questionExistResult.question_exist);
+        if(!questionExistResult.question_exist) {
             await addQuestionToFavourite(user.id.toString(), question_id);
         } else {
-            stylingHeart(!secondResult.question_exist); 
-            await removeQuestionFromFavourite(user.id.toString(),question_id);     
-                  
+            await removeQuestionFromFavourite(user.id.toString(),question_id);    
         }
+        questionExistResult.question_exist = !questionExistResult.question_exist;
     })
 }
 
-//-------------------------------------------------------------------------------------------------
 
-
+// Main function of this js file to get question data from server and register event listeners
 const getQuestionById = async() => {
     const question_id = getQParam('id');
     try {
