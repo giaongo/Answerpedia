@@ -67,8 +67,7 @@ const clickEvent = menuIcon.addEventListener('click', () => {
 })();
 
 
-const user = JSON.parse(sessionStorage.getItem("user"));
-console.log("working on edit profile");
+
 const liveUser = JSON.parse(sessionStorage.getItem("user"));
 console.log(liveUser.id);
 

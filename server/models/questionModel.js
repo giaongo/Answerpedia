@@ -115,17 +115,15 @@ const deleteQuestionAndLinkedAnswers = async(questionId) => {
             console.log("Delete question tag successfully");
 
             const removeCorrespondingAnswer =  await deleteAnswerByQuestionId(questionId);
-            console.log("result from remove media", removeCorrespondingAnswer);
             if(!removeCorrespondingAnswer || (removeCorrespondingAnswer && removeCorrespondingAnswer.affectedRows > 0)) {
                 if(removeCorrespondingAnswer && removeCorrespondingAnswer.affectedRows > 0) {
                     console.log("remove all linked answers successfully");
                 }
                 const favouritesRemoveResult = await removeQuestionFromFavourites(questionId);
-                if(!favouritesRemoveResult || (favouritesRemoveResult && favouritesRemoveResult.favouritesRemoveResult > 0)) {
+                if(!favouritesRemoveResult || (favouritesRemoveResult && favouritesRemoveResult.affectedRows > 0)) {
                     if(favouritesRemoveResult && favouritesRemoveResult.affectedRows > 0) {
                         console.log("Delete question from favourites successfully");
                     }
-                
                     const deleteFromQuestion = "DELETE FROM question WHERE id = ?";
                     const [questionRows] = await promisePool.query(deleteFromQuestion,[questionId]);
                     return questionRows;
@@ -176,6 +174,11 @@ const getMediaById = async(res,id,type) => {
 answer's constrained tables to return the most important data that client needs to know. The data from 
 database query is then formatted by outer reduce JS feature for question part and inner reduce for answer's parts belonging
 to that particular question. 
+
+The reason for formatting the returned data from database is to remove duplicated questions. As media and tag tables
+accepts multiple data for 1 question (one-to-many relationship), there will be unwanted duplicated question having 
+different tags or media.
+
 Learning source:
 1. https://stackoverflow.com/questions/68955426/how-to-merge-multiple-array-objects-with-the-same-key
 2. https://bobbyhadz.com/blog/javascript-remove-duplicates-from-array-of-objects
@@ -274,6 +277,42 @@ const getQuestionById = async(res,questionId) => {
             return acc;
         },{}));
         return output[0];
+
+    } catch(error) {
+        console.log("error",error.message);
+        res.status(500).send(error.message);
+    }
+}
+
+/*This function inner joins question tables, question's constrained tables, answer tables and 
+answer's constrained tables, user table by question id to return the most important data that client needs to know. */
+const getQuestionByUser = async(res,req) => {
+    try {
+        const questionQuery = "SELECT q.id,question_title,question_content,q.date as question_date,"+
+        "q.votes as question_votes, u.username as question_user,u.picture_name as question_user_picture,"+
+        "qt.tag as question_tag "+
+        "FROM question q INNER JOIN user u ON q.user_id = u.id "+
+        "INNER JOIN question_tag qt ON q.id = qt.question_id WHERE q.user_id = ? ORDER BY q.id";
+        const [rows] = await promisePool.query(questionQuery,[req.user.id]);
+        const output = Object.values(rows.reduce((acc,cur) => {
+            // in first loop acc is {}, cur is the first object in rows
+            acc[cur.id] = acc[cur.id] || {
+                id: cur.id, 
+                question_title: cur.question_title,
+                question_content:cur.question_content,
+                question_date:cur.question_date,
+                question_votes:cur.question_votes,
+                question_user:cur.question_user,
+                question_user_picture:cur.question_user_picture,
+                question_tag: [], 
+            };
+            // push the next value of cur to acc object and set the array data to be distinct set
+            acc[cur.id].question_tag.push(cur.question_tag);
+            acc[cur.id].question_tag = [...new Set(acc[cur.id].question_tag)];
+            return acc;
+        },{}));
+        
+        return output;
 
     } catch(error) {
         console.log("error",error.message);

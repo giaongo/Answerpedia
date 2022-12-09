@@ -33,6 +33,10 @@ router.delete("/:question_id",
     passport.authenticate('jwt', {session: false}),
     questionController.removeQuestionById)
 
+router.get("/byuser", 
+    passport.authenticate('jwt', {session: false}),
+    questionController.getAllQuestionByUser
+ )
 
 router.get("/:question_id",
     passport.authenticate('jwt', {session: false}),
@@ -49,6 +53,5 @@ router.put("/:question_id/votes",
     passport.authenticate('jwt', {session: false}),
     questionController.incrementQuestionVoteNumber
 )
-
 
 module.exports = router;

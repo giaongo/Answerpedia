@@ -76,7 +76,8 @@ const truncateText = (text) => {
     const maxCharLength = 100;
     return text.slice(0,maxCharLength);
 }
-//Create questions cards/sections inside allQuestion article
+
+// This function creates questions cards/sections inside allQuestion article
 const createQuestionCards = (questions,searchValue = null) => {
     questionContainer.innerHTML = "";
     questions.forEach(question => {
@@ -119,7 +120,7 @@ const createLegendaryQuestionCards = (questions) => {
         const questionId = question.id
         legendaryContainer.innerHTML += 
         `<p class="legendaryQuestion">
-            <a target="blank"href="${url + "/question/" + questionId}">Question ${questionId}</a>
+            <a target="blank" href="view-question.html?id=${question.id}">Question ${questionId}</a>
         </p>`
     })
 }

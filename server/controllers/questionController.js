@@ -1,5 +1,5 @@
 "use strict";
-const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById} = require("../models/questionModel");
+const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById, getQuestionByUser} = require("../models/questionModel");
 const {unlink}  = require("node:fs");
 const {validationResult} = require("express-validator");
 const questionModel = require('../models/questionModel');
@@ -45,6 +45,16 @@ const readQuestionById = async(req,res) => {
         res.status(401).json({message:"Error with getting the question"});
     }
 }
+
+const getAllQuestionByUser = async(req,res) => {
+    const question = await getQuestionByUser(res, req);
+    if(question) {
+        res.status(201).json(question);
+    } else {
+        res.status(401).json({message:"Error with getting the question.."});
+    }
+}
+
 const modifyQuestionById = async(req,res) => {
     const user_id = req.user.id;
     const errors = validationResult(req);

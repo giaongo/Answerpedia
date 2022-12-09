@@ -446,6 +446,7 @@ button:active {
 /* Styling for tags.html, view-tag.html and saved-question.html-----------------------------------*/
 #questionByTagContainer,
 #savedQuestionContainer,
+#userQuestionContainer,
 #tagContainer {
     width:70%;
     max-width: 800px;
@@ -476,7 +477,9 @@ button:active {
     font-weight: bold;
 }
 
-#questionByTagContainer h1, #savedQuestionContainer h1{
+#questionByTagContainer h1, 
+#savedQuestionContainer h1, 
+#userQuestionContainer h1{
     text-align: center;
 }
 .questionCard {
@@ -500,6 +503,7 @@ button:active {
 @media screen and (max-width:800px) {
     #questionByTagContainer,
     #savedQuestionContainer,
+    #userQuestionContainer,
     #tagContainer{
        width: 100%;
     }
@@ -543,7 +547,7 @@ button:active {
     margin-left: var(--margin-medium);
     font-weight: bold;
 }
-#questionContainer > button {
+#questionContainer > button:nth-of-type(2){
     background-color: var(--green);
     color:var(--white);
     border: none;
@@ -700,6 +704,17 @@ button:active {
     box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
 }
 
+#favouriteBtn {
+    font-size: 2em;
+    position:absolute;
+    top:5;
+    right:0;
+    background-color: var(--white);
+    color:var(--red);
+    border: none;
+    padding:10px;
+    cursor:pointer;
+}
 
 @media screen and (max-width: 600px) {
     #questionContainer, .answerContainer, #addAnswerForm {
@@ -1217,3 +1232,6 @@ button:active {
     cursor: pointer;
     background-color: #a39d9d;
 }
+
+
+

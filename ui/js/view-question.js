@@ -15,7 +15,6 @@ const getQParam = (param) => {
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get(param);
 }
-// TODO  Get user data for admin check (allow admin or question owner to modify and delete question)
 const user = JSON.parse(sessionStorage.getItem('user'));
 
 const createImgGallery = (question) => {
@@ -199,6 +198,78 @@ const createAnswerContainer = (answer,aContainer) => {
     aContainer.appendChild(answerBox);    
 }
 
+// Function to check whether question is marked as favourite
+const checkQuestionMarkedFavourite = async(question_id) => {
+    const fetchOptions = {
+        headers:{
+            Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        },
+    }
+    const response = await fetch(url + "/saved/" + user.id + "/" + question_id, fetchOptions);
+    const json = await response.json();
+    return json;
+}
+
+// Function to add question to favourite 
+const addQuestionToFavourite = async (user_id,question_id) => {
+    const data = {question_id,user_id}
+    const fetchOptions = {
+        method:"POST",
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        },
+        body: JSON.stringify(data)
+    };
+    const response = await fetch(url + "/saved", fetchOptions);
+    const json = await response.json();
+    alert(json.message);
+}
+
+// Function to remove question from favourite 
+const removeQuestionFromFavourite = async (user_id,question_id) => {
+    const fetchOptions = {
+        method:"DELETE",
+        headers:{
+            Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        },
+    };
+    const response = await fetch(url + "/saved/" + user_id + "/" + question_id, fetchOptions);
+    const json = await response.json();
+    alert(json.message);
+}
+
+// Function to add styling for heeart 
+const stylingHeart = (markedFavourite) => {
+    const heartIcon = document.querySelector(".fa-heart");
+    if(markedFavourite) {
+        heartIcon.classList.remove("fa-regular");
+        heartIcon.classList.add("fa-solid");
+    } else {
+        heartIcon.classList.remove("fa-solid");
+        heartIcon.classList.add("fa-regular");
+    }
+    
+}
+
+// Function to display heart icon button and register click event listener for the button
+const displayFavoriteBtn = async(question_id) => {
+    const favouriteBtn = document.querySelector("#favouriteBtn");
+    let questionExistResult = await checkQuestionMarkedFavourite(question_id);
+    stylingHeart(questionExistResult.question_exist);
+    favouriteBtn.addEventListener("click", async() => {
+        stylingHeart(!questionExistResult.question_exist);
+        if(!questionExistResult.question_exist) {
+            await addQuestionToFavourite(user.id.toString(), question_id);
+        } else {
+            await removeQuestionFromFavourite(user.id.toString(),question_id);    
+        }
+        questionExistResult.question_exist = !questionExistResult.question_exist;
+    })
+}
+
+
+// Main function of this js file to get question data from server and register event listeners
 /*function for getting vote numbers from each questions */
 const getQuestionVoteNumber = async() => {
     const question_id = getQParam('id');
@@ -233,6 +304,8 @@ const getQuestionById = async() => {
         const response = await fetch(url + "/question/" + question_id,fetchOptions);
         const question = await response.json();
         createQuestionCard(question);
+        await displayFavoriteBtn(question_id);
+
         if(question.answer.length && question.answer[0].answer_id) {
             question.answer.forEach(answer => {
                 const aContainer = document.querySelector(".answerContainer");
@@ -255,14 +328,21 @@ const getQuestionById = async() => {
             alert(json.message);
             location.href = "view-question.html?id=" + question.id;
             // await updateQuestionVoteNumber(question);
-
         })
+
     } catch(error) {
         console.log("error",error.message);
     }
 }
 
 getQuestionById()
+
+
+
+
+
+
+
 
 // const updateQuestionVoteNumber = async(question) => {
 //         thumbsUp.addEventListener('click', async() => {

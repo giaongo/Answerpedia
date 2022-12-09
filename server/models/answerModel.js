@@ -62,8 +62,6 @@ const deleteAnswerByQuestionId = async(question_id) => {
 //     }
 // }
 
-/* This function is for updating vote numbers from answer table*/
-
 
 module.exports = {
     createAnswer,

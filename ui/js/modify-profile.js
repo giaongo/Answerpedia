@@ -4,51 +4,6 @@ const url = "http://localhost:4000";
 const login = document.querySelector(".navLogIn");
 const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
-// const editProfile = document.querySelector(".modifyProfile")
-/*  Un-registered user can view only index.html and about.html  
-    Registered user and admin can view all pages, add questions and answers. 
-    Below function is to check user login state. If user does not register and login => continute to
-    let user view the page. If user has already registered and logged in => display logout on nav bar
-*/
-// (async () => {
-//   // Check sessionStorage
-//   if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
-//       console.log("This is unregistered user");
-//       logout.style.visibility = 'hidden';
-//       login.style.display = 'inline-block';
-//       signup.style.display = 'inline-block';
-//       // editProfile.style.visibility = 'hidden';
-//       return;
-//   } else {
-//       try {
-//           const fetchOptions = {
-//               headers: {
-//                   Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-//               },
-//           };
-//           console.log(fetchOptions.headers);
-//           const response = await fetch(url + '/user/token', fetchOptions);
-//           if (!response.ok) {
-//               console.log((response));
-//               location.href = 'logout.html';
-//           } else {
-//               console.log("This is registered user");
-//               const json = await response.json();
-//               sessionStorage.setItem('user', JSON.stringify(json.user));
-//               login.style.display="none";
-//               signup.style.display="none";
-//               logout.style.display="inline-block";
-//               logout.addEventListener("click",() => {
-//                   console.log("clicked")
-//                   location.href = 'logout.html';
-//               })
-//           }
-//       } catch (e) {
-//           console.log(e.message);
-//       }
-//   }
-// })();
-
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 console.log("working on edit profile");
@@ -80,8 +35,6 @@ const createUserCards = (users) =>{
   })
 };
 
-
-
 // For the upload picture button
 let input = document.getElementById("inputTag");
 let imageName = document.getElementById("imageName");
@@ -92,11 +45,11 @@ input.addEventListener("change", () => {
   imageName.innerText = inputImage.name;
 });
 
+const modifyUserForm = document.querySelector("#modify-profile-form");
 // Catching the data inserted by the user
 modifyUserForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const data = new FormData(modifyUserForm);
-    // // remove empty properties
     for (const [prop, value] of Object.entries(data)) {
       if (value === '') {
         delete data[prop];
@@ -105,10 +58,9 @@ modifyUserForm.addEventListener('submit', async (evt) => {
     const fetchOptions = {
       method: 'PUT',
       headers: {
-        //Content Type has been removed because it does not let me upload picture for user
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
       },
-      body: data, // body data type must match "Content-Type" header
+      body: data,
     };
   
     const response = await fetch(url + '/user/modify', fetchOptions);
