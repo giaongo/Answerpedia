@@ -2,6 +2,7 @@
 const pool = require("../database/database");
 const promisePool = pool.promise();
 
+// This function is to get all questions that are added by specific user from favourites table 
 const getSavedQuestionByUserId = async(res,user_id) => {
     try {
         const searchQuery = "SELECT q.id, q.question_title, q.question_content, q.date,q.votes,u.username " + 
@@ -17,6 +18,7 @@ const getSavedQuestionByUserId = async(res,user_id) => {
     }
 }
 
+// This function is to add question to favourites table
 const addQuestionToFavourite = async(res,data) => {
     try {
         const {question_id, user_id} = data;
@@ -29,7 +31,7 @@ const addQuestionToFavourite = async(res,data) => {
     }
 }
 
-
+// This function is to remove question from favourites table
 const removeQuestionFromFavourite = async(res,question_id, user_id) => {
     try {
         const removeQuery = "DELETE FROM favourites WHERE user_id = ? AND question_id = ?";
@@ -41,6 +43,7 @@ const removeQuestionFromFavourite = async(res,question_id, user_id) => {
     }
 }
 
+// This function is to check whether the question is marked by request user
 const questionMarkedByUser = async(res,question_id,user_id) => {
     try {
         const checkQuery = "SELECT EXISTS "+

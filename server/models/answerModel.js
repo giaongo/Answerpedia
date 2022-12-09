@@ -62,8 +62,6 @@ const getVoteNumber = async (res, answerId) => {
     }
 }
 
-/* This function is for updating vote numbers from answer table*/
-
 
 module.exports = {
     createAnswer,

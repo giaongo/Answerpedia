@@ -175,8 +175,8 @@ answer's constrained tables to return the most important data that client needs 
 database query is then formatted by outer reduce JS feature for question part and inner reduce for answer's parts belonging
 to that particular question. 
 
-The reason to format the returned data from database is to remove duplicated questions. As media and tag tables
-accepts multiple data for 1 question (one-to-many relationship ), there will be unwanted duplicated question having 
+The reason for formatting the returned data from database is to remove duplicated questions. As media and tag tables
+accepts multiple data for 1 question (one-to-many relationship), there will be unwanted duplicated question having 
 different tags or media.
 
 Learning source:
