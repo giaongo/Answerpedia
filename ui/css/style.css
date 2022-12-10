@@ -434,10 +434,11 @@ button:active {
 }
 
 
-/* Styling for tags.html, view-tag.html and saved-question.html-----------------------------------*/
+/* Styling for tags.html, view-tag.html, saved-question.html, view-userquestion.html and view-useranswer.html----------*/
 #questionByTagContainer,
 #savedQuestionContainer,
 #userQuestionContainer,
+#userAnswerContainer,
 #tagContainer {
     width:70%;
     max-width: 800px;
@@ -470,22 +471,26 @@ button:active {
 
 #questionByTagContainer h1, 
 #savedQuestionContainer h1, 
-#userQuestionContainer h1{
+#userQuestionContainer h1,
+#userAnswerContainer h1{
     text-align: center;
 }
-.questionCard {
+.questionCard,
+.answerCard {
     background-color: var(--macroon);
     display: flex;
     margin-bottom: var(--margin-large);
     align-items: center;
 }
-.questionCard h2 {
+.questionCard h2,
+.answerCard h2 {
     flex-basis: 200px;
     text-align: center;
     height:100%;
     color: var(--white);
 }
-.questionCard section {
+.questionCard section,
+.answerCard section {
     background-color: var(--grey);
     flex:1;
     padding:1.5em;
@@ -495,6 +500,7 @@ button:active {
     #questionByTagContainer,
     #savedQuestionContainer,
     #userQuestionContainer,
+    #userAnswerContainer,
     #tagContainer{
        width: 100%;
     }

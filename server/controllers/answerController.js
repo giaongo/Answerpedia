@@ -2,6 +2,8 @@
 const {createAnswer} = require("../models/answerModel");
 const {validationResult} = require("express-validator");
 const answerModel = require('../models/answerModel');
+const questionModel = require('../models/questionModel');
+
 const addAnswer = async(req,res) => {
     const user_id = req.user.id;
     const errors = validationResult(req)
@@ -34,7 +36,17 @@ const getVoteNumber = async(req, res) => {
     }
 }
 
+const getAllAnswerByUser = async(req, res) => {
+    const answerByUser = await answerModel.getAnswerByUser(res, req);
+    if(answerByUser) {
+        res.status(201).json(answerByUser);
+    } else {
+        res.status(401).json({message:"Error with getting the answers"});
+    }
+}
+
 module.exports = {
     addAnswer,
-    getVoteNumber
+    getVoteNumber,
+    getAllAnswerByUser
 }

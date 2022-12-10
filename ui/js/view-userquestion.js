@@ -2,6 +2,8 @@
 const url = "http://localhost:4000";
 const container = document.querySelector("#userQuestionContainer");
 const liveUser = JSON.parse(sessionStorage.getItem("user"));
+const tags = new Set();
+
 
 const truncateText = (text) => {
   const maxCharLength = 100;
@@ -9,9 +11,11 @@ const truncateText = (text) => {
 }
 
 const createQuestionCards = (questions) => {
+  
   container.innerHTML = "";
   questions.forEach ((question,i) => {
-    console.log(question.question_user);
+    tags.add(question.question_tag);
+    console.log(tags);
     if(question.question_user == liveUser.username){
     const article = document.createElement('article');
     const heading = document.createElement('h1');
@@ -65,7 +69,7 @@ const getQuestionsByUser = async () => {
       
       const response = await fetch(url + "/question/byuser", fetchOptions);
       const questions = await response.json();
-      console.log(questions)
+      console.log(questions);
       createQuestionCards(questions);
     } catch (e) {
       console.log(e.message);
