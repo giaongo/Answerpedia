@@ -52,18 +52,31 @@ const deleteAnswerByQuestionId = async(question_id) => {
 }
 
 /*This function is for getting vote numbers from answer table*/ 
-// const getVoteNumber = async (res, answerId) => {
-//     try {
-//         const [getVoteNumberQuery] = await promisePool.query('SELECT votes from answer where id = ?', answerId);
-//         return getVoteNumberQuery;
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//         console.log("error: ", e);
-//     }
-// }
+const getVoteNumber = async (res, answerId) => {
+    try {
+        const [getVoteNumberQuery] = await promisePool.query('SELECT votes from answer where id = ?', answerId);
+        return getVoteNumberQuery;
+    } catch (e) {
+        res.status(500).send(e.message);
+        console.log("error: ", e);
+    }
+}
+/* This function is for getting all the answers answered by the user*/
+const getAnswerByUser = async(res, req) => {
+    try{
+        const answerQuery = "SELECT answer.id, answer_content, answer.date, answer.votes,answer.user_id, question_id, question_content FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.user_id = ?";
+        const answers = await promisePool.query(answerQuery,[req.user.id]);
+        return answers;
+    } catch(e) {
+        res.status(500).send(e.message);
+        console.log("error: ", e);
+    }
+}
 
 
 module.exports = {
     createAnswer,
-    deleteAnswerByQuestionId
+    deleteAnswerByQuestionId,
+    getVoteNumber,
+    getAnswerByUser
 }

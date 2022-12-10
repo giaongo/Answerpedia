@@ -1,17 +1,17 @@
 'use strict';
 const url = "http://localhost:4000";
-const container = document.querySelector("#tagContainer");
+const container = document.querySelector("#userTagContainer");
 const liveUser = JSON.parse(sessionStorage.getItem("user"));
 
 const createTagCards = (tags) => {
     container.innerHTML = "";
     const heading = document.createElement("h1");
-    heading.innerHTML= "Tags";
+    heading.innerHTML= "My tags";
     container.append(heading);
     Object.keys(tags).forEach (tag => {
 
       const tagCard = document.createElement("div");
-     tagCard.classList.add("tagCard");
+      tagCard.classList.add("tagCard");
       tagCard.innerHTML = `
           <section>
               <h1>Tag: ${tag}</h1>
@@ -21,7 +21,7 @@ const createTagCards = (tags) => {
       container.append(tagCard);
       tagCard.style.cursor = "pointer";
       tagCard.addEventListener("click", () => {
-          location.href = "index.html";
+          location.href = "view-userquestion.html";
       })
 
     });
@@ -29,7 +29,7 @@ const createTagCards = (tags) => {
   };
 
 
-const getTags = async () => {
+const getUserTags = async () => {
     try {
       const fetchOptions = {
         headers: {
@@ -37,7 +37,7 @@ const getTags = async () => {
         },
       };
       
-      const response = await fetch(url + "/tag/", fetchOptions);
+      const response = await fetch(url + "/tag/usertags", fetchOptions);
       const results = await response.json();
       const userTags = results[0];
       const userTagsSet = new Set();
@@ -55,5 +55,5 @@ const getTags = async () => {
     }
   };
   
-  getTags();
+  getUserTags();
 

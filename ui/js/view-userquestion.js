@@ -3,16 +3,16 @@ const url = "http://localhost:4000";
 const container = document.querySelector("#userQuestionContainer");
 const liveUser = JSON.parse(sessionStorage.getItem("user"));
 
+
 const truncateText = (text) => {
   const maxCharLength = 100;
   return text.slice(0,maxCharLength);
 }
 
 const createQuestionCards = (questions) => {
+  
   container.innerHTML = "";
   questions.forEach ((question,i) => {
-    console.log(question.question_user);
-    if(question.question_user == liveUser.username){
     const article = document.createElement('article');
     const heading = document.createElement('h1');
     const questionP = document.createElement('p');
@@ -47,7 +47,6 @@ const createQuestionCards = (questions) => {
         location.href = "view-question.html?id=" + question.id;
     })  
       
-    }
     
   });
 
@@ -65,7 +64,7 @@ const getQuestionsByUser = async () => {
       
       const response = await fetch(url + "/question/byuser", fetchOptions);
       const questions = await response.json();
-      console.log(questions)
+      console.log(questions);
       createQuestionCards(questions);
     } catch (e) {
       console.log(e.message);

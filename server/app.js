@@ -6,6 +6,8 @@ const authRouter = require('./routes/authRoute');
 const userRouter = require('./routes/userRoute');
 const questionRouter = require("./routes/questionRoute");
 const savedRouter = require("./routes/savedRoute");
+const answerRouter = require("./routes/answerRoute");
+const tagRouter = require("./routes/tagRoute");
 const passport = require("./utils/passport");
 
 const port = 4000;
@@ -23,8 +25,10 @@ app.use(passport.initialize());
 
 app.use('/auth', authRouter);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
+app.use('/answer', passport.authenticate('jwt', {session: false}), answerRouter);
 app.use("/question",questionRouter);
 app.use("/saved",passport.authenticate('jwt', {session: false}), savedRouter);
+app.use('/tag', passport.authenticate('jwt', {session: false}), tagRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 

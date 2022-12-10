@@ -350,6 +350,11 @@ const decrementQuestionVoteNumber = async (res, questionId) => {
         console.log('error: ', e);
     }
 }
+
+
+
+
+
 module.exports = {
     createQuestion,
     getAllQuestions,
