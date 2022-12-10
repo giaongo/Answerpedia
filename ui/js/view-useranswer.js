@@ -10,6 +10,9 @@ const truncateText = (text) => {
 
 const createQuestionCards = (answers) => {
   container.innerHTML = "";
+  const heading = document.createElement("h1");
+  heading.innerHTML= "My answers";
+  container.append(heading);
   answers.forEach ((answer,i) => {
     console.log(answer.user_id);
     

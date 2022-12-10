@@ -2,7 +2,6 @@
 const url = "http://localhost:4000";
 const container = document.querySelector("#userQuestionContainer");
 const liveUser = JSON.parse(sessionStorage.getItem("user"));
-const tags = new Set();
 
 
 const truncateText = (text) => {
@@ -14,9 +13,6 @@ const createQuestionCards = (questions) => {
   
   container.innerHTML = "";
   questions.forEach ((question,i) => {
-    tags.add(question.question_tag);
-    console.log(tags);
-    if(question.question_user == liveUser.username){
     const article = document.createElement('article');
     const heading = document.createElement('h1');
     const questionP = document.createElement('p');
@@ -51,7 +47,6 @@ const createQuestionCards = (questions) => {
         location.href = "view-question.html?id=" + question.id;
     })  
       
-    }
     
   });
 
