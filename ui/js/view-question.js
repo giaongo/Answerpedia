@@ -324,7 +324,7 @@ const stylingDislike = (marked) => {
     }
 }
  
-// Main function of this js file to get question data from server and register event listeners
+
 /*function for getting vote numbers from each questions */
 const getQuestionVoteNumber = async() => {
     let likeBtnCount = 0, dislikeBtnCount = 0;
@@ -388,6 +388,8 @@ const getQuestionVoteNumber = async() => {
 
 getQuestionVoteNumber();
 
+/* Main function of this js file to get question data from server and register event listeners for
+favorite heart button and answer form*/
 const getQuestionById = async() => {
     const question_id = getQParam('id');
     try {
