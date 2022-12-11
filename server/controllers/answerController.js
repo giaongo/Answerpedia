@@ -1,5 +1,5 @@
 "use strict";
-const {createAnswer} = require("../models/answerModel");
+const {createAnswer, updateAnswerVoteNumbers} = require("../models/answerModel");
 const {validationResult} = require("express-validator");
 const answerModel = require('../models/answerModel');
 const questionModel = require('../models/questionModel');
@@ -27,13 +27,13 @@ const addAnswer = async(req,res) => {
     }
 }
 
-const getVoteNumber = async(req, res) => {
-    const voteNumber = await questionModel.getVoteNumber(res, req.params.answer_id);
-    if(voteNumber) {
-        res.status(201).json(voteNumber);
-    } else {
-        res.status(401).json({message:"Error with getting the votes"});
-    }
+const updateAnswerVoteNumber = async(req,res) => {
+    const result = await updateAnswerVoteNumbers(req,res,req.body.vote);
+    if (result && result.affectedRows > 0){
+        res.status(201).json({message: "Answer vote is modified successfully: ", result})
+        } else {
+            res.status(400).json({message:"Answer vote modification failed"})
+        }
 }
 
 const getAllAnswerByUser = async(req, res) => {
@@ -47,5 +47,6 @@ const getAllAnswerByUser = async(req, res) => {
 
 module.exports = {
     addAnswer,
+    updateAnswerVoteNumber,
     getAllAnswerByUser
 }

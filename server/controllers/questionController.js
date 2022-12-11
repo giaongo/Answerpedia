@@ -1,8 +1,8 @@
 "use strict";
-const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById, getQuestionByUser} = require("../models/questionModel");
+const {createQuestion,getAllQuestions, updateQuestionById, getMediaById, deleteQuestionById, getQuestionById, getQuestionByUser, updateQuestionVoteNumbers} = require("../models/questionModel");
 const {unlink}  = require("node:fs");
 const {validationResult} = require("express-validator");
-const questionModel = require('../models/questionModel');
+// const questionModel = require('../models/questionModel');
 
 
 const addQuestion = async(req,res) => {
@@ -107,23 +107,22 @@ const removeMediaFromUploads = async(questionMedia, answerMedia) => {
     } 
 }
 
-const incrementQuestionVoteNumber = async(req, res) => {
-    const incrementedQuestionVoteNumber = await questionModel.incrementQuestionVoteNumber(res, req.params.id);
-    if(incrementedQuestionVoteNumber) {
-        res.status(201).json(voteNumber);
-    } else {
-        res.status(401).json({message:"Error with incrementing the votes"});
-    }
-}
+// const updateQuestionVoteNumber = async(res, vote, req) => {
+//     const result = await updateQuestionVoteNumbers(req, res, vote);
+//     if (result && result.affectedRows > 0){
+//         res.status(201).json({message: "Question vote is modified successfully"})
+//         } else {
+//             res.status(400).json({message:"Question vote modification failed"})
+//         }
+// }
 
-
-const decrementQuestionVoteNumber = async(req, res) => {
-    const decrementedQuestionVoteNumber = await questionModel.decrementQuestionVoteNumber(res, req.params.id);
-    if(decrementedQuestionVoteNumber) {
-        res.status(201).json(voteNumber);
-    } else {
-        res.status(401).json({message:"Error with decrementing the votes"});
-    }
+const updateQuestionVoteNumber = async(req,res) => {
+    const result = await updateQuestionVoteNumbers(req,res,req.body.vote);
+    if (result && result.affectedRows > 0){
+        res.status(201).json({message: "Question vote is modified successfully: ", result})
+        } else {
+            res.status(400).json({message:"Question vote modification failed"})
+        }
 }
 module.exports = {
     addQuestion,
@@ -131,6 +130,6 @@ module.exports = {
     modifyQuestionById,
     removeQuestionById,
     readQuestionById,
-    decrementQuestionVoteNumber,
-    incrementQuestionVoteNumber
+    getAllQuestionByUser,
+    updateQuestionVoteNumber
 }

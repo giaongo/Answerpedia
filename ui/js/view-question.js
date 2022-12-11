@@ -8,7 +8,9 @@ const imgGallery = document.querySelector('.imgGallery');
 const answerForm = document.querySelector("#addAnswerForm");
 const questionVoteNumber = document.querySelector('.questionVoteNumber');
 const thumbsUp = document.querySelector('.thumbsUp');
-const thumbsDown = document.querySelector('.thumbDown');
+const thumbsDown = document.querySelector('.thumbsDown');
+let isSelected = false;
+
 
 const getQParam = (param) => {
     const queryString = window.location.search;
@@ -170,28 +172,58 @@ const createAnswerContainer = (answer,aContainer) => {
     const answerVoteNumber = document.createElement("p");
     answerVoteNumber.className = 'answerVoteNumber';
 
-    const getAnswerVoteNumber = async() => {
-        const question_id = getQParam('id');
-        try {
-            const fetchOptions = {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-                },
-            };
-            const voteNumber = await fetch(url + '/question/' + question_id,fetchOptions);
-            const response = await voteNumber.json();
-            response.answer.answer_votes = answerVoteNumber;
-            if (answer.answer_votes == null){
-                answer.answer_votes = 0;
-                answerVoteNumber.innerText = answer.answer_votes;
-            } else {
-                answerVoteNumber.innerText = answer.answer_votes;
-            }
-        } catch (error) {
-            console.log("error: ", error.message);
-        }
-    }
-    getAnswerVoteNumber();
+    let answer_vote = !answer.answer_votes ? 0 : answer.answer_votes;
+    answerVoteNumber.innerText = answer_vote;
+    const answer_id = answer.answer_id;
+    let likeBtnCount = 0, dislikeBtnCount = 0;
+
+    btnThumbsUp.addEventListener('click', async() => {
+        likeBtnCount++;
+        (likeBtnCount % 2 != 0) ? 
+            (btnThumbsUp.innerHTML = '<i class="fa-solid fa-thumbs-up"></i>', 
+            answer_vote++) : 
+            (btnThumbsUp.innerHTML = '<i class="fa-regular fa-thumbs-up"></i>',answer_vote--);
+        answerVoteNumber.innerText = answer_vote;
+        const fetchOptions = {
+            method:"PUT",
+            headers:{
+            'Content-Type' : 'application/json',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        },
+            body: JSON.stringify({
+                answer_id: answer_id,
+                vote: answer_vote
+            }),
+        };
+        const response = await fetch(url + '/answer/'+ answer_id + '/votes',fetchOptions);
+        const json = await response.json();
+        console.log(json);
+    })
+
+
+    btnThumbsDown.addEventListener('click', async() => {
+        dislikeBtnCount++;
+        (dislikeBtnCount % 2 != 0) ? 
+            (btnThumbsDown.innerHTML = '<i class="fa-solid fa-thumbs-down"></i>',answer_vote--): 
+            (btnThumbsDown.innerHTML = '<i class="fa-regular fa-thumbs-down"></i>',answer_vote++);
+        answerVoteNumber.innerText = answer_vote;
+        const fetchOptions = {
+            method:"PUT",
+            headers:{
+            'Content-Type' : 'application/json',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        },
+            body: JSON.stringify({
+                answer_id : answer_id,
+                vote: answer_vote
+            }),
+        };
+        const response = await fetch(url + '/answer/'+ answer_id + '/votes',fetchOptions);
+        const json = await response.json();
+        console.log(json);
+    })
+
+
 
     voteDisplay.append(btnThumbsUp,btnThumbsDown,answerVoteNumber);
     answerBox.append(profileContainer,answerInfo,imgCollection,voteDisplay);
@@ -268,10 +300,34 @@ const displayFavoriteBtn = async(question_id) => {
     })
 }
 
+//Function to add styling for like button
+const stylingLike = (marked) => {
+    const likeIcon = document.querySelector('.fa-thumbs-up');
+    if (marked){
+        likeIcon.classList.remove('fa-regular');
+        likeIcon.classList.add('fa-solid');
+    } else {
+        likeIcon.classList.remove('fa-solid');
+        likeIcon.classList.add('fa-regular');
+    }
+}
 
+//Function to add styling for dislike button
+const stylingDislike = (marked) => {
+    const dislikeIcon = document.querySelector('.fa-thumbs-down');
+    if (marked){
+        dislikeIcon.classList.remove('fa-regular');
+        dislikeIcon.classList.add('fa-solid');
+    } else {
+        dislikeIcon.classList.remove('fa-solid');
+        dislikeIcon.classList.add('fa-regular');
+    }
+}
+ 
 // Main function of this js file to get question data from server and register event listeners
 /*function for getting vote numbers from each questions */
 const getQuestionVoteNumber = async() => {
+    let likeBtnCount = 0, dislikeBtnCount = 0;
     const question_id = getQParam('id');
     try {
         const fetchOptions = {
@@ -281,15 +337,54 @@ const getQuestionVoteNumber = async() => {
         };
         const voteNumber = await fetch(url + '/question/' + question_id,fetchOptions);
         const response = await voteNumber.json();
-        if (response.question_votes == null){
-            questionVoteNumber.innerText = 0;
-        } else {
-            questionVoteNumber.innerText = response.question_votes;
-        }
+        let question_vote = !response.question_votes ? 0 : response.question_votes;
+        questionVoteNumber.innerText = question_vote;
+
+        //event listener to increase the vote number and paste new value to backend database
+        thumbsUp.addEventListener('click', async() => {
+            likeBtnCount++;
+            //Condition to check whether the button has been presses or not, if yes, icon turns into black color and vote number increase by 1. 
+            //With second click, icon turns to normal and vote number return to original number
+            (likeBtnCount % 2 != 0) ? 
+                (stylingLike(true),question_vote++) : 
+                (stylingLike(false),question_vote--);
+            questionVoteNumber.innerText = question_vote;
+            const fetchOptions = {
+                method:"PUT",
+                headers:{
+                'Content-Type' : 'application/json',
+                Authorization: 'Bearer ' + sessionStorage.getItem('token')
+            },
+                body: JSON.stringify({vote: question_vote}),
+            };
+            const response = await fetch(url + '/question/' + question_id + '/votes',fetchOptions);
+            const json = await response.json();    
+        })
+
+
+        thumbsDown.addEventListener('click', async() => {
+            dislikeBtnCount++;
+            (dislikeBtnCount % 2 != 0) ? 
+                (stylingDislike(true),question_vote--): 
+                (stylingDislike(false),question_vote++);
+            questionVoteNumber.innerText = question_vote;
+            const fetchOptions = {
+                method:"PUT",
+                headers:{
+                'Content-Type' : 'application/json',
+                Authorization: 'Bearer ' + sessionStorage.getItem('token')
+            },
+                body: JSON.stringify({vote: question_vote}),
+            };
+            const response = await fetch(url + '/question/' + question_id + '/votes',fetchOptions);
+            const json = await response.json();
+            console.log(json);
+        })
     } catch (error) {
         console.log("error: ", error.message);
     }
 }
+
 
 getQuestionVoteNumber();
 
@@ -309,8 +404,9 @@ const getQuestionById = async() => {
         if(question.answer.length && question.answer[0].answer_id) {
             question.answer.forEach(answer => {
                 const aContainer = document.querySelector(".answerContainer");
-                createAnswerContainer(answer,aContainer);
+                createAnswerContainer(answer,aContainer);  
             })
+
         }
         answerForm.addEventListener("submit",async(event) => {
             event.preventDefault();
@@ -327,7 +423,6 @@ const getQuestionById = async() => {
             const json = await response.json();
             alert(json.message);
             location.href = "view-question.html?id=" + question.id;
-            // await updateQuestionVoteNumber(question);
         })
 
     } catch(error) {
@@ -337,29 +432,6 @@ const getQuestionById = async() => {
 
 getQuestionById()
 
-
-
-
-
-
-
-
-// const updateQuestionVoteNumber = async(question) => {
-//         thumbsUp.addEventListener('click', async() => {
-//                 const fetchOptions = {
-//                     method:'PUT',
-//                     headers: {
-//                         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-//                     }
-//                 };
-//                 const response = await fetch(url + '/question/' + question.id + '/votes', fetchOptions);
-//                 const json = await response.json();
-//                 console.log(json);
-//             })
-// }
-
-
-// updateQuestionVoteNumber();
 
 
 

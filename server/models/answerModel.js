@@ -52,10 +52,11 @@ const deleteAnswerByQuestionId = async(question_id) => {
 }
 
 /*This function is for getting vote numbers from answer table*/ 
-const getVoteNumber = async (res, answerId) => {
+const updateAnswerVoteNumbers = async (req, res, vote) => {
     try {
-        const [getVoteNumberQuery] = await promisePool.query('SELECT votes from answer where id = ?', answerId);
-        return getVoteNumberQuery;
+        const query = "update answer set votes = ? where id = ?";
+        const [rows] = await promisePool.query(query, [vote, req.body.answer_id]);
+	return rows;
     } catch (e) {
         res.status(500).send(e.message);
         console.log("error: ", e);
@@ -77,6 +78,6 @@ const getAnswerByUser = async(res, req) => {
 module.exports = {
     createAnswer,
     deleteAnswerByQuestionId,
-    getVoteNumber,
+    updateAnswerVoteNumbers,
     getAnswerByUser
 }

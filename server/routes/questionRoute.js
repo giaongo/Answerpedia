@@ -49,9 +49,8 @@ router.post("/:question_id/answer",
     answerController.addAnswer,
 )
 
-router.put("/:question_id/votes",
-    passport.authenticate('jwt', {session: false}),
-    questionController.incrementQuestionVoteNumber
-)
+router.put('/:question_id/votes', 
+passport.authenticate('jwt', {session:false}),
+questionController.updateQuestionVoteNumber);
 
 module.exports = router;
