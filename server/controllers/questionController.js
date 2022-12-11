@@ -107,15 +107,6 @@ const removeMediaFromUploads = async(questionMedia, answerMedia) => {
     } 
 }
 
-// const updateQuestionVoteNumber = async(res, vote, req) => {
-//     const result = await updateQuestionVoteNumbers(req, res, vote);
-//     if (result && result.affectedRows > 0){
-//         res.status(201).json({message: "Question vote is modified successfully"})
-//         } else {
-//             res.status(400).json({message:"Question vote modification failed"})
-//         }
-// }
-
 const updateQuestionVoteNumber = async(req,res) => {
     const result = await updateQuestionVoteNumbers(req,res,req.body.vote);
     if (result && result.affectedRows > 0){
