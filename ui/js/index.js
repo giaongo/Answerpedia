@@ -10,6 +10,7 @@ const signup = document.querySelector(".navSignUp");
 const menuIcon = document.querySelector('.menuIcon');
 const editProfile = document.querySelector('.navEditProfile');
 const indexWrap = document.querySelector('#indexWrap');
+const magnifyingGlass = document.querySelector('.fa-solid fa-magnifying-glass')
 
 /*Function to show top navigation bar after clicking at the menu icon*/
 let count = 1;
@@ -34,10 +35,15 @@ const clickEvent = menuIcon.addEventListener('click', () => {
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
         console.log("This is unregistered user");
-        logout.style.visibility = 'hidden';
-        login.style.display = 'inline-block';
-        signup.style.display = 'inline-block';
-        editProfile.style.visibility = 'hidden';
+        logout.style.display = 'none';
+        editProfile.style.display = 'none';
+        login.style.display = 'block';
+        login.style.float = 'left';
+        login.style.width = '90%';
+        signup.style.display = 'block';
+        signup.style.float = 'left';
+        signup.style.width = '90%';
+        
         return;
     } else {
         

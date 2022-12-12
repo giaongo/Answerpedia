@@ -84,14 +84,6 @@ header nav ul li a {
         color: white;
         margin-left: 10px;
     }
-    /* .menuIcon:hover::after{
-        position: absolute;
-        content:counter(indexWrap);
-        width: 100%;
-        height: 200px;
-        margin-left: 20px;
-    } */
-
     .menuIcon + #indexWrap{
         display:block;
         align-items: center;
@@ -117,6 +109,19 @@ header nav ul li a {
     .menuIcon + #indexWrap .navLogOut, .navEditProfile{
        float: none;
        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    nav a img {
+        display: none;
+    }
+
+    header {
+        width: 100%;
+    }
+    .navSearchBar i{
+        display: none;
     }
 }
 
