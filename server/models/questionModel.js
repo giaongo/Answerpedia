@@ -319,18 +319,7 @@ const getQuestionByUser = async(res,req) => {
         res.status(500).send(error.message);
     }
 }
-
-
-// const updateQuestionVoteNumbers = async (req, res, vote) => {
-//     try {
-//         const query = ('update question set votes = ? where id = ?;');
-//         return await promisePool.query(query, [vote, req]);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//         console.log("error: ", e);
-//     }
-// }
-
+// This function is to update question vote number
 const updateQuestionVoteNumbers = async (req, res, vote) => {
     try {
         const query = "update question set votes = ? where id = ?";
