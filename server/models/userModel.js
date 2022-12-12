@@ -87,6 +87,7 @@ const addUser = async (res, user) => {
   };
 
 
+
 module.exports = {
   getAllUsers,
   getUserById,

@@ -321,19 +321,26 @@ const getQuestionByUser = async(res,req) => {
 }
 
 
-/* This function is to get vote number from question */
-const getVoteNumber = async(res, questionId) => {
+// const updateQuestionVoteNumbers = async (req, res, vote) => {
+//     try {
+//         const query = ('update question set votes = ? where id = ?;');
+//         return await promisePool.query(query, [vote, req]);
+//     } catch (e) {
+//         res.status(500).send(e.message);
+//         console.log("error: ", e);
+//     }
+// }
+
+const updateQuestionVoteNumbers = async (req, res, vote) => {
     try {
-        const [getVoteNumberQuery] = await promisePool.query('SELECT votes from question where id = ?',questionId);
-       return getVoteNumberQuery;
+        const query = "update question set votes = ? where id = ?";
+        const [rows] = await promisePool.query(query, [vote, req.params.question_id]);
+	return rows;
     } catch (e) {
         res.status(500).send(e.message);
-        console.log('error: ', e);
+        console.log("error: ", e);
     }
 }
-
-
-
 
 
 module.exports = {
@@ -344,5 +351,5 @@ module.exports = {
     deleteQuestionById,
     getMediaById,
     getQuestionByUser,
-    getVoteNumber
+    updateQuestionVoteNumbers
 }
