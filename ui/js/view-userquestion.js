@@ -12,9 +12,12 @@ const truncateText = (text) => {
 const createQuestionCards = (questions) => {
   
   container.innerHTML = "";
+  const heading = document.createElement('h1');
+  heading.innerText = "My asked questions";
+    container.append(heading);
+
   questions.forEach ((question,i) => {
     const article = document.createElement('article');
-    const heading = document.createElement('h1');
     const questionP = document.createElement('p');
     const questionDiv = document.createElement('div');
     const questionDivH3 = document.createElement('h3');
@@ -25,7 +28,7 @@ const createQuestionCards = (questions) => {
     askedDate.classList.add("smallDate");
 
     const questionContent = question.question_content;
-    heading.innerText = "My asked questions";
+    
     questionP.innerText= i+1;
     questionDivH3.innerText= question.question_title;
     questionDivP.innerText = truncateText(questionContent) +"...";
@@ -40,7 +43,7 @@ const createQuestionCards = (questions) => {
         questionDiv.appendChild(tagText);
     })
     article.append(questionP,questionDiv);
-    container.appendChild(heading);
+
     container.appendChild(article);
 
     article.addEventListener("click",() => {

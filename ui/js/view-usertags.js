@@ -8,11 +8,12 @@ const createTagCards = (tags) => {
     const heading = document.createElement("h1");
     heading.innerHTML= "My tags";
     container.append(heading);
-    Object.keys(tags).forEach (tag => {
+    Object.keys(tags).forEach ((tag,i) => {
 
       const tagCard = document.createElement("div");
       tagCard.classList.add("tagCard");
       tagCard.innerHTML = `
+      <h2>No ${i+1}</h2>
           <section>
               <h1>Tag: ${tag}</h1>
               <h1>No of times tag used: ${tags[tag]}</h1>
