@@ -9,6 +9,7 @@ const logout = document.querySelector(".navLogOut");
 const signup = document.querySelector(".navSignUp");
 const menuIcon = document.querySelector('.menuIcon');
 const editProfile = document.querySelector('.navEditProfile');
+const about = document.querySelector('.about');
 const indexWrap = document.querySelector('#indexWrap');
 const magnifyingGlass = document.querySelector('.fa-solid fa-magnifying-glass')
 
@@ -35,14 +36,15 @@ const clickEvent = menuIcon.addEventListener('click', () => {
     // Check sessionStorage
     if (!sessionStorage.getItem('token') || !sessionStorage.getItem('user')) {
         console.log("This is unregistered user");
+        
         logout.style.display = 'none';
         editProfile.style.display = 'none';
         login.style.display = 'block';
-        login.style.float = 'left';
-        login.style.width = '90%';
+        login.style.float = 'right';
+        //login.style.width = '90%';
         signup.style.display = 'block';
-        signup.style.float = 'left';
-        signup.style.width = '90%';
+        signup.style.float = 'right';
+        //signup.style.width = '90%';
         
         return;
     } else {
@@ -86,7 +88,7 @@ const truncateText = (text) => {
 // This function creates questions cards/sections inside allQuestion article
 const createQuestionCards = (questions,searchValue = null) => {
     questionContainer.innerHTML = "";
-    questions.forEach(question => {
+    questions.forEach((question,i) => {
         const article = document.createElement('article');
         const questionP = document.createElement('p');
         const questionDiv = document.createElement('div');
@@ -98,7 +100,7 @@ const createQuestionCards = (questions,searchValue = null) => {
         askedDate.classList.add("smallDate");
 
         const questionContent = question.question_content;
-        questionP.innerText= question.id;
+        questionP.innerText= i+1;
         questionDivH3.innerText= question.question_title;
         questionDivP.innerText = truncateText(questionContent) +"...";
         const date = new Date(question.question_date);
