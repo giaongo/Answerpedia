@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `answer_media`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `answer_media` (
-  `media` varchar(255) NOT NULL,
+  `media` varchar(32) NOT NULL,
   `answer_id` int(11) NOT NULL,
   PRIMARY KEY (`media`,`answer_id`),
   KEY `answer_id` (`answer_id`),
@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS `question_media`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `question_media` (
-  `media` varchar(255) NOT NULL,
+  `media` varchar(32) NOT NULL,
   `question_id` int(11) NOT NULL,
   PRIMARY KEY (`media`,`question_id`),
   KEY `question_id` (`question_id`),
@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `question_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `question_tag` (
-  `tag` varchar(255) NOT NULL,
+  `tag` varchar(32) NOT NULL,
   `question_id` int(11) NOT NULL,
   PRIMARY KEY (`tag`,`question_id`),
   KEY `question_id` (`question_id`),
@@ -185,11 +185,11 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` text DEFAULT NULL,
-  `email` text DEFAULT NULL,
-  `password` text DEFAULT NULL,
+  `username` varchar(32) DEFAULT NULL,
+  `email` varchar(32) DEFAULT NULL,
+  `password` longtext DEFAULT NULL,
   `user_type_id` int(11) DEFAULT NULL,
-  `picture_name` text DEFAULT NULL,
+  `picture_name` varchar(32) DEFAULT NULL,
   `description` longtext DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING HASH,
