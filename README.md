@@ -39,6 +39,13 @@ The solutions are provided by other users (with text and images).
 * Back-end: NodeJS, MySQL
 
 ## Demo
+* Live Demo at : [Answerpedia website](https://answerpedia.northeurope.cloudapp.azure.com) OR in case server is down
+
+
+https://user-images.githubusercontent.com/91269635/207334528-77d5cddd-25c4-46bf-b2cb-d3a7c221f4dd.mp4
+
+
+
 
 ## Contributors: 
 1. Giao Ngo 
