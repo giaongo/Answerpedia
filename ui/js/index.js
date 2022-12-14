@@ -206,8 +206,11 @@ const getAllQuestion = async() => {
     try {
         const response = await fetch(url + "/question");
         const questions = await response.json();
-        createQuestionCards(questions);
-        createLegendaryQuestionCards(questions);
+        let newArray = Array.from(questions);
+        newArray.sort(function(a,b){return b.question_votes - a.question_votes});
+        console.log(newArray);
+        createQuestionCards(newArray);
+        createLegendaryQuestionCards(newArray);
         const measureTags = await measureTag(questions);
         createTopTagCards(measureTags);
 
