@@ -124,11 +124,11 @@ const createQuestionCards = (questions,searchValue = null) => {
 
 // This function is for creating data for question legendary
 const createLegendaryQuestionCards = (questions) => {
-    questions.forEach(question => {
+    questions.forEach((question,i) => {
         const questionId = question.id
         legendaryContainer.innerHTML += 
         `<p class="legendaryQuestion">
-            <a target="blank" href="view-question.html?id=${question.id}">Question ${questionId}</a>
+            <a target="blank" href="view-question.html?id=${question.id}">Question ${i+1}</a>
         </p>`
     })
 }
