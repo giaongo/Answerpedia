@@ -28,6 +28,7 @@ The solutions are provided by other users (with text and images).
 2. Unable to ask or edit any questions
 3. No need for authentication as there is no log in required
 4. Unable to vote, archive and add questions to favourite lists
+5. View legendary questions and top tags.
 
 * Admin has:
 1. Ability of an registered user
