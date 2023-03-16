@@ -20,7 +20,7 @@ The solutions are provided by other users (with text and images).
 2. Add answers to questions. Browse and search questions.
 3. Login / Logout/ Register with token authentication. 
 4. Edit user profile. View questions, tags and answers belonging to the logged in user.
-5. Archive questions (add questions to favourites). View questions by list of tags.
+5. Archive questions (add questions to favourites). View questions by list of  tags.
 6. Vote questions and answers
 
 * Unresgistered users can:
